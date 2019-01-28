@@ -1,0 +1,9 @@
+# All object files
+/obj/*.o
+
+# The compiled program
+/src/bigben
+/tests/tests
+
+# Visual studio code config
+.vscode/
