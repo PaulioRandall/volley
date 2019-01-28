@@ -1,17 +1,32 @@
 
-# Big Ben
+# Volley (Formerly BigBen)
 
-Big ben is a tiny Lua embedded executable designed to do service tests for JSON based APIs.
+Volley is a small Lua embedded executable designed to do service tests for JSON based APIs and placed inside code repositories with the source code it serves.
 
 - End to end testing
 - Contract driven development
 - Test driven development
+
+This is both a learning project (C, Lua and makefiles) and experimental product. Lean development principles and continuous improvement are core to the project.
+
+## External libraries
+
+Parson (https://github.com/kgabis/parson) is being used for JSON serialisation.
 
 ## Prerequisites
 
 > Written and tested on Ubuntu Linux
 
 The Lua library (`liblua.a`) is required to build the application. This can be installed via a package manager or the source code can be downloaded, compiled and `liblua.a` installed into `/usr/local/lib` (copy/paste).
+
+## Compile & Test
+
+Compile and test:
+
+```
+cd tests
+./test.sh
+```
 
 ## Compile & Run
 
@@ -44,9 +59,8 @@ Task name | Action
 `make` | Same as `bigben`
 `make bigben` | Builds the application
 `make clean` | Removes all object files
-`make cleanall` | Removes all object files and the executable if present
 
-## BigBen Functions
+## Volley Functions
 
 Extra Lua functions, written in C, are available to aid in testing
 
