@@ -4,6 +4,10 @@
 
 int main ( int argc, char *argv[] ) {
 
+    // TODO: It's probably about time to look for a proper
+    // TODO: test framework, as lightweight and minimal
+    // TODO: as possible
+
     printf("TEST SUITE STARTED\n");
 
     /**
@@ -57,6 +61,6 @@ int main ( int argc, char *argv[] ) {
     process_response_fragment__badStartLine__startLineParsed();
     process_response_fragment__singleHeader__headerParsed();
 
-    printf("ALL TESTS PASSED \\o/\n");
+    puts("ALL TESTS PASSED \\o/");
     return 0;
 }

@@ -34,7 +34,7 @@ char* int_to_str(const int num);
  *
  * @*str: Copies a string
  */
-char* str_copy(char *str);
+char* str_copy(char str[]);
 
 /**
  * Counts the number of substrings within
@@ -43,7 +43,7 @@ char* str_copy(char *str);
  * @*haystack: String to search in
  * @*needle: String to search for
  */
-int count_substr(char *haystack, char *needle);
+int count_substr(char haystack[], char needle[]);
 
 /**
  * Finds the index of the first occurrence of the
@@ -53,7 +53,7 @@ int count_substr(char *haystack, char *needle);
  * @*haystack: String to search in
  * @*needle: String to search for
  */
-int indexof(char *haystack, char *needle);
+int indexof(char haystack[], char needle[]);
 
 /**
  * Splits the string on each '\r\n'
@@ -61,7 +61,7 @@ int indexof(char *haystack, char *needle);
  * @*str: String to split
  * @*delim: Delimiter to split on
  */
-char** str_split(char *str, char *delim);
+char** str_split(char str[], char delim[]);
 
 /**
  * Prints the string but shows the symbols.
@@ -73,7 +73,7 @@ char** str_split(char *str, char *delim);
  * @*str: String to print
  * @*space_repl: String to replace spaces with
  */
-void print_str_with_symbols(const char *str, const char *space_repl);
+void print_str_with_symbols(const char str[], const char space_repl[]);
 
 /**
  * Frees an array of pointers that uses a
@@ -97,7 +97,7 @@ size_t null_ended_array_len(void **array);
  * 
  * @*str: String to trim
  */
-char* str_trim(char *str);
+char* str_trim(char str[]);
 
 /**
  * Slices the string using the specified range
@@ -107,4 +107,4 @@ char* str_trim(char *str);
  * @start: Index indicating the first char of the substring
  * @len: Length of the slice
  */
-char* str_slice(char *str, int start, int len);
+char* str_slice(char str[], int start, int len);

@@ -28,6 +28,12 @@
 #include "../include/uti.h"
 
 /**
+ * TODO: Investigate comments styles in C, Google doesn't seem to have
+ * TODO: a pure C style or it's been moved. Function comments are
+ * TODO: priority, find approaches for both header and source files
+ */
+
+/**
  * ^uti.h
  */
 char* int_to_str(const int n) {
@@ -45,7 +51,7 @@ char* int_to_str(const int n) {
 /**
  * ^uti.h
  */
-char* str_copy(char *str) {
+char* str_copy(char str[]) {
 
   int len;
   char *r;
@@ -62,7 +68,7 @@ char* str_copy(char *str) {
 /**
  * ^uti.h
  */
-int count_substr(char *haystack, char *needle) {
+int count_substr(char haystack[], char needle[]) {
 
   int r = 0;
   const char *ch = haystack;
@@ -78,7 +84,8 @@ int count_substr(char *haystack, char *needle) {
 /**
  * ^uti.h
  */
-int indexof(char *haystack, char *needle) {
+int indexof(char haystack[], char needle[]) {
+
   const char *ch;
 
   ch = strstr(haystack, needle);
@@ -92,7 +99,10 @@ int indexof(char *haystack, char *needle) {
 /**
  * ^uti.h
  */
-char** str_split(char *str, char *delim) {
+char** str_split(char str[], char delim[]) {
+
+  // TODO: This could be shorter, how about passing the result pointer
+  // TODO: as a parameter and returning the length?
 
   int delim_len = strlen(delim);
   int size;
@@ -136,7 +146,9 @@ char** str_split(char *str, char *delim) {
 /**
  * ^uti.h
  */
-void print_str_with_symbols(const char *str, const char *space_repl) {
+void print_str_with_symbols(const char str[], const char space_repl[]) {
+
+  // TODO: Could this be more concise and readable using a switch?
 
   const char *l;
 
@@ -169,6 +181,13 @@ void print_str_with_symbols(const char *str, const char *space_repl) {
  * ^uti.h
  */
 void free_null_ended_array(void **array) {
+
+  // TODO: Would it be better to pass dynamic arrays around
+  // TODO: with their lengths than require a null terminator?
+  // TODO: Could use small structs to keep them together?
+  // TODO: Then this method and the one below can be removed.
+  // TODO: How does everyone else do it
+
   void **p;
   for(p = array; *p != NULL; p++) {
     free(*p);
@@ -180,6 +199,9 @@ void free_null_ended_array(void **array) {
  * ^uti.h
  */
 size_t null_ended_array_len(void **array) {
+
+  // TODO: Read TODO in the method above
+
   void **p;
   size_t count = 0;
   for(p = array; *p != NULL; p++) {
@@ -191,7 +213,10 @@ size_t null_ended_array_len(void **array) {
 /**
  * ^uti.h
  */
-char* str_trim(char *str) {
+char* str_trim(char str[]) {
+
+  // TODO: This could probably be more concise, write another
+  // TODO: test or two and refactor
   
   int len = strlen(str);
   char *first = NULL;
@@ -248,7 +273,7 @@ char* str_trim(char *str) {
 /**
  * ^uti.h
  */
-char* str_slice(char *str, int start, int len) {
+char* str_slice(char str[], int start, int len) {
 
   char *r;
   char *st;

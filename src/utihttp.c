@@ -342,9 +342,14 @@ struct HttpHeader* append_header(struct HttpResponse *res, char *str) {
 
   if(res->headers == NULL) {
     res->headers = h;
-    res->header_count = 1;
+    res->header_count = 1;    
 
   } else {
+    
+    // TODO: This needs fixing next, store the length instead
+    // TODO: try using a struct to keep the pointer and length
+    // TODO: together
+
     len = res->header_count;
     len++;
     res->headers = realloc(res->headers, sizeof(struct HttpHeader) * len);
