@@ -129,7 +129,7 @@ int str_split(int max_len, int line_len, char out[max_len][line_len], char str[]
 /**
  * ^uti.h
  */
-void print_str_with_symbols(const char str[], const char space_repl[]) {
+void printf_with_symbols(const char str[], const char space_repl[]) {
 
   // TODO: Could this be more concise and readable using a switch?
 
