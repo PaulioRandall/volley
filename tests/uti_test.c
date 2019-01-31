@@ -85,102 +85,27 @@ void index_of__needleIsHaystack__returnsZero() {
     assert(i == 0);
 }
 
-void null_ended_array_len__inputOfLenZero__returnsZero() {
-    printf("...null_ended_array_len() input with len 0"
-            " returns 0\n");
-    char **pp = (char**) malloc(sizeof(char*));
-    *pp = NULL;
-    size_t len = null_ended_array_len((void**) pp);
-    assert(len == 0);
-    free_null_ended_array((void**) pp);
-}
-
-void null_ended_array_len__inputWithNonZeroLen__returnsLen() {
-    printf("...null_ended_array_len() input with non 0 len"
-            " returns correct length\n");
-    char **pp = (char**) malloc(sizeof(char*) * 3);
-    char **itr = pp;
-    *itr = str_copy("Rincewind");
-    itr++;
-    *itr = str_copy("Weatherwax");
-    itr++;
-    *itr = NULL;
-    size_t len = null_ended_array_len((void**) pp);
-    assert(len == 2);
-    free_null_ended_array((void**) pp);
-}
-
 void str_split__singleLine__returnsSingleItem() {
     printf("...str_split() single line input is returned unchanged\n");
-    char expected[] = "Gloryhammer";
-    char **actual = str_split(expected, ",");
-    char **itr = actual;
-    assert(strcmp(expected, *itr) == 0);
-    itr++;
-    assert(*itr == NULL);
-    free_null_ended_array((void**) actual);
-}
-
-void str_split__severalParts__returnsSplitString() {
-    printf("...str_split() multi line returns many lines\n");
-    char in[] = "Rincewind\r\nWeatherwax\r\nVimes";
-    char **actual = str_split(in, "\r\n");
-    char **itr = actual;
-    assert(strcmp("Rincewind", *itr) == 0);
-    itr++;
-    assert(strcmp("Weatherwax", *itr) == 0);
-    itr++;
-    assert(strcmp("Vimes", *itr) == 0);
-    itr++;
-    assert(*itr == NULL);
-    free_null_ended_array((void**) actual);
-}
-
-void str_split__emptyStr__returnsEmptyStr() {
-    printf("...str_split() empty string input returns empty string\n");
-    char expected[] = "";
-    char **actual = str_split(expected, ",");
-    char **itr = actual;
-    assert(strcmp(expected, *itr) == 0);
-    itr++;
-    assert(*itr == NULL);
-    free_null_ended_array((void**) actual);
-}
-
-void str_split__emptyStrAtEnd__returnsEmptyLastStr() {
-    printf("...str_split() string with empty line at end returns"
-            " array where last string item is empty\n");
-    char expected[] = "Discworld,";
-    char **actual = str_split(expected, ",");
-    char **itr = actual;
-    itr++;
-    assert(strcmp("", *itr) == 0);
-    itr++;
-    assert(*itr == NULL);
-    free_null_ended_array((void**) actual);
-}
-
-void str_split_new__singleLine__returnsSingleItem() {
-    printf("...str_split_new() single line input is returned unchanged\n");
 
     int max_len = 1, line_len = 20, len;
     char actual[max_len][line_len];
     char expected[] = "Gloryhammer";
 
-    len = str_split_new(max_len, line_len, actual, expected, ",");
+    len = str_split(max_len, line_len, actual, expected, ",");
 
     assert(len == 1);
     assert(strcmp(expected, *actual) == 0);
 }
 
-void str_split_new__severalParts__returnsSplitString() {
-    printf("...str_split_new() multi line returns many lines\n");
+void str_split__severalParts__returnsSplitString() {
+    printf("...str_split() multi line returns many lines\n");
 
     int max_len = 3, line_len = 20, len;
     char actual[max_len][line_len];
     char str[] = "Rincewind\r\nWeatherwax\r\nVimes";
 
-    len = str_split_new(max_len, line_len, actual, str, "\r\n");
+    len = str_split(max_len, line_len, actual, str, "\r\n");
 
     assert(len == 3);
     assert(strcmp("Rincewind", actual[0]) == 0);
@@ -188,28 +113,28 @@ void str_split_new__severalParts__returnsSplitString() {
     assert(strcmp("Vimes", actual[2]) == 0);
 }
 
-void str_split_new__emptyStr__returnsEmptyStr() {
-    printf("...str_split_new() empty string input returns empty string\n");
+void str_split__emptyStr__returnsEmptyStr() {
+    printf("...str_split() empty string input returns empty string\n");
 
     int max_len = 1, line_len = 20, len;
     char actual[max_len][line_len];
     char expected[] = "";
 
-    len = str_split_new(max_len, line_len, actual, expected, ",");
+    len = str_split(max_len, line_len, actual, expected, ",");
 
     assert(len == 1);
     assert(strcmp(expected, *actual) == 0);
 }
 
-void str_split_new__emptyStrAtEnd__returnsEmptyLastStr() {
-    printf("...str_split_new() string with empty line at end returns"
+void str_split__emptyStrAtEnd__returnsEmptyLastStr() {
+    printf("...str_split() string with empty line at end returns"
             " array where last string item is empty\n");
 
     int max_len = 2, line_len = 20, len;
     char actual[max_len][line_len];
     char str[] = "Discworld,";
 
-    len = str_split_new(max_len, line_len, actual, str, ",");
+    len = str_split(max_len, line_len, actual, str, ",");
 
     assert(len == 2);
     assert(strcmp("Discworld", actual[0]) == 0);
@@ -291,10 +216,10 @@ void str_slice__startingSlice__returnsSubstr() {
     printf("...str_slice() start is 0 and len is less than total"
             " returns the expected substring as a new allocation\n");
     char expected[] = "Rincewind";
-    char *actual = str_slice(expected, 0, 5);
+    char actual[6];
+    str_slice(actual, expected, 0, 5);
     assert(strcmp("Rince", actual) == 0);
     assert(actual != expected);
-    free(actual);
 }
 
 void str_slice__endingSlice__returnsSubstr() {
@@ -302,10 +227,10 @@ void str_slice__endingSlice__returnsSubstr() {
             " to the end of the string, returns the expected"
             " substring as a new allocation\n");
     char expected[] = "Rincewind";
-    char *actual = str_slice(expected, 5, 4);
+    char actual[5];
+    str_slice(actual, expected, 5, 4);
     assert(strcmp("wind", actual) == 0);
     assert(actual != expected);
-    free(actual);
 }
 
 void str_slice__midSlice__returnsSubstr() {
@@ -313,61 +238,19 @@ void str_slice__midSlice__returnsSubstr() {
             " len doesn't reach the end of the string, returns"
             " the expected substring as a new allocation\n");
     char expected[] = "Twilight Force";
-    char *actual = str_slice(expected, 3, 5);
+    char actual[6];
+    str_slice(actual, expected, 3, 5);
     assert(strcmp("light", actual) == 0);
     assert(actual != expected);
-    free(actual);
 }
 
 void str_slice__sliceWholeStr__returnsOriginalStr() {
     printf("...str_slice() start is 0 and len is total"
             " returns the original str as a new allocation\n");
     char expected[] = "Twilight Force";
-    char *actual = str_slice(expected, 0, strlen(expected));
-    assert(strcmp("Twilight Force", actual) == 0);
-    assert(actual != expected);
-    free(actual);
-}
-
-void str_slice_new__startingSlice__returnsSubstr() {
-    printf("...str_slice_new() start is 0 and len is less than total"
-            " returns the expected substring as a new allocation\n");
-    char expected[] = "Rincewind";
-    char actual[6];
-    str_slice_new(actual, expected, 0, 5);
-    assert(strcmp("Rince", actual) == 0);
-    assert(actual != expected);
-}
-
-void str_slice_new__endingSlice__returnsSubstr() {
-    printf("...str_slice_new() start is not the str start and len goes"
-            " to the end of the string, returns the expected"
-            " substring as a new allocation\n");
-    char expected[] = "Rincewind";
-    char actual[5];
-    str_slice_new(actual, expected, 5, 4);
-    assert(strcmp("wind", actual) == 0);
-    assert(actual != expected);
-}
-
-void str_slice_new__midSlice__returnsSubstr() {
-    printf("...str_slice_new() start is not the str start and"
-            " len doesn't reach the end of the string, returns"
-            " the expected substring as a new allocation\n");
-    char expected[] = "Twilight Force";
-    char actual[6];
-    str_slice_new(actual, expected, 3, 5);
-    assert(strcmp("light", actual) == 0);
-    assert(actual != expected);
-}
-
-void str_slice_new__sliceWholeStr__returnsOriginalStr() {
-    printf("...str_slice_new() start is 0 and len is total"
-            " returns the original str as a new allocation\n");
-    char expected[] = "Twilight Force";
     int len = strlen(expected);
     char actual[len + 1];
-    str_slice_new(actual, expected, 0, len);
+    str_slice(actual, expected, 0, len);
     assert(strcmp("Twilight Force", actual) == 0);
     assert(actual != expected);
 }

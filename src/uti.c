@@ -99,54 +99,7 @@ int indexof(char haystack[], char needle[]) {
 /**
  * ^uti.h
  */
-char** str_split(char str[], char delim[]) {
-
-  // TODO: This could be shorter, how about passing the result pointer
-  // TODO: as a parameter and returning the length?
-
-  int delim_len = strlen(delim);
-  int size;
-  char **r = NULL;
-  char **slot = NULL;
-  char *start = NULL;
-  char *end = NULL;
-  int len;
-  int i;
-
-  size = count_substr(str, delim);
-  size++; // +1 because it's a delimiter
-  size++; // NULL terminator
-  r = (char**) malloc(sizeof(char*) * size);
-
-  slot = r;
-  start = str;
-  for(i = 2; i < size; i++) {
-
-    end = strstr(start, delim);
-    len = end - start;
-    len++; // '\0'
-
-    *slot = str_slice(start, 0, len - 1);
-    slot++;
-
-    end += delim_len;
-    start = end;
-  }
-
-  len = strlen(start);
-  len++; // '\0'
-  *slot = str_copy(start);
-  slot++;
-
-  *slot = NULL;
-  
-  return r;
-}
-
-/**
- * ^uti.h
- */
-int str_split_new(int max_len, int line_len, char out[max_len][line_len], char str[], char delim[]) {
+int str_split(int max_len, int line_len, char out[max_len][line_len], char str[], char delim[]) {
 
   int delim_len, size, i, len;
   char *start, *end;
@@ -155,22 +108,22 @@ int str_split_new(int max_len, int line_len, char out[max_len][line_len], char s
 
   size = count_substr(str, delim);
   size++; // 1 more segment than the delimiter count
-  
+  size = min(max_len, size);
+
   start = str;
-  for(i = 0; i < size; i++) {
+  for(i = 0; i < (size-1); i++) {
 
     end = strstr(start, delim);
     len = end - start;
-    len++; // '\0'
-    // TODO: Slice first
+    strncpy(out[i], start, len);
+    out[i][len] = '\0';   
 
     end += delim_len;
     start = end;
   }
 
-  // TODO: Slice first
-  
-  return -1;
+  strcpy(out[size-1], start);
+  return size;
 }
 
 /**
@@ -210,47 +163,14 @@ void print_str_with_symbols(const char str[], const char space_repl[]) {
 /**
  * ^uti.h
  */
-void free_null_ended_array(void **array) {
-
-  // TODO: Would it be better to pass dynamic arrays around
-  // TODO: with their lengths than require a null terminator?
-  // TODO: Could use small structs to keep them together?
-  // TODO: Then this method and the one below can be removed.
-  // TODO: How does everyone else do it
-
-  void **p;
-  for(p = array; *p != NULL; p++) {
-    free(*p);
-  }
-  free(array);
-}
-
-/**
- * ^uti.h
- */
-size_t null_ended_array_len(void **array) {
-
-  // TODO: Read TODO in the method above
-
-  void **p;
-  size_t count = 0;
-  for(p = array; *p != NULL; p++) {
-    count++;
-  }
-  return count;
-}
-
-/**
- * ^uti.h
- */
 char* str_trim(char str[]) {
 
   // TODO: This could probably be more concise, write another
   // TODO: test or two and refactor
   
   int len = strlen(str);
-  char *first = NULL;
-  char *last = NULL;
+  char *first = NULL, *last = NULL;
+  char *r;
 
   for(first = str; *first != '\0'; first++) {
     if(*first != ' ') {
@@ -293,37 +213,54 @@ char* str_trim(char str[]) {
   if(first == NULL) {
     // Trailing spaces only
     len = last - str + 1;
-    return str_slice(str, 0, len);
+    r = (char*) malloc(len);
+    str_slice(r, str, 0, len);
+    return r;
   }
 
   len = last - first + 1;
-  return str_slice(first, 0, len);
-}
-
-/**
- * ^uti.h
- */
-char* str_slice(char str[], int start, int len) {
-
-  char *r;
-  char *st;
-
-  r = (char*) malloc(len + 1);
-  r[0] = '\0';
-  st = str + start;
-  strncat(r, st, len);
-
+  r = (char*) malloc(len);
+  str_slice(r, first, 0, len);
   return r;
 }
 
 /**
  * ^uti.h
  */
-void str_slice_new(char out[], char str[], int start, int len) {
+void str_slice(char out[], char str[], int start, int len) {
 
   char *p;
 
   p = str + start;
   strncpy(out, p, len);
   out[len] = '\0';
+}
+
+
+/**
+ * Returns the maximum of two integers
+ * 
+ * @a: First value
+ * @b: Second value
+ */
+int max(int a, int b) {
+  if(a > b) {
+    return a;
+  } else {
+    return b;
+  }
+}
+
+/**
+ * Returns the minimum of two integers
+ * 
+ * @a: First value
+ * @b: Second value
+ */
+int min(int a, int b) {
+  if(a < b) {
+    return a;
+  } else {
+    return b;
+  }
 }

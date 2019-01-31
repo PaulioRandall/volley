@@ -56,15 +56,6 @@ int count_substr(char haystack[], char needle[]);
 int indexof(char haystack[], char needle[]);
 
 /**
- * ### Being replaced by str_split_new(...) ###
- * Splits the string on each '\r\n'
- * 
- * @*str: String to split
- * @*delim: Delimiter to split on
- */
-char** str_split(char str[], char delim[]);
-
-/**
  * Splits the string on each '\r\n'
  * 
  * @out[][]: Pointer for the result
@@ -74,7 +65,7 @@ char** str_split(char str[], char delim[]);
  * @*str: String to split
  * @*delim: Delimiter to split on
  */
-int str_split_new(int max_len, int line_len, char out[max_len][line_len], char str[], char delim[]);
+int str_split(int max_len, int line_len, char out[max_len][line_len], char str[], char delim[]);
 
 /**
  * Prints the string but shows the symbols.
@@ -89,22 +80,6 @@ int str_split_new(int max_len, int line_len, char out[max_len][line_len], char s
 void print_str_with_symbols(const char str[], const char space_repl[]);
 
 /**
- * Frees an array of pointers that uses a
- * NULL to represent its end
- * 
- * @**array: Array to free
- */
-void free_null_ended_array(void **array);
-
-/**
- * Returns the length of an array of pointers
- * that uses a NULL to represent its end
- * 
- * @**array: Array to count the length of
- */
-size_t null_ended_array_len(void **array);
-
-/**
  * Removes whitespace from the start and end of
  * the input string
  * 
@@ -114,21 +89,26 @@ char* str_trim(char str[]);
 
 /**
  * Slices the string using the specified range
- * returning a new string. 
- * 
- * @*str: String to slice
- * @start: Index indicating the first char of the substring
- * @len: Length of the slice
- */
-char* str_slice(char str[], int start, int len);
-
-/**
- * ### Being replaced by str_slice_new(...) ###
- * Slices the string using the specified range
  * 
  * @out[]: Result pointer
  * @str[]: String to slice
  * @start: Index indicating the first char of the substring
  * @len: Length of the slice
  */
-void str_slice_new(char out[], char str[], int start, int len);
+void str_slice(char out[], char str[], int start, int len);
+
+/**
+ * Returns the maximum of two integers
+ * 
+ * @a: First value
+ * @b: Second value
+ */
+int max(int a, int b);
+
+/**
+ * Returns the minimum of two integers
+ * 
+ * @a: First value
+ * @b: Second value
+ */
+int min(int a, int b);

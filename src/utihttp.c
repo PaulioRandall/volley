@@ -251,9 +251,7 @@ char* stringify_request(struct HttpRequest *req) {
  * @*res: Represents the response entity being built
  * @*frag: Next chunk of of HTTP text to parse
  */
-char* prepend_unparsed(
-  struct HttpResponse *res,
-  char frag[]) {
+char* prepend_unparsed(struct HttpResponse *res, char frag[]) {
 
   char *r;
   int len;
@@ -285,42 +283,24 @@ char* prepend_unparsed(
  * @*res: Represents the response entity being built
  * @*line: Start line to parse
  */
-int parse_start_line(
-  struct HttpResponse *res,
-  char *line) {
+int parse_start_line(struct HttpResponse *res, char line[]) {
 
-  // -- Parse the HTTP status line
-  // -- Update the 'HttpResponse' with the values
-  // -- Process next line
-
-  char **parts;
-  char **part;
-  char *ch;
+  int exp_len = 3, line_len = 255, len;
+  char parts[exp_len][line_len], *ch;
 
   // HTTP/1.1 200 OK
 
-  parts = str_split(line, " ");
-  part = parts;
+  len = str_split(exp_len, line_len, parts, line, " ");
 
-  if(*part == NULL) goto error;
-  res->version = str_copy(*part);
-  part++;
+  if(len != exp_len) {
+    return -1;
+  }
 
-  if(*part == NULL) goto error;
-  res->code = strtol(*part, NULL, 10);
-  part++;
+  res->version = str_copy(parts[0]);
+  res->code = strtol(parts[1], NULL, 10);
+  res->status = str_copy(parts[2]);
 
-  if(*part == NULL) goto error;
-  res->status = str_copy(*part);
-  part++;
-
-  if(*part != NULL) goto error;
-  free_null_ended_array((void**) parts);
   return 0;
-
-error:
-  free_null_ended_array((void**) parts);
-  return -1;
 }
 
 /**
@@ -328,17 +308,17 @@ error:
  * 
  * @*str: String to parse
  */
-struct HttpHeader* append_header(struct HttpResponse *res, char *str) {
+struct HttpHeader* append_header(struct HttpResponse *res, char str[]) {
 
-  char **parts;
-  size_t len;
+  int exp_len = 2, line_len = 255, len;
+  char parts[exp_len][line_len];
   struct HttpHeader *h;
 
-  parts = str_split(str, ":");
+  len = str_split(exp_len, line_len, parts, str, ":");
+
   h = malloc(sizeof(struct HttpHeader));
   h->name = str_trim(parts[0]);
   h->value = str_trim(parts[1]);
-  free_null_ended_array((void**) parts);
 
   if(res->headers == NULL) {
     res->headers = h;
@@ -363,49 +343,45 @@ struct HttpHeader* append_header(struct HttpResponse *res, char *str) {
 /*
  * ^utihttp.h
  */
-int process_response_fragment(
-  struct HttpResponse *res,
-  char *frag) {
+int process_response_fragment(struct HttpResponse *res, char *frag) {
 
   struct HttpResponse *r;
   struct HttpHeader *h;
-  int len;
-  char *f;
-  char **lines;
-  int err = 0;
+  int err = 0, exp_len = 3, line_len = 255, len, i;
+  char *f, lines[exp_len][line_len];
 
   if (res->progress == COMPLETE) {
     return -1;
   }
 
   f = prepend_unparsed(res, frag);
-  lines = str_split(f, "\r\n");
+  len = str_split(exp_len, line_len, lines, f, "\r\n");
   free(f);
 
-  char **l;
-  for(l = lines; *l != NULL; l++) {
+  for(i = 0; i < len; i++) {
+    f = lines[i];
 
-    if(res->progress == BODY && *(l + 1) == NULL) {
-      res->unparsed = str_copy(*l);
+    if(res->progress == BODY && (*f + 1) == '\0') {
+      res->unparsed = str_copy(f);
       continue;
     }
 
-    if(strcmp(*l, "") == 0 && res->progress == HEADERS) {
+    if(strcmp(f, "") == 0 && res->progress == HEADERS) {
       res->progress++;
       continue;
     }
 
     switch (res->progress) {
       case STATUS_LINE:
-        err = parse_start_line(res, *l);
+        err = parse_start_line(res, f);
         if(err != 0) {
-          goto error;  
+          return -1;
         }
         res->progress++;
         break;
       
       case HEADERS:
-        h = append_header(r, *l);
+        h = append_header(r, f);
         // TODO: Create case insensitive string check
         // -- If the header is 'Content-length'
         // --- Set 'HttpResponse->conent_length' as the content length
@@ -428,10 +404,5 @@ int process_response_fragment(
   // - 
   // Set 'HttpResponse->unparsed' to equal the last line
 
-  free_null_ended_array((void**) lines);
   return 0;
-
-error:
-  free_null_ended_array((void**) lines);
-  return -1;
 }

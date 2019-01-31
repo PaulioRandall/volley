@@ -27,18 +27,10 @@ int main ( int argc, char *argv[] ) {
     index_of__needleInHaystack__returnsIndex();
     index_of__needleIsHaystack__returnsZero();
 
-    null_ended_array_len__inputOfLenZero__returnsZero();
-    null_ended_array_len__inputWithNonZeroLen__returnsLen();
-
     str_split__singleLine__returnsSingleItem();
     str_split__severalParts__returnsSplitString();
     str_split__emptyStr__returnsEmptyStr();
     str_split__emptyStrAtEnd__returnsEmptyLastStr();
-
-    str_split_new__singleLine__returnsSingleItem();
-    str_split_new__severalParts__returnsSplitString();
-    str_split_new__emptyStr__returnsEmptyStr();
-    str_split_new__emptyStrAtEnd__returnsEmptyLastStr();
 
     str_trim__emptyStr__returnsEmptyStr();
     str_trim__whitespaceStr__returnsEmptyStr();
@@ -50,11 +42,6 @@ int main ( int argc, char *argv[] ) {
     str_slice__endingSlice__returnsSubstr();
     str_slice__midSlice__returnsSubstr();
     str_slice__sliceWholeStr__returnsOriginalStr();
-
-    str_slice_new__startingSlice__returnsSubstr();
-    str_slice_new__endingSlice__returnsSubstr();
-    str_slice_new__midSlice__returnsSubstr();
-    str_slice_new__sliceWholeStr__returnsOriginalStr();
 
     /**
      * utihttp_test.c

@@ -16,18 +16,10 @@ void index_of__needleNotInHaystack__returnsMinusOne();
 void index_of__needleInHaystack__returnsIndex();
 void index_of__needleIsHaystack__returnsZero();
 
-void null_ended_array_len__inputOfLenZero__returnsZero();
-void null_ended_array_len__inputWithNonZeroLen__returnsLen();
-
 void str_split__singleLine__returnsSingleItem();
 void str_split__severalParts__returnsSplitString();
 void str_split__emptyStr__returnsEmptyStr();
 void str_split__emptyStrAtEnd__returnsEmptyLastStr();
-
-void str_split_new__singleLine__returnsSingleItem();
-void str_split_new__severalParts__returnsSplitString();
-void str_split_new__emptyStr__returnsEmptyStr();
-void str_split_new__emptyStrAtEnd__returnsEmptyLastStr();
 
 void str_trim__emptyStr__returnsEmptyStr();
 void str_trim__whitespaceStr__returnsEmptyStr();
@@ -39,11 +31,6 @@ void str_slice__startingSlice__returnsSubstr();
 void str_slice__endingSlice__returnsSubstr();
 void str_slice__midSlice__returnsSubstr();
 void str_slice__sliceWholeStr__returnsOriginalStr();
-
-void str_slice_new__startingSlice__returnsSubstr();
-void str_slice_new__endingSlice__returnsSubstr();
-void str_slice_new__midSlice__returnsSubstr();
-void str_slice_new__sliceWholeStr__returnsOriginalStr();
 
 /**
  * utihttp_test.c
