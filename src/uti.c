@@ -146,6 +146,36 @@ char** str_split(char str[], char delim[]) {
 /**
  * ^uti.h
  */
+int str_split_new(int max_len, int line_len, char out[max_len][line_len], char str[], char delim[]) {
+
+  int delim_len, size, i, len;
+  char *start, *end;
+  
+  delim_len = strlen(delim);
+
+  size = count_substr(str, delim);
+  size++; // 1 more segment than the delimiter count
+  
+  start = str;
+  for(i = 0; i < size; i++) {
+
+    end = strstr(start, delim);
+    len = end - start;
+    len++; // '\0'
+    // TODO: Slice first
+
+    end += delim_len;
+    start = end;
+  }
+
+  // TODO: Slice first
+  
+  return -1;
+}
+
+/**
+ * ^uti.h
+ */
 void print_str_with_symbols(const char str[], const char space_repl[]) {
 
   // TODO: Could this be more concise and readable using a switch?
@@ -284,4 +314,16 @@ char* str_slice(char str[], int start, int len) {
   strncat(r, st, len);
 
   return r;
+}
+
+/**
+ * ^uti.h
+ */
+void str_slice_new(char out[], char str[], int start, int len) {
+
+  char *p;
+
+  p = str + start;
+  strncpy(out, p, len);
+  out[len] = '\0';
 }

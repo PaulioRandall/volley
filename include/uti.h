@@ -56,12 +56,25 @@ int count_substr(char haystack[], char needle[]);
 int indexof(char haystack[], char needle[]);
 
 /**
+ * ### Being replaced by str_split_new(...) ###
  * Splits the string on each '\r\n'
  * 
  * @*str: String to split
  * @*delim: Delimiter to split on
  */
 char** str_split(char str[], char delim[]);
+
+/**
+ * Splits the string on each '\r\n'
+ * 
+ * @out[][]: Pointer for the result
+ * @max_len: Maximum length of the result array
+ * @line_len: Maximum length of each result line
+ *            including null terminator
+ * @*str: String to split
+ * @*delim: Delimiter to split on
+ */
+int str_split_new(int max_len, int line_len, char out[max_len][line_len], char str[], char delim[]);
 
 /**
  * Prints the string but shows the symbols.
@@ -108,3 +121,14 @@ char* str_trim(char str[]);
  * @len: Length of the slice
  */
 char* str_slice(char str[], int start, int len);
+
+/**
+ * ### Being replaced by str_slice_new(...) ###
+ * Slices the string using the specified range
+ * 
+ * @out[]: Result pointer
+ * @str[]: String to slice
+ * @start: Index indicating the first char of the substring
+ * @len: Length of the slice
+ */
+void str_slice_new(char out[], char str[], int start, int len);
