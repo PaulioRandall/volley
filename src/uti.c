@@ -124,35 +124,34 @@ int str_split(int max_len, int line_len, char out[max_len][line_len], char str[]
 /**************************************************/
 /* ^uti.h
 /**************************************************/
-void printf_with_symbols(const char str[], const char space_repl[]) {
+void puts_f(const char str[], const char space_repl[]) {
 
-  // TODO: Could this be more concise and readable using a switch?
+  const char *l = str;
 
-  const char *l;
+  for(;; l++) {
 
-  for(l = str; *l != '\0'; l++) {
-    if(*l == ' ') {
+    switch (*l) {
+      case ' ':
       printf("%s", space_repl);
       continue;
-    }
 
-    if(*l == '\r') {
+      case '\r':
       printf("\\r");
       continue;
-    }
-    
-    if(*l == '\n') {
-      printf("\\n");
-    }
 
-    if(*l == '\0') {
+      case '\0':
       printf("\\0");
+      return;
+
+      case '\n':
+      printf("\\n");
+      break;
     }
 
     printf("%c", *l);
   }
 
-  printf("\\0\n");
+  printf("\n");
 }
 
 /**************************************************/

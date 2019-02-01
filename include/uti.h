@@ -78,7 +78,7 @@ int str_split(int max_len, int line_len, char out[max_len][line_len], char str[]
 /* str[]: String to print
 /* space_repl[]: String to replace spaces with
 /**************************************************/
-void print_str_with_symbols(const char str[], const char space_repl[]);
+void puts_f(const char str[], const char space_repl[]);
 
 /**************************************************/
 /* Removes spaces from the start and end of the
