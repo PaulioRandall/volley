@@ -28,9 +28,18 @@
 #include "lua.h"
 #include "../include/utilua.h"
 
-/*
- * ^utilua.h
+/**
+ * TODO: Identify more improvements here
+ * TODO: Standardise and shorten names
+ * TODO: Reread Lua documentation to see if some of
+ * TODO: these could be done better
+ * TODO: Update styling and use char arrays where
+ * TODO: instead where appropriate
  */
+
+/**************************************************/
+/* ^utilua.h
+/**************************************************/
 void validate_table_at_stack_top(lua_State *lua) {
   if(!lua_istable(lua, STACK_TOP)) {
     print_lua_stack_trace(lua);
@@ -38,9 +47,9 @@ void validate_table_at_stack_top(lua_State *lua) {
   }
 }
 
-/*
- * ^utilua.h
- */
+/**************************************************/
+/* ^utilua.h
+/**************************************************/
 void print_lua_stack_trace(lua_State *lua) {
 
   lua_Debug debug;
@@ -83,9 +92,9 @@ void print_lua_stack_trace(lua_State *lua) {
   };
 }
 
-/**
- * ^utilua.h
- */
+/**************************************************/
+/* ^utilua.h
+/**************************************************/
 void panic_lua(lua_State *lua) {
   const char *err_msg = lua_tostring(lua, STACK_TOP);
   fprintf(stderr, "%s\n", err_msg);
@@ -93,18 +102,18 @@ void panic_lua(lua_State *lua) {
   lua_error(lua);
 }
 
-/**
- * ^utilua.h
- */
+/**************************************************/
+/* ^utilua.h
+/**************************************************/
 void panic(lua_State *lua, const char *str) {
   lua_pushstring(lua, str);
   panic_lua(lua);
 }
 
-/*
- * ^utilua.h
- */
-void check_func_arg_count(lua_State *lua, const char *func_name, int expects) {
+/**************************************************/
+/* ^utilua.h
+/**************************************************/
+void check_func_arg_count(lua_State *lua, const char func_name[], int expects) {
 
   const char *miss_args = "%s is missing arguments, expected %d";
   const char *too_many_args = "%s was given too many arguments, expected %d";
@@ -132,9 +141,9 @@ void check_func_arg_count(lua_State *lua, const char *func_name, int expects) {
   panic(lua, panic_msg);
 }
 
-/*
- * ^utilua.h
- */
+/**************************************************/
+/* ^utilua.h
+/**************************************************/
 const char* pop_str_arg(lua_State *lua, char *err_msg) {
 
   const char *result;
