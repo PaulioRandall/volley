@@ -27,15 +27,10 @@
 #include <stdio.h>
 #include "../include/uti.h"
 
-/**
- * TODO: Investigate comments styles in C, Google doesn't seem to have
- * TODO: a pure C style or it's been moved. Function comments are
- * TODO: priority, find approaches for both header and source files
- */
 
-/**
- * ^uti.h
- */
+/**************************************************/
+/* ^uti.h
+/**************************************************/
 char* int_to_str(const int n) {
 
   int len;
@@ -48,9 +43,9 @@ char* int_to_str(const int n) {
   return r;
 }
 
-/**
- * ^uti.h
- */
+/**************************************************/
+/* ^uti.h
+/**************************************************/
 char* str_copy(char str[]) {
 
   int len;
@@ -65,9 +60,9 @@ char* str_copy(char str[]) {
   return r;
 }
 
-/**
- * ^uti.h
- */
+/**************************************************/
+/* ^uti.h
+/**************************************************/
 int count_substr(char haystack[], char needle[]) {
 
   int r = 0;
@@ -81,9 +76,9 @@ int count_substr(char haystack[], char needle[]) {
   return r;
 }
 
-/**
- * ^uti.h
- */
+/**************************************************/
+/* ^uti.h
+/**************************************************/
 int indexof(char haystack[], char needle[]) {
 
   const char *ch;
@@ -96,9 +91,9 @@ int indexof(char haystack[], char needle[]) {
   return ch - haystack;
 }
 
-/**
- * ^uti.h
- */
+/**************************************************/
+/* ^uti.h
+/**************************************************/
 int str_split(int max_len, int line_len, char out[max_len][line_len], char str[], char delim[]) {
 
   int delim_len, size, i, len;
@@ -126,9 +121,9 @@ int str_split(int max_len, int line_len, char out[max_len][line_len], char str[]
   return size;
 }
 
-/**
- * ^uti.h
- */
+/**************************************************/
+/* ^uti.h
+/**************************************************/
 void printf_with_symbols(const char str[], const char space_repl[]) {
 
   // TODO: Could this be more concise and readable using a switch?
@@ -160,9 +155,9 @@ void printf_with_symbols(const char str[], const char space_repl[]) {
   printf("\\0\n");
 }
 
-/**
- * ^uti.h
- */
+/**************************************************/
+/* ^uti.h
+/**************************************************/
 char* str_trim(char str[]) {
 
   // TODO: This could probably be more concise, write another
@@ -224,9 +219,9 @@ char* str_trim(char str[]) {
   return r;
 }
 
-/**
- * ^uti.h
- */
+/**************************************************/
+/* ^uti.h
+/**************************************************/
 void str_slice(char out[], char str[], int start, int len) {
 
   char *p;
@@ -236,13 +231,9 @@ void str_slice(char out[], char str[], int start, int len) {
   out[len] = '\0';
 }
 
-
-/**
- * Returns the maximum of two integers
- * 
- * @a: First value
- * @b: Second value
- */
+/**************************************************/
+/* ^uti.h
+/**************************************************/
 int max(int a, int b) {
   if(a > b) {
     return a;
@@ -251,12 +242,9 @@ int max(int a, int b) {
   }
 }
 
-/**
- * Returns the minimum of two integers
- * 
- * @a: First value
- * @b: Second value
- */
+/**************************************************/
+/* ^uti.h
+/**************************************************/
 int min(int a, int b) {
   if(a < b) {
     return a;

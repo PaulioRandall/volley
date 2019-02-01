@@ -6,86 +6,72 @@
 #include "../include/uti.h"
 #include "../tinclude/tests.h"
 
-void int_to_str__posNum__expectedStr() {
+void int_to_str__posNum__exptStr() {
     printf("...int_to_str() positive number creates expected string\n");
-    char expected[] = "5";
+
     char *actual = int_to_str(5);
-    assert(strcmp(expected, actual) == 0);
+    assert(0 == strcmp("5", actual));
     free(actual);
 }
 
-void int_to_str__negNum__expectedStr() {
+void int_to_str__negNum__exptStr() {
     printf("...int_to_str() negative number creates expected string\n");
-    char expected[] = "-5";
+
     char *actual = int_to_str(-5);
-    assert(strcmp(expected, actual) == 0);
+    assert(0 == strcmp("-5", actual));
     free(actual);
 }
 
-void str_copy__str__outputEqualsInput() {
+void str_copy__str__reEqualsIn() {
     printf("...str_copy() creates expected copy\n");
+
     char expected[] = "Gloryhammer";
     char *actual = str_copy(expected);
-    assert(strcmp(expected, actual) == 0);
+    assert(0 == strcmp(expected, actual));
     free(actual);
 }
 
-void count_substr__needleBiggerThanHaystack__returnsZero() {
+void count_substr__needleBiggerThanHaystack__reZero() {
     printf("...count_substr() needle bigger than haystack returns 0\n");
-    char haystack[] = "short";
-    char needle[] = "shortshort";
-    int count = count_substr(haystack, needle);
-    assert(count == 0);
+    assert(0 == count_substr("short", "shortshort"));
 }
 
-void count_substr__needleSameAsHaystack__returnsOne() {
+void count_substr__needleSameAsHaystack__reOne() {
     printf("...count_substr() needle equals haystack returns 1\n");
-    char haystack[] = "Rincewind";
-    int count = count_substr(haystack, haystack);
-    assert(count == 1);
+
+    char word[] = "Rincewind";
+    assert(1 == count_substr(word, word));
 }
 
-void count_substr__noNeedlesInHaystack__returnsZero() {
+void count_substr__noNeedlesInHaystack__reZero() {
     printf("...count_substr() no needles in haystack returns 0\n");
-    char haystack[] = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-    char needle[] = "bbb";
-    int count = count_substr(haystack, needle);
-    assert(count == 0);
+    assert(0 == count_substr("aaaaaaaaaa", "bbb"));
 }
 
-void count_substr__severalNeedlesInHaystack__returnsSeveral() {
+void count_substr__severalNeedlesInHaystack__reSeveral() {
     printf("...count_substr() several needles in haystack returns 3\n");
+
     char haystack[] = "weatherwax tiger weatherwax tiger weatherwax";
     char needle[] = "weather";
-    int count = count_substr(haystack, needle);
-    assert(count == 3);
+    assert(3 == count_substr(haystack, needle));
 }
 
-void index_of__needleNotInHaystack__returnsMinusOne() {
+void index_of__needleNotInHaystack__reMinusOne() {
     printf("...index_of() needle not in haystack returns -1\n");
-    char haystack[] = "weatherwax";
-    char needle[] = "rincewind";
-    int i = indexof(haystack, needle);
-    assert(i == -1);
+    assert(-1 == indexof("weatherwax", "rincewind"));
 }
 
-void index_of__needleInHaystack__returnsIndex() {
+void index_of__needleInHaystack__reIndex() {
     printf("...index_of() needle in haystack returns index\n");
-    char haystack[] = "weatherwax";
-    char needle[] = "wax";
-    int i = indexof(haystack, needle);
-    assert(i == 7);
+    assert(7 == indexof("weatherwax", "wax"));
 }
 
-void index_of__needleIsHaystack__returnsZero() {
+void index_of__needleIsHaystack__reZero() {
     printf("...index_of() needle in haystack returns 0\n");
-    char haystack[] = "Rincewind";
-    char needle[] = "Rincewind";
-    int i = indexof(haystack, needle);
-    assert(i == 0);
+    assert(0 == indexof("Rincewind", "Rincewind"));
 }
 
-void str_split__singleLine__returnsSingleItem() {
+void str_split__singleLine__reSingleItem() {
     printf("...str_split() single line input is returned unchanged\n");
 
     int max_len = 1, line_len = 20, len;
@@ -98,7 +84,7 @@ void str_split__singleLine__returnsSingleItem() {
     assert(strcmp(expected, *actual) == 0);
 }
 
-void str_split__severalParts__returnsSplitString() {
+void str_split__severalParts__reSplitStr() {
     printf("...str_split() multi line returns many lines\n");
 
     int max_len = 3, line_len = 20, len;
@@ -113,7 +99,7 @@ void str_split__severalParts__returnsSplitString() {
     assert(strcmp("Vimes", actual[2]) == 0);
 }
 
-void str_split__emptyStr__returnsEmptyStr() {
+void str_split__emptyStr__reEmptyStr() {
     printf("...str_split() empty string input returns empty string\n");
 
     int max_len = 1, line_len = 20, len;
@@ -126,7 +112,7 @@ void str_split__emptyStr__returnsEmptyStr() {
     assert(strcmp(expected, *actual) == 0);
 }
 
-void str_split__emptyStrAtEnd__returnsEmptyLastStr() {
+void str_split__emptyStrAtEnd__reEmptyLastStr() {
     printf("...str_split() string with empty line at end returns"
             " array where last string item is empty\n");
 
@@ -141,116 +127,154 @@ void str_split__emptyStrAtEnd__returnsEmptyLastStr() {
     assert(strcmp("", actual[1]) == 0);
 }
 
-void str_trim__emptyStr__returnsEmptyStr() {
+void str_trim__emptyStr__reEmptyStr() {
     printf("...str_trim() empty string returns empty string"
             " as a new allocation\n");
+
     char expected[] = "";
     char *actual = str_trim(expected);
+
     assert(strcmp(actual, expected) == 0);
     assert(actual != expected);
     free(actual);
 }
 
-void str_trim__whitespaceStr__returnsEmptyStr() {
+void str_trim__strOfSpaces__reEmptyStr() {
     printf("...str_trim() whitespace string returns empty string"
             " as a new allocation\n");
+
     char expected[] = "      ";
     char *actual = str_trim(expected);
+
     assert(strcmp("", actual) == 0);
     assert(actual != expected);
     free(actual);
 }
 
-void str_trim__noSpaces__returnsOriginalStr() {
+void str_trim__noSpaces__reInStr() {
     printf("...str_trim() string with no spaces at the start"
             " or end returns the input string as a new allocation\n");
+
     char expected[] = "Discworld";
     char *actual = str_trim(expected);
+
     assert(strcmp(actual, expected) == 0);
     assert(actual != expected);
     free(actual);
 }
 
-void str_trim__leadingSpacesOnly__returnsSubstr() {
+void str_trim__leadingSpacesOnly__reSubstr() {
     printf("...str_trim() string with leadings spaces returns"
             " the expected substring as a new allocation\n");
+
     char expected[] = "   Discworld";
     char *actual = str_trim(expected);
+
     assert(strcmp("Discworld", actual) == 0);
     assert(actual != expected);
     free(actual);
 }
 
-void str_trim__trailingSpacesOnly__returnsSubstr() {
+void str_trim__trailingSpacesOnly__reSubstr() {
     printf("...str_trim() string with trailing spaces returns"
             " the expected substring as a new allocation\n");
+
     char expected[] = "Discworld   ";
     char *actual = str_trim(expected);
+
     assert(strcmp("Discworld", actual) == 0);
     assert(actual != expected);
     free(actual);
 }
 
-void str_trim__spacesOnBothSides__returnsSubstr() {
+void str_trim__spacesOnBothSides__reSubstr() {
     printf("...str_trim() string with both leading and trailing"
             " spaces returns the expected substring as a new allocation\n");
+
     char expected[] = "   Discworld   ";
     char *actual = str_trim(expected);
+
     assert(strcmp("Discworld", actual) == 0);
     assert(actual != expected);
     free(actual);
 }
 
 
-void str_trim__spacesInMiddle__returnsSubstr() {
+void str_trim__spacesInMiddle__reSubstr() {
     printf("...str_trim() string with space in middle"
             " returns the expected substring as a new allocation\n");
+
     char expected[] = "Disc world";
     char *actual = str_trim(expected);
+
     assert(strcmp("Disc world", actual) == 0);
     assert(actual != expected);
     free(actual);
 }
 
-void str_slice__startingSlice__returnsSubstr() {
+void str_slice__startingSlice__reSubstr() {
     printf("...str_slice() start is 0 and len is less than total"
             " returns the expected substring as a new allocation\n");
+            
     char expected[] = "Rincewind";
     char actual[6];
     str_slice(actual, expected, 0, 5);
+
     assert(strcmp("Rince", actual) == 0);
     assert(actual != expected);
 }
 
-void str_slice__endingSlice__returnsSubstr() {
+void str_slice__endingSlice__reSubstr() {
     printf("...str_slice() start is not the str start and len goes"
             " to the end of the string, returns the expected"
             " substring as a new allocation\n");
+
     char expected[] = "Rincewind";
     char actual[5];
     str_slice(actual, expected, 5, 4);
+
     assert(strcmp("wind", actual) == 0);
     assert(actual != expected);
 }
 
-void str_slice__midSlice__returnsSubstr() {
+void str_slice__midSlice__reSubstr() {
     printf("...str_slice() start is not the str start and"
             " len doesn't reach the end of the string, returns"
             " the expected substring as a new allocation\n");
+
     char expected[] = "Twilight Force";
     char actual[6];
     str_slice(actual, expected, 3, 5);
+
     assert(strcmp("light", actual) == 0);
     assert(actual != expected);
 }
 
-void str_slice__sliceWholeStr__returnsOriginalStr() {
+void str_slice__sliceWholeStr__reInStr() {
     printf("...str_slice() start is 0 and len is total"
             " returns the original str as a new allocation\n");
+
     char expected[] = "Twilight Force";
     int len = strlen(expected);
     char actual[len + 1];
     str_slice(actual, expected, 0, len);
+
     assert(strcmp("Twilight Force", actual) == 0);
     assert(actual != expected);
+}
+
+void max__multiTest() {
+    printf("...max() multi-test\n");
+
+    assert(9 == max(9, 9));
+    assert(21 == max(21, -9));
+    assert(21 == max(-9, 21));
+}
+
+void min__multiTest() {
+    printf("...min() multi-test\n");
+
+    assert(9 == min(9, 9));
+    assert(-9 == min(21, -9));
+    assert(-9 == min(-9, 21));
 }

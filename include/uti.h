@@ -60,8 +60,8 @@ int indexof(char haystack[], char needle[]);
 /* Splits the string on each '\r\n'
 /* 
 /* max_len: Maximum length of the result array
-/* line_len: Maximum length of each result line
-/*            including null terminator
+/* line_len: Maximum length of each line in the
+/*           result array including null terminator
 /* out[][]: Container for the result
 /* str[]: String to split
 /* delim[]: Delimiter to split on

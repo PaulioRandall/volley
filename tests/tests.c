@@ -10,42 +10,47 @@ int main ( int argc, char *argv[] ) {
 
     printf("TEST SUITE STARTED\n");
 
-    /**
-     * uti_test.c
-     */
-    int_to_str__posNum__expectedStr();
-    int_to_str__negNum__expectedStr();
+    /**************************************************/
+    /* ^uti.h
+    /**************************************************/
+    int_to_str__posNum__exptStr();
+    int_to_str__negNum__exptStr();
 
-    str_copy__str__outputEqualsInput();
+    str_copy__str__reEqualsIn();
 
-    count_substr__needleBiggerThanHaystack__returnsZero();
-    count_substr__needleSameAsHaystack__returnsOne();
-    count_substr__noNeedlesInHaystack__returnsZero();
-    count_substr__severalNeedlesInHaystack__returnsSeveral();
+    count_substr__needleBiggerThanHaystack__reZero();
+    count_substr__needleSameAsHaystack__reOne();
+    count_substr__noNeedlesInHaystack__reZero();
+    count_substr__severalNeedlesInHaystack__reSeveral();
 
-    index_of__needleNotInHaystack__returnsMinusOne();
-    index_of__needleInHaystack__returnsIndex();
-    index_of__needleIsHaystack__returnsZero();
+    index_of__needleNotInHaystack__reMinusOne();
+    index_of__needleInHaystack__reIndex();
+    index_of__needleIsHaystack__reZero();
 
-    str_split__singleLine__returnsSingleItem();
-    str_split__severalParts__returnsSplitString();
-    str_split__emptyStr__returnsEmptyStr();
-    str_split__emptyStrAtEnd__returnsEmptyLastStr();
+    str_split__singleLine__reSingleItem();
+    str_split__severalParts__reSplitStr();
+    str_split__emptyStr__reEmptyStr();
+    str_split__emptyStrAtEnd__reEmptyLastStr();
 
-    str_trim__emptyStr__returnsEmptyStr();
-    str_trim__whitespaceStr__returnsEmptyStr();
-    str_trim__leadingSpacesOnly__returnsSubstr();
-    str_trim__trailingSpacesOnly__returnsSubstr();
-    str_trim__spacesOnBothSides__returnsSubstr();
+    str_trim__emptyStr__reEmptyStr();
+    str_trim__strOfSpaces__reEmptyStr();
+    str_trim__noSpaces__reInStr();
+    str_trim__leadingSpacesOnly__reSubstr();
+    str_trim__trailingSpacesOnly__reSubstr();
+    str_trim__spacesOnBothSides__reSubstr();
 
-    str_slice__startingSlice__returnsSubstr();
-    str_slice__endingSlice__returnsSubstr();
-    str_slice__midSlice__returnsSubstr();
-    str_slice__sliceWholeStr__returnsOriginalStr();
+    str_trim__spacesInMiddle__reSubstr();
+    str_slice__startingSlice__reSubstr();
+    str_slice__endingSlice__reSubstr();
+    str_slice__midSlice__reSubstr();
+    str_slice__sliceWholeStr__reInStr();
 
-    /**
-     * utihttp_test.c
-     */
+    max__multiTest();
+    min__multiTest();
+
+    /**************************************************/
+    /* ^utihttp_test.h
+    /**************************************************/
     stringify_request__validRequest__expectedStr();
     stringify_request__withHeaders__expectedStr();
     stringify_request__withBody__expectedStr();
