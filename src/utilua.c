@@ -40,7 +40,7 @@
 /**************************************************/
 /* ^utilua.h
 /**************************************************/
-void validate_table_at_stack_top(lua_State *lua) {
+void assert_table_on_stack(lua_State *lua) {
   if(!lua_istable(lua, STACK_TOP)) {
     print_lua_stack_trace(lua);
     panic(lua, "(BUG) Expected table at top of Lua stack");
@@ -51,6 +51,8 @@ void validate_table_at_stack_top(lua_State *lua) {
 /* ^utilua.h
 /**************************************************/
 void print_lua_stack_trace(lua_State *lua) {
+
+  // TODO: Can this be simplified?
 
   lua_Debug debug;
   int depth = 0;
@@ -96,8 +98,11 @@ void print_lua_stack_trace(lua_State *lua) {
 /* ^utilua.h
 /**************************************************/
 void panic_lua(lua_State *lua) {
-  const char *err_msg = lua_tostring(lua, STACK_TOP);
-  fprintf(stderr, "%s\n", err_msg);
+  
+  const char *msg;
+  
+  msg = lua_tostring(lua, STACK_TOP);
+  fprintf(stderr, "%s\n", msg);
   lua_pop(lua, STACK_TOP);
   lua_error(lua);
 }
@@ -105,37 +110,36 @@ void panic_lua(lua_State *lua) {
 /**************************************************/
 /* ^utilua.h
 /**************************************************/
-void panic(lua_State *lua, const char *str) {
-  lua_pushstring(lua, str);
+void panic(lua_State *lua, const char msg[]) {
+  lua_pushstring(lua, msg);
   panic_lua(lua);
 }
 
 /**************************************************/
 /* ^utilua.h
 /**************************************************/
-void check_func_arg_count(lua_State *lua, const char func_name[], int expects) {
+void assert_arg_count(lua_State *lua, const char func_name[], int expects) {
 
-  const char *miss_args = "%s is missing arguments, expected %d";
-  const char *too_many_args = "%s was given too many arguments, expected %d";
-  const char **msg;
+  // TODO: How could this be simplified?
 
-  int err_msg_len;
-  char *panic_msg;
-  int stack_height = lua_gettop(lua);
+  char *msg, *panic_msg;
+  int len, stack_height;
 
+  stack_height = lua_gettop(lua);
   if(stack_height == expects) {
     return;
   }
 
   if(stack_height < expects) {
-    msg = &miss_args;
+    msg = "%s is missing arguments, expected %d";
   } else {
-    msg = &too_many_args;
+    msg = "%s was given too many arguments, expected %d";
   }
 
-  err_msg_len = 1 + snprintf(NULL, 0, *msg, func_name, expects);
-  panic_msg = (char*) malloc(sizeof(char) * err_msg_len);
-  snprintf(panic_msg, err_msg_len, *msg, func_name, expects);
+  len = snprintf(NULL, 0, msg, func_name, expects);
+  len++; // '\0'
+  panic_msg = (char*) malloc(len);
+  snprintf(panic_msg, len, msg, func_name, expects);
 
   print_lua_stack_trace(lua);
   panic(lua, panic_msg);
@@ -144,13 +148,16 @@ void check_func_arg_count(lua_State *lua, const char func_name[], int expects) {
 /**************************************************/
 /* ^utilua.h
 /**************************************************/
-const char* pop_str_arg(lua_State *lua, char *err_msg) {
+const char* pop_str_arg(lua_State *lua, char msg[]) {
+
+  // TODO: Does lua_tostring make a copy?
+  // TODO: Does it need to be freed?
 
   const char *result;
 
   if(lua_type(lua, STACK_TOP) != LUA_TSTRING) {
     print_lua_stack_trace(lua);
-    panic(lua, err_msg);
+    panic(lua, msg);
   }
 
   result = lua_tostring(lua, STACK_TOP);

@@ -86,7 +86,7 @@ int ben_GET(lua_State *lua) {
   int status;
   int sockfd;
 
-  check_func_arg_count(lua, "ben_GET(table)", 1);
+  assert_arg_count(lua, "ben_GET(table)", 1);
 
   request.version = "1.1";
   request.method = "GET";

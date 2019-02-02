@@ -36,7 +36,7 @@
 /*
 /* *lua: Lua state environment
 /**************************************************/
-void validate_table_at_stack_top(lua_State *lua);
+void assert_table_on_stack(lua_State *lua);
 
 /**************************************************/
 /* Prints a lua stack trace
@@ -58,20 +58,20 @@ void panic_lua(lua_State *lua);
 /* exiting the application
 /*
 /* *lua: Lua state environment
-/* *msg: Message to print on exit
+/* msg[]: Message to print on exit
 /**************************************************/
-void panic(lua_State *lua, const char *msg);
+void panic(lua_State *lua, const char msg[]);
 
 /**************************************************/
 /* Validates the correct number of arguments are
 /* passed to a function, an error occurs if not
 /*
 /* *lua: Lua state environment
-/* *func_name: Name of the C function called within
+/* func_name[]: Name of the C function called within
 /*             a Lua script
 /* expects: Number of arguments the function expects
 /**************************************************/
-void check_func_arg_count(lua_State *lua, const char func_name[], int expects);
+void assert_arg_count(lua_State *lua, const char func_name[], int expects);
 
 /**************************************************/
 /* Returns the next Lua/C function argument as a
@@ -79,7 +79,7 @@ void check_func_arg_count(lua_State *lua, const char func_name[], int expects);
 /* pushes to the Lua stack have been made
 /*
 /* *lua: Lua state environment
-/* *err_msg: Error message to display if an error
-/*           occurs
+/* msg[]: Error message to display if an error
+/*        occurs
 /**************************************************/
-const char* pop_str_arg(lua_State *lua, char *err_msg);
+const char* pop_str_arg(lua_State *lua, char msg[]);

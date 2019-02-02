@@ -26,72 +26,72 @@
 #include "../include/utilua.h"
 #include "../include/utitable.h"
 
-/*
- * ^utitable.h
- */
-void keyed_str_into_table(lua_State *lua, const char *key, const char *value) {
+/**************************************************/
+/* ^utitable.h
+/**************************************************/
+void keyed_str_into_table(lua_State *lua, const char key[], const char value[]) {
 
-  validate_table_at_stack_top(lua);
+  assert_table_on_stack(lua);
 
   lua_pushstring(lua, key);
   lua_pushstring(lua, value);
   lua_settable(lua, TABLE_STACK_INDEX);
 }
 
-/*
- * ^utitable.h
- */
-void keyed_num_into_table(lua_State *lua, const char *key, const double value) {
+/**************************************************/
+/* ^utitable.h
+/**************************************************/
+void keyed_num_into_table(lua_State *lua, const char key[], const double value) {
 
-  validate_table_at_stack_top(lua);
+  assert_table_on_stack(lua);
 
   lua_pushstring(lua, key);
   lua_pushnumber(lua, value);
   lua_settable(lua, TABLE_STACK_INDEX);
 }
 
-/*
- * ^utitable.h
- */
-void keyed_bool_into_table(lua_State *lua, const char *key, const int value) {
+/**************************************************/
+/* ^utitable.h
+/**************************************************/
+void keyed_bool_into_table(lua_State *lua, const char key[], const int value) {
 
-  validate_table_at_stack_top(lua);
+  assert_table_on_stack(lua);
 
   lua_pushstring(lua, key);
   lua_pushboolean(lua, value);
   lua_settable(lua, TABLE_STACK_INDEX);
 }
 
-/*
- * ^utitable.h
- */
-void indexed_str_into_table(lua_State *lua, const int index, const char *value) {
+/**************************************************/
+/* ^utitable.h
+/**************************************************/
+void indexed_str_into_table(lua_State *lua, const int index, const char value[]) {
 
-  validate_table_at_stack_top(lua);
+  assert_table_on_stack(lua);
 
   lua_pushinteger(lua, index + 1);
   lua_pushstring(lua, value);
   lua_settable(lua, TABLE_STACK_INDEX);
 }
 
-/*
- * ^utitable.h
- */
+/**************************************************/
+/* ^utitable.h
+/**************************************************/
 void indexed_num_into_table(lua_State *lua, const int index, const double value) {
 
-  validate_table_at_stack_top(lua);
+  assert_table_on_stack(lua);
 
   lua_pushinteger(lua, index + 1);
   lua_pushnumber(lua, value);
   lua_settable(lua, TABLE_STACK_INDEX);
 }
 
-/*
- * ^utitable.h
- */
+/**************************************************/
+/* ^utitable.h
+/**************************************************/
 void indexed_bool_into_table(lua_State *lua, const int index, const int value) {
 
-  validate_table_at_stack_top(lua);
+  assert_table_on_stack(lua);
 
   lua_pushinteger(lua, index + 1);
   lua_pushboolean(lua, value);

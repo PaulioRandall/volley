@@ -370,7 +370,7 @@ enum json_value_type json_table_type(lua_State *lua) {
   int index;
   int type;
 
-  validate_table_at_stack_top(lua);
+  assert_table_on_stack(lua);
 
   index = lua_gettop(lua);
   lua_pushnil(lua);
@@ -516,7 +516,7 @@ char* format_table_iteratively(lua_State *lua, char *json, int indent, int inclu
   enum json_value_type js_type;
   int has_next;
 
-  validate_table_at_stack_top(lua);
+  assert_table_on_stack(lua);
 
   table_index = lua_gettop(lua);
   lua_pushnil(lua);
@@ -583,7 +583,7 @@ int ben_stringify(lua_State *lua) {
 
   char* json;
 
-  check_func_arg_count(lua, "stringify(table)", 1);
+  assert_arg_count(lua, "stringify(table)", 1);
 
   json = (char*) malloc(sizeof(char));
   json[0] = '\0';
@@ -602,7 +602,7 @@ int ben_is_array(lua_State *lua) {
 
   enum json_value_type type;
 
-  check_func_arg_count(lua, "ben_is_array(table)", 1);
+  assert_arg_count(lua, "ben_is_array(table)", 1);
 
   type = json_table_type(lua);
   lua_pop(lua, STACK_TOP);
@@ -625,7 +625,7 @@ int ben_tabulate(lua_State *lua) {
   JSON_Value *root;
   JSON_Object *obj;
 
-  check_func_arg_count(lua, "ben_tabulate(str)", 1);
+  assert_arg_count(lua, "ben_tabulate(str)", 1);
   input = pop_str_arg(lua, "Argument must be JSON as a string");
   root = json_parse_string(input);
 
@@ -649,7 +649,7 @@ int ben_is_object(lua_State *lua) {
 
   enum json_value_type type;
 
-  check_func_arg_count(lua, "ben_is_object(table)", 1);
+  assert_arg_count(lua, "ben_is_object(table)", 1);
 
   type = json_table_type(lua);
   lua_pop(lua, STACK_TOP);

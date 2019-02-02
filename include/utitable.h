@@ -22,20 +22,28 @@
  THE SOFTWARE.
 */
 
+/**************************************************/
+/* Pushes a key to value pair into an object table.
+/* A Lua table must be placed at the top of the Lua
+/* stack prior to invoking this function
 /*
- * Pushes a key to value pair into an object table;
- * assumes that a Lua table is placed at the top of
- * the Lua stack
- *
- * @*lua: Lua state environment
- * @*key: Key of the entry
- * @index: Index of the entry
- * @*value: Value of the entry
- */
-void keyed_str_into_table(lua_State *lua, const char *key, const char *value);
-void keyed_num_into_table(lua_State *lua, const char *key, const double value);
-void keyed_bool_into_table(lua_State *lua, const char *key, const int value);
-void indexed_str_into_table(lua_State *lua, const int index, const char *value);
+/* *lua: Lua state environment
+/* key[]: Key of the entry
+/* value: Value of the entry
+/**************************************************/
+void keyed_str_into_table(lua_State *lua, const char key[], const char value[]);
+void keyed_num_into_table(lua_State *lua, const char key[], const double value);
+void keyed_bool_into_table(lua_State *lua, const char key[], const int value);
+
+/**************************************************/
+/* Pushes a key to value pair into an object table;
+/* A Lua table must be placed at the top of the Lua
+/* stack prior to invoking this function
+/*
+/* *lua: Lua state environment
+/* index: Index of the entry
+/* value[]: Value of the entry
+/**************************************************/
+void indexed_str_into_table(lua_State *lua, const int index, const char value[]);
 void indexed_num_into_table(lua_State *lua, const int index, const double value);
 void indexed_bool_into_table(lua_State *lua, const int index, const int value);
-
