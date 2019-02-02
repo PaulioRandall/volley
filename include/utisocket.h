@@ -22,58 +22,58 @@
  THE SOFTWARE.
 */
 
+/**************************************************/
+/* Identify the internet addresses of a host name
+/* and service returning the result of getaddrinfo()
 /*
- * Identify the internet addresses of a host name
- * and service returning the result of getaddrinfo()
- *
- * @*hostname: Name of the target host
- * @*port: Number of the target hosts port
- * @**addr: Result container for the details
- */
+/* hostname[]: Name of the target host
+/* port[]: Number of the target hosts port
+/* **addr: Result container for the details
+/**************************************************/
 int find_addresses(
-  char *hostname,
-  char *port,
+  char hostname[],
+  char port[],
   struct addrinfo **addr
 );
 
+/**************************************************/
+/* Tries to connect to each address returning
+/* the socket descriptor once a connection has
+/* been established or -1 if no connection could
+/* be made
 /*
- * Tries to connect to each address returning
- * the socket descriptor once a connection has
- * been established or -1 if no connection could
- * be made
- *
- * @*addr: Addresses to connect too
- */
+/* *addr: Addresses to connect too
+/**************************************************/
 int try_connect(struct addrinfo *addr);
 
+/**************************************************/
+/* Send data to a connected server returning 0
+/* if successful and -1 if not
 /*
- * Send data to a connected server returning 0
- * if successful and -1 if not
- *
- * @sockfd: Socket file descriptor representing
- *          the connection
- * @*data: Data to send
- */
-int send_data(int sockfd, char *data);
+/* sockfd: Socket file descriptor representing
+/*          the connection
+/* data[]: Data to send
+/**************************************************/
+int send_data(int sockfd, char data[]);
 
+/**************************************************/
+/* Reads a chunk of data from the server returning
+/* the number of bytes read if successful,
+/* 0 indicates that the end of the stream has been
+/* hit and -1 indicates an error. The amount read
+/* will be upto 'buffer_size - 1' with a terminator
+/* being appended after the last byte read.
 /*
- * Reads a chunk of data from the server returning
- * the number of bytes read if successful, 0 indicates
- * that the end of the stream has been hit and -1
- * indicates an error. The amount read will be upto
- * 'buffer_size - 1' with a terminator being appended
- * after the last byte read.
- *
- * @sockfd: Socket file descriptor representing
- *          the connection
- * @*buffer: Buffer to store the data
- * @buffer_size: Size of the buffer
- */
-int read_chunk(int sockfd, char* buffer, size_t buffer_size);
+/* sockfd: Socket file descriptor representing
+/*          the connection
+/* buf[]: Buffer to store the data
+/* size: Size of the buffer
+/**************************************************/
+int read_chunk(int sockfd, char buf[], size_t size);
 
+/**************************************************/
+/* Shutsdown and closes a socket connection.
 /*
- * Shutsdown and closes a socket connection
- *
- * @sockfd: Socket file descriptor
- */
+/* sockfd: Socket file descriptor
+/**************************************************/
 void close_socket(int sockfd);

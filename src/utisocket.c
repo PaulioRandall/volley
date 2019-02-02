@@ -29,12 +29,14 @@
 #include <unistd.h>
 #include "../include/utisocket.h"
 
-/*
- * ^utisocket.h
- */
+#define TRUE 1
+
+/**************************************************/
+/* ^utisocket.h
+/**************************************************/
 int find_addresses(
-  char *hostname,
-  char *port,
+  char hostname[],
+  char port[],
   struct addrinfo **addr) {
 
   struct addrinfo hints;
@@ -46,14 +48,13 @@ int find_addresses(
   return getaddrinfo(hostname, port, &hints, addr);
 }
 
-/*
- * ^utisocket.h
- */
+/**************************************************/
+/* ^utisocket.h
+/**************************************************/
 int try_connect(struct addrinfo *addr) {
 
   struct addrinfo *next;
-  int sockfd;
-  int connected;
+  int sockfd, connected;
 
   for(next = addr; next != NULL; next = next->ai_next) {
 
@@ -83,52 +84,46 @@ int try_connect(struct addrinfo *addr) {
   return -1;
 }
 
-/*
- * ^utisocket.h
- */
-int send_data(int sockfd, char *data) {
+/**************************************************/
+/* ^utisocket.h
+/**************************************************/
+int send_data(int sockfd, char data[]) {
 
   size_t total = strlen(data);
   size_t sent = 0;
-  size_t next;
+  size_t written;
 
-  while(1) {
-    next = write(sockfd, data+sent, total-sent);
+  while(TRUE) {
+    written = write(sockfd, data+sent, total-sent);
 
-    if(next < 0) {
-      return -1;
+    if(written < 1) {
+      return written;
     }
 
-    if(next == 0) {
-      break;
-    }
-
-    sent += next;
+    sent += written;
   }
-
-  return 0;
 }
 
-/*
- * ^utisocket.h
- */
-int read_chunk(int sockfd, char* buffer, size_t buffer_size) {
+/**************************************************/
+/* ^utisocket.h
+/**************************************************/
+int read_chunk(int sockfd, char buf[], size_t size) {
   
   int result;
 
-  memset(buffer, 0, buffer_size);
-  result = read(sockfd, buffer, buffer_size - 1);
+  memset(buf, 0, size);
+  result = read(sockfd, buf, size - 1);
 
   if(result >= 0) {
-    buffer[result] = '\0';
+    buf[result] = '\0';
   }
 
   return result;
 }
 
-/*
- * ^utisocket.h
- */
+/**************************************************/
+/* ^utisocket.h
+/**************************************************/
 void close_socket(int sockfd) {
   shutdown(sockfd, SHUT_RDWR);
 	close(sockfd);
