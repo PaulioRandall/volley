@@ -44,7 +44,7 @@ int main ( int argc, char *argv[] ) {
   char* script;
 
   if(argc != 2) {
-    printf("Missing argument: path to Lua script\n");
+    printf("Syntax: %s lua_script\n", argv[0]);
     exit(EXIT_FAILURE);
   }
 

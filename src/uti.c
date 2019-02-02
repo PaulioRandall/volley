@@ -221,6 +221,67 @@ char* str_trim(char str[]) {
 /**************************************************/
 /* ^uti.h
 /**************************************************/
+int str_trim_new(char out[], char str[]) {
+
+  int len = strlen(str);
+  char *first = NULL, *last = NULL;
+
+  for(first = str; *first != '\0'; first++) {
+    if(*first != ' ') {
+      break;
+    }
+  }
+
+  if(*first == '\0') {
+    // Only white space or length is 0
+    out[0] = '\0';
+    return 0;
+  }
+
+  if(first == str) {
+    // No leading spaces
+    first = NULL;
+  }
+
+  last = str + len - 1;
+  for(; last != str; last--) {
+    if(*last != ' ') {
+      break;
+    }
+  }
+
+  if(last == (str + len - 1)) {
+    // No trailing spaces
+    last = NULL;
+  }
+
+  if(first == NULL && last == NULL) {
+    // Spaces in middle but not at ends
+    strcpy(out, str);
+    return len;
+  }
+
+  if(last == NULL) {
+    // Leading spaces only
+    strcpy(out, first);
+    return strlen(first);
+  }
+
+  if(first == NULL) {
+    // Trailing spaces only
+    len = last - str;
+    str_slice(out, str, 0, len+1);
+    return strlen(out);
+  }
+
+  len = last - first;
+  str_slice(out, first, 0, len+1);
+  return strlen(out);
+}
+
+/**************************************************/
+/* ^uti.h
+/**************************************************/
 void str_slice(char out[], char str[], int start, int len) {
 
   char *p;

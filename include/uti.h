@@ -90,6 +90,15 @@ void puts_f(const char str[], const char space_repl[]);
 char* str_trim(char str[]);
 
 /**************************************************/
+/* Removes spaces from the start and end of the
+/* input string returning the length
+/* 
+/* out[]: Container to hold the result
+/* str[]: String to trim
+/**************************************************/
+int str_trim_new(char out[], char str[]);
+
+/**************************************************/
 /* Slices the string using the specified range
 /* 
 /* out[]: Result container

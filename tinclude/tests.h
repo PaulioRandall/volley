@@ -27,8 +27,16 @@ void str_trim__noSpaces__reInStr();
 void str_trim__leadingSpacesOnly__reSubstr();
 void str_trim__trailingSpacesOnly__reSubstr();
 void str_trim__spacesOnBothSides__reSubstr();
-
 void str_trim__spacesInMiddle__reSubstr();
+
+void str_trim_new__emptyStr__reEmptyStr();
+void str_trim_new__strOfSpaces__reEmptyStr();
+void str_trim_new__noSpaces__reInStr();
+void str_trim_new__leadingSpacesOnly__reSubstr();
+void str_trim_new__trailingSpacesOnly__reSubstr();
+void str_trim_new__spacesOnBothSides__reSubstr();
+void str_trim_new__spacesInMiddle__reSubstr();
+
 void str_slice__startingSlice__reSubstr();
 void str_slice__endingSlice__reSubstr();
 void str_slice__midSlice__reSubstr();

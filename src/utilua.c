@@ -55,8 +55,7 @@ void print_lua_stack_trace(lua_State *lua) {
   // TODO: Can this be simplified?
 
   lua_Debug debug;
-  int depth = 0;
-  int exists;
+  int exists, depth = 0;
 
   fprintf(stderr, "\n*** Stack trace ***\n");
 

@@ -199,7 +199,6 @@ void str_trim__spacesOnBothSides__reSubstr() {
     free(actual);
 }
 
-
 void str_trim__spacesInMiddle__reSubstr() {
     printf("...str_trim() string with space in middle"
             " returns the expected substring as a new allocation\n");
@@ -210,6 +209,102 @@ void str_trim__spacesInMiddle__reSubstr() {
     assert(strcmp("Disc world", actual) == 0);
     assert(actual != expected);
     free(actual);
+}
+
+void str_trim_new__emptyStr__reEmptyStr() {
+    printf("...str_trim_new() empty string returns empty string\n");
+
+    char expected[] = "";
+    int exp_len = strlen(expected), len;
+    char actual[exp_len+1];
+
+    len = str_trim_new(actual, expected);
+
+    assert(exp_len == len);
+    assert(0 == strcmp(actual, expected));
+}
+
+void str_trim_new__strOfSpaces__reEmptyStr() {
+    printf("...str_trim_new() whitespace string returns empty string\n");
+
+    char in[] = "      ";
+    int exp_len = 0, len;
+    char actual[exp_len+1];
+
+    len = str_trim_new(actual, in);
+
+    assert(exp_len == len);
+    assert(0 == strcmp("", actual));
+}
+
+void str_trim_new__noSpaces__reInStr() {
+    printf("...str_trim_new() string with no spaces at the start"
+            " or end returns the input string\n");
+
+    char expected[] = "Discworld";
+    int exp_len = strlen(expected), len;
+    char actual[exp_len+1];
+
+    len = str_trim_new(actual, expected);
+
+    assert(exp_len == len);
+    assert(0 == strcmp(expected, actual));
+}
+
+void str_trim_new__leadingSpacesOnly__reSubstr() {
+    printf("...str_trim_new() string with leadings spaces returns"
+            " the expected substring\n");
+
+    char in[] = "   Discworld";
+    int exp_len = 9, len;
+    char actual[exp_len+1];
+
+    len = str_trim_new(actual, in);
+
+    assert(exp_len == len);
+    assert(0 == strcmp("Discworld", actual));
+}
+
+void str_trim_new__trailingSpacesOnly__reSubstr() {
+    printf("...str_trim_new() string with trailing spaces returns"
+            " the expected substring\n");
+
+    char in[] = "Discworld   ";
+    int exp_len = 9, len;
+    char actual[exp_len+1];
+
+    len = str_trim_new(actual, in);
+
+    assert(exp_len == len);
+    assert(0 == strcmp("Discworld", actual));
+}
+
+void str_trim_new__spacesOnBothSides__reSubstr() {
+    printf("...str_trim_new() string with both leading and trailing"
+            " spaces returns the expected substring\n");
+
+    char in[] = "   Discworld   ";
+    int exp_len = 9, len;
+    char actual[exp_len+1];
+
+    len = str_trim_new(actual, in);
+
+    assert(exp_len == len);
+    assert(0 == strcmp("Discworld", actual));
+}
+
+void str_trim_new__spacesInMiddle__reSubstr() {
+    printf("...str_trim_new() string with space in middle"
+            " returns the expected substring\n");
+
+    char expected[] = "Disc world";
+    int exp_len = 10, len;
+    char actual[exp_len+1];
+
+    len = str_trim_new(actual, expected);
+
+    assert(exp_len == len);
+    assert(0 == strcmp("Disc world", actual));
 }
 
 void str_slice__startingSlice__reSubstr() {
