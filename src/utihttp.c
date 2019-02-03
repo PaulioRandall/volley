@@ -311,18 +311,20 @@ int parse_start_line(struct HttpResponse *res, char line[]) {
 struct HttpHeader* append_header(struct HttpResponse *res, char str[]) {
 
   int exp_len = 2, line_len = 255, len;
-  char parts[exp_len][line_len];
+  char parts[exp_len][line_len], tmp[line_len];
   struct HttpHeader *h;
 
   len = str_split(exp_len, line_len, parts, str, ":");
 
   h = malloc(sizeof(struct HttpHeader));
-  h->name = str_trim(parts[0]);
-  h->value = str_trim(parts[1]);
+  str_trim(tmp, parts[0]);
+  h->name = str_copy(tmp);
+  str_trim(tmp, parts[1]);
+  h->value = str_copy(tmp);
 
-  if(res->headers == NULL) {
+  if(res->header_count == 0) {
     res->headers = h;
-    res->header_count = 1;    
+    res->header_count = 1;
 
   } else {
     

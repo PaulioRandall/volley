@@ -157,71 +157,7 @@ void puts_f(const char str[], const char space_repl[]) {
 /**************************************************/
 /* ^uti.h
 /**************************************************/
-char* str_trim(char str[]) {
-
-  // TODO: This could probably be more concise, write another
-  // TODO: test or two and refactor
-  
-  int len = strlen(str);
-  char *first = NULL, *last = NULL;
-  char *r;
-
-  for(first = str; *first != '\0'; first++) {
-    if(*first != ' ') {
-      break;
-    }
-  }
-
-  if(*first == '\0') {
-    // Only white space or length is 0
-    return str_copy("");
-  }
-
-  if(first == str) {
-    // No leading spaces
-    first = NULL;
-  }
-
-  last = str + len - 1;
-  for(; last != str; last--) {
-    if(*last != ' ') {
-      break;
-    }
-  }
-
-  if(last == (str + len - 1)) {
-    // No trailing spaces
-    last = NULL;
-  }
-
-  if(first == NULL && last == NULL) {
-    // No leading or trailing spaces
-    return str_copy(str);
-  }
-
-  if(last == NULL) {
-    // Leading spaces only
-    return str_copy(first);
-  }
-
-  if(first == NULL) {
-    // Trailing spaces only
-    len = last - str + 1;
-    r = (char*) malloc(len);
-    str_slice(r, str, 0, len);
-    return r;
-  }
-
-  len = last - first + 1;
-  r = (char*) malloc(len);
-  str_slice(r, first, 0, len);
-  return r;
-}
-
-/**************************************************/
-/* ^uti.h
-/**************************************************/
-int str_trim_new(char out[], char str[]) {
+int str_trim(char out[], char str[]) {
 
   int len = strlen(str);
   char *first = NULL, *last = NULL;

@@ -40,14 +40,6 @@ int main ( int argc, char *argv[] ) {
     str_trim__spacesOnBothSides__reSubstr();
     str_trim__spacesInMiddle__reSubstr();
 
-    str_trim_new__emptyStr__reEmptyStr();
-    str_trim_new__strOfSpaces__reEmptyStr();
-    str_trim_new__noSpaces__reInStr();
-    str_trim_new__leadingSpacesOnly__reSubstr();
-    str_trim_new__trailingSpacesOnly__reSubstr();
-    str_trim_new__spacesOnBothSides__reSubstr();
-    str_trim_new__spacesInMiddle__reSubstr();
-
     str_slice__startingSlice__reSubstr();
     str_slice__endingSlice__reSubstr();
     str_slice__midSlice__reSubstr();
