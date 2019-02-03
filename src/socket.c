@@ -31,7 +31,7 @@
 #include "../include/socket.h"
 
 /**************************************************/
-/* ^utisocket.h
+/* ^socket.h
 /**************************************************/
 int find_addresses(
   char hostname[],
@@ -48,7 +48,7 @@ int find_addresses(
 }
 
 /**************************************************/
-/* ^utisocket.h
+/* ^socket.h
 /**************************************************/
 int try_connect(struct addrinfo *addr) {
 
@@ -84,7 +84,7 @@ int try_connect(struct addrinfo *addr) {
 }
 
 /**************************************************/
-/* ^utisocket.h
+/* ^socket.h
 /**************************************************/
 int send_data(int sockfd, char data[]) {
 
@@ -104,7 +104,7 @@ int send_data(int sockfd, char data[]) {
 }
 
 /**************************************************/
-/* ^utisocket.h
+/* ^socket.h
 /**************************************************/
 int read_chunk(int sockfd, char buf[], size_t size) {
   
@@ -121,7 +121,7 @@ int read_chunk(int sockfd, char buf[], size_t size) {
 }
 
 /**************************************************/
-/* ^utisocket.h
+/* ^socket.h
 /**************************************************/
 void close_socket(int sockfd) {
   shutdown(sockfd, SHUT_RDWR);

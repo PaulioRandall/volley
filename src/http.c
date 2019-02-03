@@ -28,17 +28,17 @@
 #include "../include/uti.h"
 #include "../include/http.h"
 
-/**
- * ^utihttp.h
- */
+/**************************************************/
+/* ^http.h
+/**************************************************/
 void free_header_content(struct HttpHeader *header) {
   free(header->name);
   free(header->value);
 }
 
-/**
- * ^utihttp.h
- */
+/**************************************************/
+/* ^http.h
+/**************************************************/
 void init_response(struct HttpResponse* res) {
   res->progress = STATUS_LINE;
   res->unparsed = NULL;
@@ -51,9 +51,9 @@ void init_response(struct HttpResponse* res) {
   res->content_length = 0;
 }
 
-/**
- * ^utihttp.h
- */
+/**************************************************/
+/* ^http.h
+/**************************************************/
 void free_response(struct HttpResponse *res) {
 
   struct HttpHeader *h;
@@ -75,9 +75,9 @@ void free_response(struct HttpResponse *res) {
   free(res);
 }
 
-/**
- * ^utihttp.h
- */
+/**************************************************/
+/* ^http.h
+/**************************************************/
 void init_request(struct HttpRequest* req) {
   req->method = NULL;
   req->path = NULL;
@@ -88,12 +88,12 @@ void init_request(struct HttpRequest* req) {
   req->body = NULL;
 }
 
+/**************************************************/
+/* Creates the first part of a HTTP request
+/* and returns a pointer to it
 /*
- * Creates the first part of a HTTP request
- * and returns a pointer to it
- *
- * @req: Request being made
- */
+/* *req: Request being made
+/**************************************************/
 char* init_request_str(struct HttpRequest *req) {
 
   int len = 0;
@@ -121,17 +121,19 @@ char* init_request_str(struct HttpRequest *req) {
   return result;
 }
 
+/**************************************************/
+/* Adds a header to the request string returning a
+/* pointer to the result; this may be the original
+/* string or a reallocation of the original
 /*
- * Adds a header to the request string
- *
- * @*req_str: Request to append headers to
- * @*name: Name of the header
- * @*value: Header value
- */
+/* *req_str: Request to append headers to
+/* name[]: Name of the header
+/* value[]: Header value
+/**************************************************/
 char* add_header_to_request(
   char *req_str,
-  const char *name,
-  const char *value) {
+  const char name[],
+  const char value[]) {
 
   // E.g. Host: www.example.com
 
@@ -154,12 +156,15 @@ char* add_header_to_request(
   return req_str;
 }
 
+/**************************************************/
+/* Adds all user specified headers to the request
+/* string returning a pointer to the result; this
+/* may be the original string or a reallocation of
+/* the original
 /*
- * Adds all user specified headers to the request string
- *
- * @*req_str: Request string so far
- * @*req: Request struct containing the headers
- */
+/* *req_str: Request string so far
+/* *req: Request struct containing the headers
+/**************************************************/
 char* add_headers_to_request(char *req_str, struct HttpRequest *req) {
 
   int i;
@@ -173,13 +178,15 @@ char* add_headers_to_request(char *req_str, struct HttpRequest *req) {
   return req_str;
 }
 
+/**************************************************/
+/* Adds the body to the request string returning a
+/* pointer to the result; this may be the original
+/* string or a reallocation of the original
 /*
- * Adds the body to the request string
- *
- * @*req_str: Request string so far
- * @*body: Body to add
- */
-char* add_body_to_request(char *req_str, const char *body) {
+/* *req_str: Request string so far
+/* body[]: Body to add
+/**************************************************/
+char* add_body_to_request(char *req_str, const char body[]) {
 
   int content_len;
   char *content_len_str;
@@ -205,11 +212,13 @@ char* add_body_to_request(char *req_str, const char *body) {
   return req_str;
 }
 
+/**************************************************/
+/* Adds final termination line to request returning
+/* a pointer to the result; this may be the original
+/* string or a reallocation of the original
 /*
- * Adds final termination line to request
- *
- * @*req_str: Request string so far
- */
+/* *req_str: Request string so far
+/**************************************************/
 char* finialise_request(char *req_str) {
 
   int len;
@@ -224,9 +233,9 @@ char* finialise_request(char *req_str) {
   return req_str;
 }
 
-/*
- * ^utihttp.h
- */
+/**************************************************/
+/* ^http.h
+/**************************************************/
 char* stringify_request(struct HttpRequest *req) {
 
   char *r;
@@ -244,13 +253,13 @@ char* stringify_request(struct HttpRequest *req) {
   return r;
 }
 
-/**
- * Prepends any unparsed bytes from the previous 
- * call to the current fragment
- * 
- * @*res: Represents the response entity being built
- * @*frag: Next chunk of of HTTP text to parse
- */
+/**************************************************/
+/* Prepends any unparsed bytes from the previous 
+/* call to the current fragment
+/* 
+/* *res: Represents the response entity being built
+/* frag[]: Next chunk of of HTTP text to parse
+/**************************************************/
 char* prepend_unparsed(struct HttpResponse *res, char frag[]) {
 
   char *r;
@@ -276,13 +285,13 @@ char* prepend_unparsed(struct HttpResponse *res, char frag[]) {
   return r;
 }
 
-/**
- * Parses the start line returning 0 if successful
- * or -1 if an error occurred
- * 
- * @*res: Represents the response entity being built
- * @*line: Start line to parse
- */
+/**************************************************/
+/* Parses the start line returning 0 if successful
+/* or -1 if an error occurred
+/* 
+/* *res: Represents the response entity being built
+/* line[]: Start line to parse
+/**************************************************/
 int parse_start_line(struct HttpResponse *res, char line[]) {
 
   int exp_len = 3, line_len = 255, len;
@@ -303,11 +312,12 @@ int parse_start_line(struct HttpResponse *res, char line[]) {
   return 0;
 }
 
-/**
- * Parses the string into a HttpHeader struct
- * 
- * @*str: String to parse
- */
+/**************************************************/
+/* Parses the string into a HttpHeader struct
+/* returning a pointer to the created header
+/* 
+/* str[]: String to parse
+/**************************************************/
 struct HttpHeader* append_header(struct HttpResponse *res, char str[]) {
 
   int exp_len = 2, line_len = 255, len;
@@ -342,9 +352,9 @@ struct HttpHeader* append_header(struct HttpResponse *res, char str[]) {
   return h;
 }
 
-/*
- * ^utihttp.h
- */
+/**************************************************/
+/* ^http.h
+/**************************************************/
 int process_response_fragment(struct HttpResponse *res, char *frag) {
 
   struct HttpResponse *r;
