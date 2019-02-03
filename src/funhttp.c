@@ -61,7 +61,7 @@ struct HttpResponse* read_response(int sockfd) {
     }
 
     status = process_response_fragment(response, buffer);
-    if(status != 0) {
+    if(status == ERR) {
       // TODO free response and its contents
       return NULL;
     }

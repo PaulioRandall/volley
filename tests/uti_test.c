@@ -7,7 +7,7 @@
 #include "../tinclude/tests.h"
 
 void int_to_str__posNum__exptStr() {
-    printf("...int_to_str() positive number creates expected string\n");
+    puts("...int_to_str() positive number creates expected string");
 
     char *actual = int_to_str(5);
     assert(0 == strcmp("5", actual));
@@ -15,7 +15,7 @@ void int_to_str__posNum__exptStr() {
 }
 
 void int_to_str__negNum__exptStr() {
-    printf("...int_to_str() negative number creates expected string\n");
+    puts("...int_to_str() negative number creates expected string");
 
     char *actual = int_to_str(-5);
     assert(0 == strcmp("-5", actual));
@@ -23,7 +23,7 @@ void int_to_str__negNum__exptStr() {
 }
 
 void str_copy__str__reEqualsIn() {
-    printf("...str_copy() creates expected copy\n");
+    puts("...str_copy() creates expected copy");
 
     char expected[] = "Gloryhammer";
     char *actual = str_copy(expected);
@@ -32,24 +32,24 @@ void str_copy__str__reEqualsIn() {
 }
 
 void count_substr__needleBiggerThanHaystack__reZero() {
-    printf("...count_substr() needle bigger than haystack returns 0\n");
+    puts("...count_substr() needle bigger than haystack returns 0");
     assert(0 == count_substr("short", "shortshort"));
 }
 
 void count_substr__needleSameAsHaystack__reOne() {
-    printf("...count_substr() needle equals haystack returns 1\n");
+    puts("...count_substr() needle equals haystack returns 1");
 
     char word[] = "Rincewind";
     assert(1 == count_substr(word, word));
 }
 
 void count_substr__noNeedlesInHaystack__reZero() {
-    printf("...count_substr() no needles in haystack returns 0\n");
+    puts("...count_substr() no needles in haystack returns 0");
     assert(0 == count_substr("aaaaaaaaaa", "bbb"));
 }
 
 void count_substr__severalNeedlesInHaystack__reSeveral() {
-    printf("...count_substr() several needles in haystack returns 3\n");
+    puts("...count_substr() several needles in haystack returns 3");
 
     char haystack[] = "weatherwax tiger weatherwax tiger weatherwax";
     char needle[] = "weather";
@@ -57,22 +57,22 @@ void count_substr__severalNeedlesInHaystack__reSeveral() {
 }
 
 void index_of__needleNotInHaystack__reMinusOne() {
-    printf("...index_of() needle not in haystack returns NOT_FOUND\n");
+    puts("...index_of() needle not in haystack returns NOT_FOUND");
     assert(NOT_FOUND == indexof("weatherwax", "rincewind"));
 }
 
 void index_of__needleInHaystack__reIndex() {
-    printf("...index_of() needle in haystack returns index\n");
+    puts("...index_of() needle in haystack returns index");
     assert(7 == indexof("weatherwax", "wax"));
 }
 
 void index_of__needleIsHaystack__reZero() {
-    printf("...index_of() needle in haystack returns 0\n");
+    puts("...index_of() needle in haystack returns 0");
     assert(0 == indexof("Rincewind", "Rincewind"));
 }
 
 void str_split__singleLine__reSingleItem() {
-    printf("...str_split() single line input is returned unchanged\n");
+    puts("...str_split() single line input is returned unchanged");
 
     int max_len = 1, line_len = 20, len;
     char actual[max_len][line_len];
@@ -85,7 +85,7 @@ void str_split__singleLine__reSingleItem() {
 }
 
 void str_split__severalParts__reSplitStr() {
-    printf("...str_split() multi line returns many lines\n");
+    puts("...str_split() multi line returns many lines");
 
     int max_len = 3, line_len = 20, len;
     char actual[max_len][line_len];
@@ -100,7 +100,7 @@ void str_split__severalParts__reSplitStr() {
 }
 
 void str_split__emptyStr__reEmptyStr() {
-    printf("...str_split() empty string input returns empty string\n");
+    puts("...str_split() empty string input returns empty string");
 
     int max_len = 1, line_len = 20, len;
     char actual[max_len][line_len];
@@ -113,8 +113,8 @@ void str_split__emptyStr__reEmptyStr() {
 }
 
 void str_split__emptyStrAtEnd__reEmptyLastStr() {
-    printf("...str_split() string with empty line at end returns"
-            " array where last string item is empty\n");
+    puts("...str_split() string with empty line at end returns"
+        " array where last string item is empty");
 
     int max_len = 2, line_len = 20, len;
     char actual[max_len][line_len];
@@ -128,7 +128,7 @@ void str_split__emptyStrAtEnd__reEmptyLastStr() {
 }
 
 void str_trim__emptyStr__reEmptyStr() {
-    printf("...str_trim() empty string returns empty string\n");
+    puts("...str_trim() empty string returns empty string");
 
     char expected[] = "";
     int exp_len = strlen(expected), len;
@@ -141,7 +141,7 @@ void str_trim__emptyStr__reEmptyStr() {
 }
 
 void str_trim__strOfSpaces__reEmptyStr() {
-    printf("...str_trim() whitespace string returns empty string\n");
+    puts("...str_trim() whitespace string returns empty string");
 
     char in[] = "      ";
     int exp_len = 0, len;
@@ -154,8 +154,8 @@ void str_trim__strOfSpaces__reEmptyStr() {
 }
 
 void str_trim__noSpaces__reInStr() {
-    printf("...str_trim() string with no spaces at the start"
-            " or end returns the input string\n");
+    puts("...str_trim() string with no spaces at the start"
+        " or end returns the input string");
 
     char expected[] = "Discworld";
     int exp_len = strlen(expected), len;
@@ -168,8 +168,8 @@ void str_trim__noSpaces__reInStr() {
 }
 
 void str_trim__leadingSpacesOnly__reSubstr() {
-    printf("...str_trim() string with leadings spaces returns"
-            " the expected substring\n");
+    puts("...str_trim() string with leadings spaces returns"
+        " the expected substring");
 
     char in[] = "   Discworld";
     int exp_len = 9, len;
@@ -182,8 +182,8 @@ void str_trim__leadingSpacesOnly__reSubstr() {
 }
 
 void str_trim__trailingSpacesOnly__reSubstr() {
-    printf("...str_trim() string with trailing spaces returns"
-            " the expected substring\n");
+    puts("...str_trim() string with trailing spaces returns"
+        " the expected substring");
 
     char in[] = "Discworld   ";
     int exp_len = 9, len;
@@ -196,8 +196,8 @@ void str_trim__trailingSpacesOnly__reSubstr() {
 }
 
 void str_trim__spacesOnBothSides__reSubstr() {
-    printf("...str_trim() string with both leading and trailing"
-            " spaces returns the expected substring\n");
+    puts("...str_trim() string with both leading and trailing"
+        " spaces returns the expected substring");
 
     char in[] = "   Discworld   ";
     int exp_len = 9, len;
@@ -210,8 +210,8 @@ void str_trim__spacesOnBothSides__reSubstr() {
 }
 
 void str_trim__spacesInMiddle__reSubstr() {
-    printf("...str_trim() string with space in middle"
-            " returns the expected substring\n");
+    puts("...str_trim() string with space in middle"
+        " returns the expected substring");
 
     char expected[] = "Disc world";
     int exp_len = 10, len;
@@ -224,8 +224,8 @@ void str_trim__spacesInMiddle__reSubstr() {
 }
 
 void str_slice__startingSlice__reSubstr() {
-    printf("...str_slice() start is 0 and len is less than total"
-            " returns the expected substring as a new allocation\n");
+    puts("...str_slice() start is 0 and len is less than total"
+        " returns the expected substring as a new allocation");
             
     char expected[] = "Rincewind";
     char actual[6];
@@ -236,9 +236,9 @@ void str_slice__startingSlice__reSubstr() {
 }
 
 void str_slice__endingSlice__reSubstr() {
-    printf("...str_slice() start is not the str start and len goes"
-            " to the end of the string, returns the expected"
-            " substring as a new allocation\n");
+    puts("...str_slice() start is not the str start and len goes"
+        " to the end of the string, returns the expected"
+        " substring as a new allocation");
 
     char expected[] = "Rincewind";
     char actual[5];
@@ -249,9 +249,9 @@ void str_slice__endingSlice__reSubstr() {
 }
 
 void str_slice__midSlice__reSubstr() {
-    printf("...str_slice() start is not the str start and"
-            " len doesn't reach the end of the string, returns"
-            " the expected substring as a new allocation\n");
+    puts("...str_slice() start is not the str start and"
+        " len doesn't reach the end of the string, returns"
+        " the expected substring as a new allocation");
 
     char expected[] = "Twilight Force";
     char actual[6];
@@ -262,8 +262,8 @@ void str_slice__midSlice__reSubstr() {
 }
 
 void str_slice__sliceWholeStr__reInStr() {
-    printf("...str_slice() start is 0 and len is total"
-            " returns the original str as a new allocation\n");
+    puts("...str_slice() start is 0 and len is total"
+        " returns the original str as a new allocation");
 
     char expected[] = "Twilight Force";
     int len = strlen(expected);
@@ -275,7 +275,7 @@ void str_slice__sliceWholeStr__reInStr() {
 }
 
 void max__multiTest() {
-    printf("...max() multi-test\n");
+    puts("...max() multi-test");
 
     assert(9 == max(9, 9));
     assert(21 == max(21, -9));
@@ -283,7 +283,7 @@ void max__multiTest() {
 }
 
 void min__multiTest() {
-    printf("...min() multi-test\n");
+    puts("...min() multi-test");
 
     assert(9 == min(9, 9));
     assert(-9 == min(21, -9));

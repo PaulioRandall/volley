@@ -10,6 +10,7 @@
 struct HttpRequest* new_req() {
   struct HttpRequest *req = malloc(sizeof(struct HttpRequest));
   init_request(req);
+
   req->method = "GET";
   req->path = "/index.html";
   req->version = "HTTP/1.1";
@@ -18,29 +19,39 @@ struct HttpRequest* new_req() {
 }
 
 void stringify_request__validRequest__expectedStr() {
-    printf("...stringify_request() valid request creates expected string\n");
-    char expected[] = "GET /index.html HTTP/1.1\r\nHost: www.example.com"
-                      "\r\n\r\n";
+    puts("...stringify_request() valid request creates expected string");
+
     struct HttpRequest *req = new_req();
-    char *actual = stringify_request(req);
+    char *actual, expected[] = "GET /index.html HTTP/1.1\r\n"
+                                "Host: www.example.com\r\n"
+                                "\r\n";
+
+    actual = stringify_request(req);
+
     assert(strcmp(expected, actual) == 0);
     free(req);
     free(actual);
 }
 
 void stringify_request__withHeaders__expectedStr() {
-    printf("...stringify_request() valid request with headers"
-          " creates expected string\n");
-    char expected[] = "GET /index.html HTTP/1.1\r\nHost: www.example.com"
-                      "\r\nRince: wind\r\nWeather: wax\r\n\r\n";
+    puts("...stringify_request() valid request with headers"
+        " creates expected string");
+
+    char *actual, expected[] = "GET /index.html HTTP/1.1\r\n"
+                                "Host: www.example.com\r\n"
+                                "Rince: wind\r\nWeather: wax\r\n"
+                                "\r\n";
     struct HttpRequest *req = new_req();
+
     req->header_count = 2;
     req->headers = malloc(sizeof(struct HttpHeader) * req->header_count);
     req->headers[0].name = "Rince";
     req->headers[0].value = "wind";
     req->headers[1].name = "Weather";
     req->headers[1].value = "wax";
-    char *actual = stringify_request(req);
+
+    actual = stringify_request(req);
+
     assert(strcmp(expected, actual) == 0);
     free(req->headers);
     free(req);
@@ -48,20 +59,26 @@ void stringify_request__withHeaders__expectedStr() {
 }
 
 void stringify_request__withBody__expectedStr() {
-    printf("...stringify_request() valid request with body"
-          " creates expected string\n");
+    puts("...stringify_request() valid request with body"
+        " creates expected string");
+
+    struct HttpRequest *req;
     char body[] = "Counterweight continent\n" //24
-                "Quirm\r\n" //7
-                "Ankh\r\n" //6
+                "Quirm\n" //6
+                "Ankh\n" //5
                 "Pseudopolis\n"; //13
-    char *expected = (char*) malloc(sizeof(char) * 250);
+    char *actual, *expected = (char*) malloc(sizeof(char) * 250);
     expected[0] = '\0';
-    strcat(expected, "GET /index.html HTTP/1.1\r\nHost: www.example.com"
-                     "\r\nContent-Length: 49\r\n\r\n");
+    strcat(expected, "GET /index.html HTTP/1.1\r\n"
+                    "Host: www.example.com\r\n"
+                    "Content-Length: 47\r\n"
+                    "\r\n");
     strcat(expected, body);
-    struct HttpRequest *req = new_req();
+
+    req = new_req();
     req->body = body;
-    char *actual = stringify_request(req);
+    actual = stringify_request(req);
+
     assert(strcmp(expected, actual) == 0);
     free(expected);
     free(req);
@@ -75,52 +92,68 @@ struct HttpResponse* new_res() {
 }
 
 void process_response_fragment__progressComplete__returnsNegNum() {
-    printf("...process_response_fragment() when progress COMPLETE"
-          " returned value is ERR\n");
+    puts("...process_response_fragment() when progress COMPLETE"
+        " returned value is ERR");
+
+    int actual;
     struct HttpResponse *res = new_res();
+
     res->progress = COMPLETE;
-    int actual = process_response_fragment(res, "Rhapsody of fire");
+    actual = process_response_fragment(res, "Rhapsody of fire");
+
     assert(ERR == actual);
     free(res);
 }
 
 void process_response_fragment__progressNotComplete__returnsZero() {
-    printf("...process_response_fragment() when progress not COMPLETE"
-          " returned value is OK\n");
+    puts("...process_response_fragment() when progress not COMPLETE"
+        " returned value is OK");
+
+    int actual;    
     struct HttpResponse *res = new_res();
+
     res->progress = BODY;
-    int actual = process_response_fragment(res, "Rhapsody of fire");
+    actual = process_response_fragment(res, "Rhapsody of fire");
+
     assert(OK == actual);
     free(res);
 }
 
 void process_response_fragment__emptyLineANDProgressNotBody__IncProgress() {
-    printf("...process_response_fragment() when empty line passed and"
-            " progress is HEADERS, progress is incremented\n");
+    puts("...process_response_fragment() when empty line passed and"
+        " progress is HEADERS, progress is incremented");
+
     struct HttpResponse *res = new_res();
+
     res->progress = HEADERS;
     process_response_fragment(res, "\r\nRhapsody of fire");
-    enum ParseProgress actual = res->progress;
-    assert(BODY == actual);
+
+    assert(BODY == res->progress);
     free(res);
 }
 
 void process_response_fragment__emptyLineANDProgressIsBody__progressIsBody() {
-    printf("...process_response_fragment() when empty line passed and"
-            " progress is BODY, progress is not incremented\n");
+    puts("...process_response_fragment() when empty line passed and"
+        " progress is BODY, progress is not incremented");
+
     struct HttpResponse *res = new_res();
+
     res->progress = BODY;
     process_response_fragment(res, "\r\nRhapsody of fire");
-    enum ParseProgress actual = res->progress;
-    assert(BODY == actual);
+
+    assert(BODY == res->progress);
     free(res);
 }
 
 void process_response_fragment__validStartLine__startLineParsed() {
-    printf("...process_response_fragment() when full start line passed"
-            " it is parsed and values set in HttpResponse\n");
+    puts("...process_response_fragment() when full start line passed"
+        " it is parsed and values set in HttpResponse");
+
+    int err;
     struct HttpResponse *res = new_res();
-    int err = process_response_fragment(res, "HTTP/1.1 200 OK\r\nRince: wind");
+
+    err = process_response_fragment(res, "HTTP/1.1 200 OK\r\nRince: wind");
+
     assert(err == OK);
     assert(strcmp(res->version, "HTTP/1.1") == 0);
     assert(res->code == 200);
@@ -130,24 +163,34 @@ void process_response_fragment__validStartLine__startLineParsed() {
 }
 
 void process_response_fragment__badStartLine__startLineParsed() {
-    printf("...process_response_fragment() when bad start line passed"
-            " ERR is returned\n");
+    puts("...process_response_fragment() when bad start line passed"
+        " ERR is returned");
+
+    int err;
     struct HttpResponse *res = new_res();
-    int err = process_response_fragment(res, "HTTP/1.1 200OK\r\n");
+    
+    err = process_response_fragment(res, "HTTP/1.1 200OK\r\n");
+
     assert(err == ERR);
     free(res);
 }
 
 void process_response_fragment__singleHeader__headerParsed() {
-    printf("...process_response_fragment() when single header line passed"
-            " OK is returned and header matches expected\n");
+    puts("...process_response_fragment() when single header line passed"
+        " OK is returned and header matches expected");
+
+    int err;
+    struct HttpHeader *h;
     struct HttpResponse *res = new_res();
-    int err = process_response_fragment(res, 
+    
+    err = process_response_fragment(res, 
         "HTTP/1.1 200 OK\r\nRince: wind\r\n"
     );
+
     assert(err == OK);
     assert(res->header_count == 1);
-    struct HttpHeader *h = res->headers;
+
+    h = res->headers;
     assert(strcmp(h[0].name, "Rince") == 0);
     assert(strcmp(h[0].value, "wind") == 0);
     free_response(res);
