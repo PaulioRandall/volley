@@ -26,6 +26,7 @@
 #include <string.h>
 #include <stdio.h>
 #include "lua.h"
+#include "../include/uti.h"
 #include "../include/utilua.h"
 
 /**
@@ -60,7 +61,7 @@ void print_lua_stack_trace(lua_State *lua) {
   fprintf(stderr, "\n*** Stack trace ***\n");
 
   exists = lua_getstack(lua, depth, &debug);
-  while (exists != 0) {
+  while (exists == TRUE) {
 
     lua_getinfo(lua, "nSl", &debug);
 

@@ -48,7 +48,7 @@ struct HttpResponse* read_response(int sockfd) {
   response = malloc(sizeof(response));
   init_response(response);
 
-  while (1) {
+  while (TRUE) {
     read = read_chunk(sockfd, buffer, BUFFER_SIZE);
 
     if(read < 0) {

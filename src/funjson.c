@@ -27,6 +27,7 @@
 #include <stdio.h>
 #include "lua.h"
 #include "../include/parson.h"
+#include "../include/uti.h"
 #include "../include/utilua.h"
 #include "../include/funjson.h"
 
@@ -521,7 +522,7 @@ char* format_table_iteratively(lua_State *lua, char *json, int indent, int inclu
   lua_pushnil(lua);
 
   has_next = lua_next(lua, table_index);
-  while (has_next != 0) {
+  while (has_next == TRUE) {
 
     type = lua_type(lua, TABLE_STACK_VALUE_INDEX);
     js_type = lua_to_json_primitve(type);
