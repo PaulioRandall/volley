@@ -24,6 +24,9 @@
 
 #define FALSE 0
 #define TRUE 1
+#define OK 0
+#define ERR -1
+#define NULL_CHAR '\0'
 
 /**************************************************/
 /* Converts an integer to a string

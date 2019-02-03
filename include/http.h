@@ -22,6 +22,8 @@
  THE SOFTWARE.
 */
 
+#define HTTP_NEWLINE "\r\n"
+
 /**************************************************/
 /* Represents a HTTP header
 /**************************************************/
@@ -70,6 +72,13 @@ struct HttpResponse {
 
 /**************************************************/
 /* Frees a HttpHeader struct
+/* 
+/* *header: HttpHeader struct to free
+/**************************************************/
+void free_header(struct HttpHeader *header);
+
+/**************************************************/
+/* Frees the content of a HttpHeader struct
 /* 
 /* *header: HttpHeader struct to free
 /**************************************************/

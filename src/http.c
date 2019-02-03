@@ -31,6 +31,14 @@
 /**************************************************/
 /* ^http.h
 /**************************************************/
+void free_header(struct HttpHeader *header) {
+  free_header_content(header);
+  free(header);
+}
+
+/**************************************************/
+/* ^http.h
+/**************************************************/
 void free_header_content(struct HttpHeader *header) {
   free(header->name);
   free(header->value);
@@ -89,8 +97,8 @@ void init_request(struct HttpRequest* req) {
 }
 
 /**************************************************/
-/* Creates the first part of a HTTP request
-/* and returns a pointer to it
+/* Creates the first part of a HTTP request and
+/* returns a pointer to it
 /*
 /* *req: Request being made
 /**************************************************/
@@ -106,17 +114,18 @@ char* init_request_str(struct HttpRequest *req) {
   len += strlen(req->path);
   len++; // ' ' (space)
   len += strlen(req->version);
-  len += 3; // '\r\n\0'
+  len += 2; // HTTP_NEWLINE
+  len++; // NULL_CHAR
 
   result = (char*) malloc(len);
 
-  result[0] = '\0';
+  result[0] = NULL_CHAR;
   strcat(result, req->method);
   strcat(result, " ");
   strcat(result, req->path);
   strcat(result, " ");
   strcat(result, req->version);
-  strcat(result, "\r\n");
+  strcat(result, HTTP_NEWLINE);
 
   return result;
 }
@@ -130,10 +139,7 @@ char* init_request_str(struct HttpRequest *req) {
 /* name[]: Name of the header
 /* value[]: Header value
 /**************************************************/
-char* add_header_to_request(
-  char *req_str,
-  const char name[],
-  const char value[]) {
+char* add_header_to_request(char *req_str, const char name[], const char value[]) {
 
   // E.g. Host: www.example.com
 
@@ -143,15 +149,15 @@ char* add_header_to_request(
   len += strlen(name);
   len += 2; // ': ' (Colon then space)
   len += strlen(value);
-  len += 2; // '\r\n'
-  len++; // '\0'
+  len += 2; // HTTP_NEWLINE
+  len++; // NULL_CHAR
 
   req_str = (char*) realloc(req_str, len);
 
   strcat(req_str, name);
   strcat(req_str, ": ");
   strcat(req_str, value);
-  strcat(req_str, "\r\n");
+  strcat(req_str, HTTP_NEWLINE);
 
   return req_str;
 }
@@ -188,9 +194,8 @@ char* add_headers_to_request(char *req_str, struct HttpRequest *req) {
 /**************************************************/
 char* add_body_to_request(char *req_str, const char body[]) {
 
-  int content_len;
+  int content_len, len = 0;
   char *content_len_str;
-  int len = 0;
 
   content_len = strlen(body);
   req_str = add_header_to_request(
@@ -200,13 +205,13 @@ char* add_body_to_request(char *req_str, const char body[]) {
   );
 
   len += strlen(req_str);
-  len += 2; // '\r\n'
+  len += 2; // HTTP_NEWLINE
   len += content_len;
-  len++; // '\0'
+  len++; // NULL_CHAR
 
   req_str = (char*) realloc(req_str, len);
 
-  strcat(req_str, "\r\n");
+  strcat(req_str, HTTP_NEWLINE);
   strcat(req_str, body);
 
   return req_str;
@@ -224,11 +229,11 @@ char* finialise_request(char *req_str) {
   int len;
 
   len = strlen(req_str);
-  len += 2; // '\r\n'
-  len += 1; // '\0'
+  len += 2; // HTTP_NEWLINE
+  len++; // NULL_CHAR
 
   req_str = (char*) realloc(req_str, len);
-  strcat(req_str, "\r\n");
+  strcat(req_str, HTTP_NEWLINE);
 
   return req_str;
 }
@@ -267,7 +272,7 @@ char* prepend_unparsed(struct HttpResponse *res, char frag[]) {
 
   if (res->unparsed == NULL) {
     len = strlen(frag);
-    len++; // '\0'
+    len++; // NULL_CHAR
     r = (char*) malloc(len);
     strcpy(r, frag);
     return r;
@@ -278,7 +283,7 @@ char* prepend_unparsed(struct HttpResponse *res, char frag[]) {
 
   len = strlen(r);
   len += strlen(frag);
-  len += 1; // '\0'
+  len++; // NULL_CHAR
   r = (char*) realloc(r, len);
   strcat(r, frag);
 
@@ -367,13 +372,13 @@ int process_response_fragment(struct HttpResponse *res, char *frag) {
   }
 
   f = prepend_unparsed(res, frag);
-  len = str_split(exp_len, line_len, lines, f, "\r\n");
+  len = str_split(exp_len, line_len, lines, f, HTTP_NEWLINE);
   free(f);
 
   for(i = 0; i < len; i++) {
     f = lines[i];
 
-    if(res->progress == BODY && (*f + 1) == '\0') {
+    if(res->progress == BODY && (*f + 1) == NULL_CHAR) {
       res->unparsed = str_copy(f);
       continue;
     }
