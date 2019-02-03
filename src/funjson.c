@@ -28,7 +28,6 @@
 #include "lua.h"
 #include "../include/parson.h"
 #include "../include/utilua.h"
-#include "../include/utitable.h"
 #include "../include/funjson.h"
 
 /*

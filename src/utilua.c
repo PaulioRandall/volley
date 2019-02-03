@@ -164,3 +164,75 @@ const char* pop_str_arg(lua_State *lua, char msg[]) {
 
   return result;
 }
+
+/**************************************************/
+/* ^utilua.h
+/**************************************************/
+void keyed_str_into_table(lua_State *lua, const char key[], const char value[]) {
+
+  assert_table_on_stack(lua);
+
+  lua_pushstring(lua, key);
+  lua_pushstring(lua, value);
+  lua_settable(lua, TABLE_STACK_INDEX);
+}
+
+/**************************************************/
+/* ^utilua.h
+/**************************************************/
+void keyed_num_into_table(lua_State *lua, const char key[], const double value) {
+
+  assert_table_on_stack(lua);
+
+  lua_pushstring(lua, key);
+  lua_pushnumber(lua, value);
+  lua_settable(lua, TABLE_STACK_INDEX);
+}
+
+/**************************************************/
+/* ^utilua.h
+/**************************************************/
+void keyed_bool_into_table(lua_State *lua, const char key[], const int value) {
+
+  assert_table_on_stack(lua);
+
+  lua_pushstring(lua, key);
+  lua_pushboolean(lua, value);
+  lua_settable(lua, TABLE_STACK_INDEX);
+}
+
+/**************************************************/
+/* ^utilua.h
+/**************************************************/
+void indexed_str_into_table(lua_State *lua, const int index, const char value[]) {
+
+  assert_table_on_stack(lua);
+
+  lua_pushinteger(lua, index + 1);
+  lua_pushstring(lua, value);
+  lua_settable(lua, TABLE_STACK_INDEX);
+}
+
+/**************************************************/
+/* ^utilua.h
+/**************************************************/
+void indexed_num_into_table(lua_State *lua, const int index, const double value) {
+
+  assert_table_on_stack(lua);
+
+  lua_pushinteger(lua, index + 1);
+  lua_pushnumber(lua, value);
+  lua_settable(lua, TABLE_STACK_INDEX);
+}
+
+/**************************************************/
+/* ^utilua.h
+/**************************************************/
+void indexed_bool_into_table(lua_State *lua, const int index, const int value) {
+
+  assert_table_on_stack(lua);
+
+  lua_pushinteger(lua, index + 1);
+  lua_pushboolean(lua, value);
+  lua_settable(lua, TABLE_STACK_INDEX);
+}
