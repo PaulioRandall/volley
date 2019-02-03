@@ -51,7 +51,7 @@ char* str_copy(char str[]) {
   char *r;
 
   len = strlen(str);
-  len++; // '\0'
+  len++; // NULL_CHAR
   
   r = (char*) malloc(len);
   strcpy(r, str);
@@ -84,7 +84,7 @@ int indexof(char haystack[], char needle[]) {
 
   ch = strstr(haystack, needle);
   if(ch == NULL) {
-    return -1;
+    return NOT_FOUND;
   }
 
   return ch - haystack;
@@ -110,7 +110,7 @@ int str_split(int max_len, int line_len, char out[max_len][line_len], char str[]
     end = strstr(start, delim);
     len = end - start;
     strncpy(out[i], start, len);
-    out[i][len] = '\0';   
+    out[i][len] = NULL_CHAR;   
 
     end += delim_len;
     start = end;
@@ -161,15 +161,15 @@ int str_trim(char out[], char str[]) {
   int len = strlen(str);
   char *first = NULL, *last = NULL;
 
-  for(first = str; *first != '\0'; first++) {
+  for(first = str; *first != NULL_CHAR; first++) {
     if(*first != ' ') {
       break;
     }
   }
 
-  if(*first == '\0') {
+  if(*first == NULL_CHAR) {
     // Only white space or length is 0
-    out[0] = '\0';
+    out[0] = NULL_CHAR;
     return 0;
   }
 
@@ -223,7 +223,7 @@ void str_slice(char out[], char str[], int start, int len) {
 
   p = str + start;
   strncpy(out, p, len);
-  out[len] = '\0';
+  out[len] = NULL_CHAR;
 }
 
 /**************************************************/

@@ -586,7 +586,7 @@ int ben_stringify(lua_State *lua) {
   assert_arg_count(lua, "stringify(table)", 1);
 
   json = (char*) malloc(sizeof(char));
-  json[0] = '\0';
+  json[0] = NULL_CHAR;
   json = format_table_as_json(lua, json, 0, 0);
 
   lua_pop(lua, STACK_TOP);

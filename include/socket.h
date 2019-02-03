@@ -39,7 +39,7 @@ int find_addresses(
 /**************************************************/
 /* Tries to connect to each address returning
 /* the socket descriptor once a connection has
-/* been established or -1 if no connection could
+/* been established or ERR if no connection could
 /* be made
 /*
 /* *addr: Addresses to connect too
@@ -48,7 +48,7 @@ int try_connect(struct addrinfo *addr);
 
 /**************************************************/
 /* Send data to a connected server returning 0
-/* if successful and -1 if not
+/* if successful and ERR if not
 /*
 /* sockfd: Socket file descriptor representing
 /*          the connection
@@ -60,7 +60,7 @@ int send_data(int sockfd, char data[]);
 /* Reads a chunk of data from the server returning
 /* the number of bytes read if successful,
 /* 0 indicates that the end of the stream has been
-/* hit and -1 indicates an error. The amount read
+/* hit and ERR indicates an error. The amount read
 /* will be upto 'buffer_size - 1' with a terminator
 /* being appended after the last byte read.
 /*

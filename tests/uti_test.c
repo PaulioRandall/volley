@@ -57,8 +57,8 @@ void count_substr__severalNeedlesInHaystack__reSeveral() {
 }
 
 void index_of__needleNotInHaystack__reMinusOne() {
-    printf("...index_of() needle not in haystack returns -1\n");
-    assert(-1 == indexof("weatherwax", "rincewind"));
+    printf("...index_of() needle not in haystack returns NOT_FOUND\n");
+    assert(NOT_FOUND == indexof("weatherwax", "rincewind"));
 }
 
 void index_of__needleInHaystack__reIndex() {

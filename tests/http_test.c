@@ -76,21 +76,21 @@ struct HttpResponse* new_res() {
 
 void process_response_fragment__progressComplete__returnsNegNum() {
     printf("...process_response_fragment() when progress COMPLETE"
-          " returned value is -1\n");
+          " returned value is ERR\n");
     struct HttpResponse *res = new_res();
     res->progress = COMPLETE;
     int actual = process_response_fragment(res, "Rhapsody of fire");
-    assert(-1 == actual);
+    assert(ERR == actual);
     free(res);
 }
 
 void process_response_fragment__progressNotComplete__returnsZero() {
     printf("...process_response_fragment() when progress not COMPLETE"
-          " returned value is 0\n");
+          " returned value is OK\n");
     struct HttpResponse *res = new_res();
     res->progress = BODY;
     int actual = process_response_fragment(res, "Rhapsody of fire");
-    assert(0 == actual);
+    assert(OK == actual);
     free(res);
 }
 
@@ -121,7 +121,7 @@ void process_response_fragment__validStartLine__startLineParsed() {
             " it is parsed and values set in HttpResponse\n");
     struct HttpResponse *res = new_res();
     int err = process_response_fragment(res, "HTTP/1.1 200 OK\r\nRince: wind");
-    assert(err == 0);
+    assert(err == OK);
     assert(strcmp(res->version, "HTTP/1.1") == 0);
     assert(res->code == 200);
     assert(strcmp(res->status, "OK") == 0);
@@ -131,21 +131,21 @@ void process_response_fragment__validStartLine__startLineParsed() {
 
 void process_response_fragment__badStartLine__startLineParsed() {
     printf("...process_response_fragment() when bad start line passed"
-            " -1 is returned\n");
+            " ERR is returned\n");
     struct HttpResponse *res = new_res();
     int err = process_response_fragment(res, "HTTP/1.1 200OK\r\n");
-    assert(err == -1);
+    assert(err == ERR);
     free(res);
 }
 
 void process_response_fragment__singleHeader__headerParsed() {
     printf("...process_response_fragment() when single header line passed"
-            " 0 is returned and header matches expected\n");
+            " OK is returned and header matches expected\n");
     struct HttpResponse *res = new_res();
     int err = process_response_fragment(res, 
         "HTTP/1.1 200 OK\r\nRince: wind\r\n"
     );
-    assert(err == 0);
+    assert(err == OK);
     assert(res->header_count == 1);
     struct HttpHeader *h = res->headers;
     assert(strcmp(h[0].name, "Rince") == 0);

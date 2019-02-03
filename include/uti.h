@@ -26,6 +26,7 @@
 #define TRUE 1
 #define OK 0
 #define ERR -1
+#define NOT_FOUND -1
 #define NULL_CHAR '\0'
 
 /**************************************************/
@@ -55,7 +56,7 @@ int count_substr(char haystack[], char needle[]);
 /**************************************************/
 /* Finds the index of the first occurrence of the
 /* needle within the haystack. If no index can be
-/* found -1 will be returned
+/* found NOT_FOUND will be returned
 /* 
 /* haystack[]: String to search in
 /* needle[]: String to search for
@@ -63,7 +64,9 @@ int count_substr(char haystack[], char needle[]);
 int indexof(char haystack[], char needle[]);
 
 /**************************************************/
-/* Splits the string on each '\r\n'
+/* Splits the string on each occurence of the
+/* supplied delimiter returning the length of the
+/* resultant array
 /* 
 /* max_len: Maximum length of the result array
 /* line_len: Maximum length of each line in the

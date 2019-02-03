@@ -49,7 +49,7 @@ struct HttpRequest {
 /* Represents the progress of the response parser
 /**************************************************/
 enum ParseProgress {
-  STATUS_LINE = 0,
+  START_LINE = 0,
   HEADERS = 1,
   BODY = 2,
   COMPLETE = 3
@@ -138,7 +138,7 @@ char* stringify_request(struct HttpRequest *req);
 /* 
 /* Converts chunks of the HTTP response text into a HTTP
 /* response struct returning 0 if parsing was successful
-/* and -1 if an error occurred. Processing is done line
+/* and ERR if an error occurred. Processing is done line
 /* by line ('\r\n') with the last line being placed within
 /* 'HttpResponse->unparsed' so it can be processed in the
 /* next call. The 'HttpResponse->progress' field is set

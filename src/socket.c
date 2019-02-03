@@ -63,7 +63,7 @@ int try_connect(struct addrinfo *addr) {
       next->ai_protocol
     );
 
-    if(sockfd == -1) {
+    if(sockfd == ERR) {
       continue;
     }
 
@@ -73,14 +73,14 @@ int try_connect(struct addrinfo *addr) {
       next->ai_addrlen
     );
 
-    if(connected != -1) {
+    if(connected != ERR) {
       return sockfd;
     }
 
     close(sockfd);
   }
 
-  return -1;
+  return ERR;
 }
 
 /**************************************************/
@@ -114,7 +114,7 @@ int read_chunk(int sockfd, char buf[], size_t size) {
   result = read(sockfd, buf, size - 1);
 
   if(result >= 0) {
-    buf[result] = '\0';
+    buf[result] = NULL_CHAR;
   }
 
   return result;

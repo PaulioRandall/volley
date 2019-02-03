@@ -137,7 +137,7 @@ void assert_arg_count(lua_State *lua, const char func_name[], int expects) {
   }
 
   len = snprintf(NULL, 0, msg, func_name, expects);
-  len++; // '\0'
+  len++; // NULL_CHAR
   panic_msg = (char*) malloc(len);
   snprintf(panic_msg, len, msg, func_name, expects);
 

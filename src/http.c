@@ -48,10 +48,10 @@ void free_header_content(struct HttpHeader *header) {
 /* ^http.h
 /**************************************************/
 void init_response(struct HttpResponse* res) {
-  res->progress = STATUS_LINE;
+  res->progress = START_LINE;
   res->unparsed = NULL;
   res->version = NULL;
-  res->code = -1;
+  res->code = ERR;
   res->status = NULL;
   res->headers = NULL;
   res->header_count = 0;
@@ -292,7 +292,7 @@ char* prepend_unparsed(struct HttpResponse *res, char frag[]) {
 
 /**************************************************/
 /* Parses the start line returning 0 if successful
-/* or -1 if an error occurred
+/* or ERR if an error occurred
 /* 
 /* *res: Represents the response entity being built
 /* line[]: Start line to parse
@@ -307,14 +307,14 @@ int parse_start_line(struct HttpResponse *res, char line[]) {
   len = str_split(exp_len, line_len, parts, line, " ");
 
   if(len != exp_len) {
-    return -1;
+    return ERR;
   }
 
   res->version = str_copy(parts[0]);
   res->code = strtol(parts[1], NULL, 10);
   res->status = str_copy(parts[2]);
 
-  return 0;
+  return OK;
 }
 
 /**************************************************/
@@ -368,7 +368,7 @@ int process_response_fragment(struct HttpResponse *res, char *frag) {
   char *f, lines[exp_len][line_len];
 
   if (res->progress == COMPLETE) {
-    return -1;
+    return ERR;
   }
 
   f = prepend_unparsed(res, frag);
@@ -389,10 +389,10 @@ int process_response_fragment(struct HttpResponse *res, char *frag) {
     }
 
     switch (res->progress) {
-      case STATUS_LINE:
+      case START_LINE:
         err = parse_start_line(res, f);
-        if(err != 0) {
-          return -1;
+        if(err == ERR) {
+          return ERR;
         }
         res->progress++;
         break;
@@ -421,5 +421,5 @@ int process_response_fragment(struct HttpResponse *res, char *frag) {
   // - 
   // Set 'HttpResponse->unparsed' to equal the last line
 
-  return 0;
+  return OK;
 }
