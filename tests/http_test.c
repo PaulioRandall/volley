@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include "../include/uti.h"
-#include "../include/utihttp.h"
+#include "../include/http.h"
 #include "../tinclude/tests.h"
 
 struct HttpRequest* new_req() {

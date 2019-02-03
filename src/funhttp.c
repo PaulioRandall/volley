@@ -29,8 +29,8 @@
 #include "lua.h"
 #include "../include/uti.h"
 #include "../include/utilua.h"
-#include "../include/utisocket.h"
-#include "../include/utihttp.h"
+#include "../include/socket.h"
+#include "../include/http.h"
 #include "../include/funhttp.h"
 
 /**

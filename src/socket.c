@@ -28,7 +28,7 @@
 #include <netdb.h>
 #include <unistd.h>
 #include "../include/uti.h"
-#include "../include/utisocket.h"
+#include "../include/socket.h"
 
 /**************************************************/
 /* ^utisocket.h
