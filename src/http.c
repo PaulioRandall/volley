@@ -360,7 +360,7 @@ struct HttpHeader* append_header(struct HttpResponse *res, char str[]) {
 /**************************************************/
 /* ^http.h
 /**************************************************/
-int process_response_fragment(struct HttpResponse *res, char *frag) {
+int process_response_fragment(struct HttpResponse *res, char *frag, int close) {
 
   struct HttpResponse *r;
   struct HttpHeader *h;
@@ -376,9 +376,15 @@ int process_response_fragment(struct HttpResponse *res, char *frag) {
   free(f);
 
   for(i = 0; i < len; i++) {
+
+    if(i+1 == len && close != TRUE) {
+      return OK;
+    }
+
     f = lines[i];
 
-    if(res->progress == BODY && (*f + 1) == NULL_CHAR) {
+    if(res->progress == BODY) {
+      // TODO: str_cat(a, b) concaternates 2 strings into a 3rd string
       res->unparsed = str_copy(f);
       continue;
     }

@@ -62,6 +62,24 @@ char* str_copy(char str[]) {
 /**************************************************/
 /* ^uti.h
 /**************************************************/
+char* str_cat(char first[], char second[]) {
+
+  int len;
+  char *r;
+  
+  len = strlen(first) + strlen(second);
+  len++; // NULL_CHAR
+
+  r = (char*) malloc(len);
+  strcpy(r, first);
+  strcat(r, second);
+
+  return r;
+}
+
+/**************************************************/
+/* ^uti.h
+/**************************************************/
 int count_substr(char haystack[], char needle[]) {
 
   int r = 0;

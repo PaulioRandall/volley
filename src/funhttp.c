@@ -57,10 +57,11 @@ struct HttpResponse* read_response(int sockfd) {
     }
 
     if(read == 0) {
+      status = process_response_fragment(response, NULL_CHAR, TRUE);
       return response;
     }
 
-    status = process_response_fragment(response, buffer);
+    status = process_response_fragment(response, buffer, FALSE);
     if(status == ERR) {
       // TODO free response and its contents
       return NULL;

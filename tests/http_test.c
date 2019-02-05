@@ -99,7 +99,7 @@ void process_response_fragment__progressComplete__returnsNegNum() {
     struct HttpResponse *res = new_res();
 
     res->progress = COMPLETE;
-    actual = process_response_fragment(res, "Rhapsody of fire");
+    actual = process_response_fragment(res, "Rhapsody of fire", FALSE);
 
     assert(ERR == actual);
     free(res);
@@ -113,7 +113,7 @@ void process_response_fragment__progressNotComplete__returnsZero() {
     struct HttpResponse *res = new_res();
 
     res->progress = BODY;
-    actual = process_response_fragment(res, "Rhapsody of fire");
+    actual = process_response_fragment(res, "Rhapsody of fire", FALSE);
 
     assert(OK == actual);
     free(res);
@@ -126,7 +126,7 @@ void process_response_fragment__emptyLineANDProgressNotBody__IncProgress() {
     struct HttpResponse *res = new_res();
 
     res->progress = HEADERS;
-    process_response_fragment(res, "\r\nRhapsody of fire");
+    process_response_fragment(res, "\r\nRhapsody of fire", FALSE);
 
     assert(BODY == res->progress);
     free(res);
@@ -139,7 +139,7 @@ void process_response_fragment__emptyLineANDProgressIsBody__progressIsBody() {
     struct HttpResponse *res = new_res();
 
     res->progress = BODY;
-    process_response_fragment(res, "\r\nRhapsody of fire");
+    process_response_fragment(res, "\r\nRhapsody of fire", FALSE);
 
     assert(BODY == res->progress);
     free(res);
@@ -152,13 +152,15 @@ void process_response_fragment__validStartLine__startLineParsed() {
     int err;
     struct HttpResponse *res = new_res();
 
-    err = process_response_fragment(res, "HTTP/1.1 200 OK\r\nRince: wind");
+    err = process_response_fragment(res, "HTTP/1.1 200 OK\r\nRince: wind", FALSE);
 
     assert(err == OK);
     assert(strcmp(res->version, "HTTP/1.1") == 0);
     assert(res->code == 200);
     assert(strcmp(res->status, "OK") == 0);
     assert(res->progress == HEADERS);
+    assert(res->header_count == 0);
+    assert(res->headers == NULL);
     free(res);
 }
 
@@ -169,7 +171,7 @@ void process_response_fragment__badStartLine__startLineParsed() {
     int err;
     struct HttpResponse *res = new_res();
     
-    err = process_response_fragment(res, "HTTP/1.1 200OK\r\n");
+    err = process_response_fragment(res, "HTTP/1.1 200OK\r\n", FALSE);
 
     assert(err == ERR);
     free(res);
@@ -183,8 +185,10 @@ void process_response_fragment__singleHeader__headerParsed() {
     struct HttpHeader *h;
     struct HttpResponse *res = new_res();
     
-    err = process_response_fragment(res, 
-        "HTTP/1.1 200 OK\r\nRince: wind\r\n"
+    err = process_response_fragment(
+        res, 
+        "HTTP/1.1 200 OK\r\nRince: wind\r\n",
+        FALSE
     );
 
     assert(err == OK);

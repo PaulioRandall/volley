@@ -18,6 +18,10 @@ int main ( int argc, char *argv[] ) {
 
     str_copy__str__reEqualsIn();
 
+    str_cat__2str__reStrLengthsEqualsSumOfInputLengths();
+    str_cat__2str__StrHaveBeenConcat();
+    str_cat__2EmptyStr__emptyResultString();
+
     count_substr__needleBiggerThanHaystack__reZero();
     count_substr__needleSameAsHaystack__reOne();
     count_substr__noNeedlesInHaystack__reZero();

@@ -31,6 +31,50 @@ void str_copy__str__reEqualsIn() {
     free(actual);
 }
 
+void str_cat__2str__reStrLengthsEqualsSumOfInputLengths() {
+    puts("...str_cat() performs a concaternation and expects"
+        " the result to have the same length as the sum of"
+        " the lengths of the 2 input strings");
+
+    char *result;
+    char first[] = "Glory";
+    char second[] = "hammer";
+    int expected = strlen(first) + strlen(second);
+
+    result = str_cat(first, second);
+
+    assert(expected == strlen(result));
+    free(result);
+}
+
+void str_cat__2str__StrHaveBeenConcat() {
+    puts("...str_cat() performs a concaternation and expects"
+        " the result to be a concaternation of the 2 input strings");
+
+    char *result;
+    char first[] = "Glory";
+    char second[] = "hammer";
+    char expected[] = "Gloryhammer";
+
+    result = str_cat(first, second);
+
+    assert(strcmp(expected, result) == 0);
+    free(result);
+}
+
+void str_cat__2EmptyStr__emptyResultString() {
+    puts("...str_cat() performs a concaternation of 2"
+        " empty strings and expects the result to be empty");
+
+    char *result;
+    char expected[] = "";
+
+    result = str_cat(expected, expected);
+
+    assert(strcmp(expected, result) == 0);
+    free(result);
+}
+
 void count_substr__needleBiggerThanHaystack__reZero() {
     puts("...count_substr() needle bigger than haystack returns 0");
     assert(0 == count_substr("short", "shortshort"));

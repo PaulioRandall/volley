@@ -7,6 +7,10 @@ void int_to_str__negNum__exptStr();
 
 void str_copy__str__reEqualsIn();
 
+void str_cat__2str__reStrLengthsEqualsSumOfInputLengths();
+void str_cat__2str__StrHaveBeenConcat();
+void str_cat__2EmptyStr__emptyResultString();
+
 void count_substr__needleBiggerThanHaystack__reZero();
 void count_substr__needleSameAsHaystack__reOne();
 void count_substr__noNeedlesInHaystack__reZero();

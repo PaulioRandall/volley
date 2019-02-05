@@ -46,6 +46,15 @@ char* int_to_str(const int num);
 char* str_copy(char str[]);
 
 /**************************************************/
+/* Returns a concaternation of both strings
+/*
+/* first[]: Leading string
+/* second[]: Trailing string
+/* @Heap
+/**************************************************/
+char* str_cat(char first[], char second[]);
+
+/**************************************************/
 /* Counts the number of substrings within a string
 /* 
 /* haystack[]: String to search in

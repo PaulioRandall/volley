@@ -148,8 +148,11 @@ char* stringify_request(struct HttpRequest *req);
 /*
 /* *res: Represents the response entity being built
 /* *frag: Next chunk of of HTTP text to parse
+/* close: TRUE if this is the last call for the
+          current response
 /**************************************************/
 int process_response_fragment(
   struct HttpResponse *res,
-  char *frag
+  char *frag,
+  int close
 );
