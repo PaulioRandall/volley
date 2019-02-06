@@ -6,35 +6,41 @@
 #include "../include/uti.h"
 #include "../tinclude/tests.h"
 
-void int_to_str__posNum__exptStr() {
-    puts("...int_to_str() positive number creates expected string");
+void int_to_str___1() {
+    puts("...int_to_str() when given a positive number,"
+        " the number is convert to a string and returned");
 
     char *actual = int_to_str(5);
     assert(0 == strcmp("5", actual));
     free(actual);
 }
 
-void int_to_str__negNum__exptStr() {
-    puts("...int_to_str() negative number creates expected string");
+void int_to_str__2() {
+    puts("...int_to_str() when given a negative number,"
+        " the number is convert to a string and returned");
 
     char *actual = int_to_str(-5);
     assert(0 == strcmp("-5", actual));
     free(actual);
 }
 
-void str_copy__str__reEqualsIn() {
-    puts("...str_copy() creates expected copy");
+void str_copy___1() {
+    puts("...str_copy() when given a string, a new string"
+        " allocation is returned containing the same characters"
+        " in the same order");
 
     char expected[] = "Gloryhammer";
     char *actual = str_copy(expected);
+
+    assert(expected != actual);
     assert(0 == strcmp(expected, actual));
     free(actual);
 }
 
-void str_cat__2str__reStrLengthsEqualsSumOfInputLengths() {
-    puts("...str_cat() performs a concaternation and expects"
-        " the result to have the same length as the sum of"
-        " the lengths of the 2 input strings");
+void str_cat__1() {
+    puts("...str_cat() when given two strings, a new string"
+        " allocation is returned with a length equalling"
+        " the sum of both input strings");
 
     char *result;
     char first[] = "Glory";
@@ -47,9 +53,10 @@ void str_cat__2str__reStrLengthsEqualsSumOfInputLengths() {
     free(result);
 }
 
-void str_cat__2str__StrHaveBeenConcat() {
-    puts("...str_cat() performs a concaternation and expects"
-        " the result to be a concaternation of the 2 input strings");
+void str_cat__2() {
+    puts("...str_cat() when given two strings, a new string"
+        " allocation is returned containing the concaternation"
+        " of both input strings");
 
     char *result;
     char first[] = "Glory";
@@ -62,9 +69,10 @@ void str_cat__2str__StrHaveBeenConcat() {
     free(result);
 }
 
-void str_cat__2EmptyStr__emptyResultString() {
-    puts("...str_cat() performs a concaternation of 2"
-        " empty strings and expects the result to be empty");
+void str_cat__3() {
+    puts("...str_cat() when given two empty strings, a new"
+        " string allocation is returned containing an empty"
+        " string");
 
     char *result;
     char expected[] = "";
@@ -75,25 +83,32 @@ void str_cat__2EmptyStr__emptyResultString() {
     free(result);
 }
 
-void count_substr__needleBiggerThanHaystack__reZero() {
-    puts("...count_substr() needle bigger than haystack returns 0");
+void count_substr___1() {
+    puts("...count_substr() when given a needle bigger than"
+        " the haystack, 0 is returned");
     assert(0 == count_substr("short", "shortshort"));
 }
 
-void count_substr__needleSameAsHaystack__reOne() {
-    puts("...count_substr() needle equals haystack returns 1");
+void count_substr___2() {
+    puts("...count_substr() when given a needle that contains"
+        " the same characters in the same order as the haystack,"
+        " 1 is returned");
 
     char word[] = "Rincewind";
     assert(1 == count_substr(word, word));
 }
 
-void count_substr__noNeedlesInHaystack__reZero() {
-    puts("...count_substr() no needles in haystack returns 0");
+void count_substr___3() {
+    puts("...count_substr() when given a needle that is shorter"
+        " than the haystack but is not contained within it,"
+        " 0 is returned");
     assert(0 == count_substr("aaaaaaaaaa", "bbb"));
 }
 
-void count_substr__severalNeedlesInHaystack__reSeveral() {
-    puts("...count_substr() several needles in haystack returns 3");
+void count_substr___4() {
+    puts("...count_substr() when given a needle that is contained"
+        " within the haystack multiple times, the correct count"
+        " is returned");
 
     char haystack[] = "weatherwax tiger weatherwax tiger weatherwax";
     char needle[] = "weather";

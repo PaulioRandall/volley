@@ -2,19 +2,19 @@
 /**************************************************/
 /* ^uti.h
 /**************************************************/
-void int_to_str__posNum__exptStr();
-void int_to_str__negNum__exptStr();
+void int_to_str___1();
+void int_to_str__2();
 
-void str_copy__str__reEqualsIn();
+void str_copy___1();
 
-void str_cat__2str__reStrLengthsEqualsSumOfInputLengths();
-void str_cat__2str__StrHaveBeenConcat();
-void str_cat__2EmptyStr__emptyResultString();
+void str_cat__1();
+void str_cat__2();
+void str_cat__3();
 
-void count_substr__needleBiggerThanHaystack__reZero();
-void count_substr__needleSameAsHaystack__reOne();
-void count_substr__noNeedlesInHaystack__reZero();
-void count_substr__severalNeedlesInHaystack__reSeveral();
+void count_substr___1();
+void count_substr___2();
+void count_substr___3();
+void count_substr___4();
 
 void index_of__needleNotInHaystack__reMinusOne();
 void index_of__needleInHaystack__reIndex();

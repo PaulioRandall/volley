@@ -13,19 +13,19 @@ int main ( int argc, char *argv[] ) {
     /**************************************************/
     /* ^uti.h
     /**************************************************/
-    int_to_str__posNum__exptStr();
-    int_to_str__negNum__exptStr();
+    int_to_str___1();
+    int_to_str__2();
 
-    str_copy__str__reEqualsIn();
+    str_copy___1();
 
-    str_cat__2str__reStrLengthsEqualsSumOfInputLengths();
-    str_cat__2str__StrHaveBeenConcat();
-    str_cat__2EmptyStr__emptyResultString();
+    str_cat__1();
+    str_cat__2();
+    str_cat__3();
 
-    count_substr__needleBiggerThanHaystack__reZero();
-    count_substr__needleSameAsHaystack__reOne();
-    count_substr__noNeedlesInHaystack__reZero();
-    count_substr__severalNeedlesInHaystack__reSeveral();
+    count_substr___1();
+    count_substr___2();
+    count_substr___3();
+    count_substr___4();
 
     index_of__needleNotInHaystack__reMinusOne();
     index_of__needleInHaystack__reIndex();
