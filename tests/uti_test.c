@@ -15,7 +15,7 @@ void int_to_str___1() {
     free(actual);
 }
 
-void int_to_str__2() {
+void int_to_str___2() {
     puts("...int_to_str() when given a negative number,"
         " the number is convert to a string and returned");
 
@@ -37,7 +37,7 @@ void str_copy___1() {
     free(actual);
 }
 
-void str_cat__1() {
+void str_cat___1() {
     puts("...str_cat() when given two strings, a new string"
         " allocation is returned with a length equalling"
         " the sum of both input strings");
@@ -53,7 +53,7 @@ void str_cat__1() {
     free(result);
 }
 
-void str_cat__2() {
+void str_cat___2() {
     puts("...str_cat() when given two strings, a new string"
         " allocation is returned containing the concaternation"
         " of both input strings");
@@ -69,7 +69,7 @@ void str_cat__2() {
     free(result);
 }
 
-void str_cat__3() {
+void str_cat___3() {
     puts("...str_cat() when given two empty strings, a new"
         " string allocation is returned containing an empty"
         " string");
@@ -115,23 +115,33 @@ void count_substr___4() {
     assert(3 == count_substr(haystack, needle));
 }
 
-void index_of__needleNotInHaystack__reMinusOne() {
-    puts("...index_of() needle not in haystack returns NOT_FOUND");
+void index_of___1() {
+    puts("...index_of() when given a needle not in the haystack,"
+        " NOT_FOUND is returned");
     assert(NOT_FOUND == indexof("weatherwax", "rincewind"));
 }
 
-void index_of__needleInHaystack__reIndex() {
-    puts("...index_of() needle in haystack returns index");
+void index_of___2() {
+    puts("...index_of() when given a needle within the haystack,"
+        " the index of the first matching character within the"
+        " haystack is returned");
     assert(7 == indexof("weatherwax", "wax"));
 }
 
-void index_of__needleIsHaystack__reZero() {
-    puts("...index_of() needle in haystack returns 0");
+void index_of___3() {
+    puts("...index_of() when given a needle that contains the"
+        " same characters in the same order as the haystack,"
+        " 0 is returned");
     assert(0 == indexof("Rincewind", "Rincewind"));
 }
 
-void str_split__singleLine__reSingleItem() {
-    puts("...str_split() single line input is returned unchanged");
+// TODO: Could this be split into multiple tests?
+// TODO: Would it be better to split it?
+void str_split___1() {
+    puts("...str_split() when given an input string that doesn't"
+        " contain the delimiter, the returned length will be 1"
+        " and the output container will contain a copy of the input"
+        " string as its first and only item");
 
     int max_len = 1, line_len = 20, len;
     char actual[max_len][line_len];
@@ -143,8 +153,15 @@ void str_split__singleLine__reSingleItem() {
     assert(strcmp(expected, *actual) == 0);
 }
 
-void str_split__severalParts__reSplitStr() {
-    puts("...str_split() multi line returns many lines");
+// TODO: Could this be split into multiple tests?
+// TODO: Would it be better to split it?
+void str_split___2() {
+    puts("...str_split() when given an input string containing"
+        " several instances of the delimiter, the returned length"
+        " will be the number of delimiters plus 1 and the output"
+        " container will contain copies of the split input"
+        " string in the order they appeared within that input"
+        " string");
 
     int max_len = 3, line_len = 20, len;
     char actual[max_len][line_len];
@@ -158,8 +175,12 @@ void str_split__severalParts__reSplitStr() {
     assert(strcmp("Vimes", actual[2]) == 0);
 }
 
-void str_split__emptyStr__reEmptyStr() {
-    puts("...str_split() empty string input returns empty string");
+// TODO: Could this be split into multiple tests?
+// TODO: Would it be better to split it?
+void str_split___3() {
+    puts("...str_split() when given an empty input string, the"
+        " returned length will be 1 and the output container will"
+        " contain an empty string");
 
     int max_len = 1, line_len = 20, len;
     char actual[max_len][line_len];

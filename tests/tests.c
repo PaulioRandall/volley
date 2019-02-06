@@ -14,26 +14,26 @@ int main ( int argc, char *argv[] ) {
     /* ^uti.h
     /**************************************************/
     int_to_str___1();
-    int_to_str__2();
+    int_to_str___2();
 
     str_copy___1();
 
-    str_cat__1();
-    str_cat__2();
-    str_cat__3();
+    str_cat___1();
+    str_cat___2();
+    str_cat___3();
 
     count_substr___1();
     count_substr___2();
     count_substr___3();
     count_substr___4();
 
-    index_of__needleNotInHaystack__reMinusOne();
-    index_of__needleInHaystack__reIndex();
-    index_of__needleIsHaystack__reZero();
+    index_of___1();
+    index_of___2();
+    index_of___3();
 
-    str_split__singleLine__reSingleItem();
-    str_split__severalParts__reSplitStr();
-    str_split__emptyStr__reEmptyStr();
+    str_split___1();
+    str_split___2();
+    str_split___3();
     str_split__emptyStrAtEnd__reEmptyLastStr();
 
     str_trim__emptyStr__reEmptyStr();

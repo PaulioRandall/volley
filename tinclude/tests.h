@@ -3,26 +3,26 @@
 /* ^uti.h
 /**************************************************/
 void int_to_str___1();
-void int_to_str__2();
+void int_to_str___2();
 
 void str_copy___1();
 
-void str_cat__1();
-void str_cat__2();
-void str_cat__3();
+void str_cat___1();
+void str_cat___2();
+void str_cat___3();
 
 void count_substr___1();
 void count_substr___2();
 void count_substr___3();
 void count_substr___4();
 
-void index_of__needleNotInHaystack__reMinusOne();
-void index_of__needleInHaystack__reIndex();
-void index_of__needleIsHaystack__reZero();
+void index_of___1();
+void index_of___2();
+void index_of___3();
 
-void str_split__singleLine__reSingleItem();
-void str_split__severalParts__reSplitStr();
-void str_split__emptyStr__reEmptyStr();
+void str_split___1();
+void str_split___2();
+void str_split___3();
 void str_split__emptyStrAtEnd__reEmptyLastStr();
 
 void str_trim__emptyStr__reEmptyStr();
