@@ -240,11 +240,18 @@ int str_trim(char out[], char str[]) {
 /**************************************************/
 void str_slice(char out[], char str[], int start, int len) {
 
+  // TODO: What should happen on invalid input?
+  // TODO: What are the invalid input configurations?
+
   char *p;
 
-  p = str + start;
-  strncpy(out, p, len);
-  out[len] = NULL_CHAR;
+  if(start == len) {
+    out[0] = NULL_CHAR;
+  } else {
+    p = str + start;
+    strncpy(out, p, len);
+    out[len] = NULL_CHAR;
+  }
 }
 
 /**************************************************/

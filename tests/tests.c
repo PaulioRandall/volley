@@ -44,13 +44,14 @@ int main ( int argc, char *argv[] ) {
     str_trim___6();
     str_trim___7();
 
-    str_slice__startingSlice__reSubstr();
-    str_slice__endingSlice__reSubstr();
-    str_slice__midSlice__reSubstr();
-    str_slice__sliceWholeStr__reInStr();
+    str_slice___1();
+    str_slice___2();
+    str_slice___3();
+    str_slice___4();
+    str_slice___5();
 
-    max__multiTest();
-    min__multiTest();
+    max___multi();
+    min___multi();
 
     /**************************************************/
     /* ^utihttp_test.h

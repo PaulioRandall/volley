@@ -33,13 +33,14 @@ void str_trim___5();
 void str_trim___6();
 void str_trim___7();
 
-void str_slice__startingSlice__reSubstr();
-void str_slice__endingSlice__reSubstr();
-void str_slice__midSlice__reSubstr();
-void str_slice__sliceWholeStr__reInStr();
+void str_slice___1();
+void str_slice___2();
+void str_slice___3();
+void str_slice___4();
+void str_slice___5();
 
-void max__multiTest();
-void min__multiTest();
+void max___multi();
+void min___multi();
 
 /**************************************************/
 /* ^utihttp_test.h

@@ -317,9 +317,10 @@ void str_trim___7() {
     assert(0 == strcmp("Disc world", actual));
 }
 
-void str_slice__startingSlice__reSubstr() {
-    puts("...str_slice() start is 0 and len is less than total"
-        " returns the expected substring as a new allocation");
+void str_slice___1() {
+    puts("...str_slice() when given a string and range that targets the"
+        " beginning of the string, the result container will contain"
+        " the targetted substring");
             
     char expected[] = "Rincewind";
     char actual[6];
@@ -329,10 +330,10 @@ void str_slice__startingSlice__reSubstr() {
     assert(actual != expected);
 }
 
-void str_slice__endingSlice__reSubstr() {
-    puts("...str_slice() start is not the str start and len goes"
-        " to the end of the string, returns the expected"
-        " substring as a new allocation");
+void str_slice___2() {
+    puts("...str_slice() when given a string and range that targets the"
+        " end of the string, the result container will contain the"
+        " targetted substring");
 
     char expected[] = "Rincewind";
     char actual[5];
@@ -342,10 +343,10 @@ void str_slice__endingSlice__reSubstr() {
     assert(actual != expected);
 }
 
-void str_slice__midSlice__reSubstr() {
-    puts("...str_slice() start is not the str start and"
-        " len doesn't reach the end of the string, returns"
-        " the expected substring as a new allocation");
+void str_slice___3() {
+    puts("...str_slice() when given a string and range that targets the"
+        " centre of the string without including the start or end, the"
+        " result container will contain the targetted substring");
 
     char expected[] = "Twilight Force";
     char actual[6];
@@ -355,9 +356,9 @@ void str_slice__midSlice__reSubstr() {
     assert(actual != expected);
 }
 
-void str_slice__sliceWholeStr__reInStr() {
-    puts("...str_slice() start is 0 and len is total"
-        " returns the original str as a new allocation");
+void str_slice___4() {
+    puts("...str_slice() when given a string and range that targets the"
+        " whole string, the result container will contain the input string");
 
     char expected[] = "Twilight Force";
     int len = strlen(expected);
@@ -368,18 +369,41 @@ void str_slice__sliceWholeStr__reInStr() {
     assert(actual != expected);
 }
 
-void max__multiTest() {
-    puts("...max() multi-test");
+void str_slice___5() {
+    puts("...str_slice() when given a string and range with a difference of 0,"
+        " the result container will contain an empty string");
 
+    char expected[] = "Twilight Force";
+    int len = strlen(expected);
+    char actual[1];
+    str_slice(actual, expected, 5, 5);
+
+    assert(strcmp("", actual) == 0);
+    assert(actual != expected);
+}
+
+void max___multi() {
+    puts("...max() when given input values that are equal, that value is returned");
     assert(9 == max(9, 9));
+
+    puts("...max() when the first value given is greater than the second, the first"
+        " is returned");
     assert(21 == max(21, -9));
+
+    puts("...max() when the first value given is less than the second, the second"
+        " is returned");
     assert(21 == max(-9, 21));
 }
 
-void min__multiTest() {
-    puts("...min() multi-test");
-
+void min___multi() {
+    puts("...min() when given input values that are equal, that value is returned");
     assert(9 == min(9, 9));
-    assert(-9 == min(21, -9));
+
+    puts("...min() when the first value given is less than the second, the first"
+        " is returned");
     assert(-9 == min(-9, 21));
+
+    puts("...min() when the first value given is greater than the second, the second"
+        " is returned");
+    assert(-9 == min(21, -9));
 }
