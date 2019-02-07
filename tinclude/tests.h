@@ -23,15 +23,15 @@ void index_of___3();
 void str_split___1();
 void str_split___2();
 void str_split___3();
-void str_split__emptyStrAtEnd__reEmptyLastStr();
+void str_split___4();
 
-void str_trim__emptyStr__reEmptyStr();
-void str_trim__strOfSpaces__reEmptyStr();
-void str_trim__noSpaces__reInStr();
-void str_trim__leadingSpacesOnly__reSubstr();
-void str_trim__trailingSpacesOnly__reSubstr();
-void str_trim__spacesOnBothSides__reSubstr();
-void str_trim__spacesInMiddle__reSubstr();
+void str_trim___1();
+void str_trim___2();
+void str_trim___3();
+void str_trim___4();
+void str_trim___5();
+void str_trim___6();
+void str_trim___7();
 
 void str_slice__startingSlice__reSubstr();
 void str_slice__endingSlice__reSubstr();

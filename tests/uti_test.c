@@ -6,6 +6,11 @@
 #include "../include/uti.h"
 #include "../tinclude/tests.h"
 
+// TODO: Some functions contain obsolete assertions such as
+// TODO: checking the length of a string matches the expected
+// TODO: then comparing the string. Split the function into
+// TODO: separate units or remove uneeded assertions
+
 void int_to_str___1() {
     puts("...int_to_str() when given a positive number,"
         " the number is convert to a string and returned");
@@ -192,9 +197,12 @@ void str_split___3() {
     assert(strcmp(expected, *actual) == 0);
 }
 
-void str_split__emptyStrAtEnd__reEmptyLastStr() {
-    puts("...str_split() string with empty line at end returns"
-        " array where last string item is empty");
+void str_split___4() {
+    puts("...str_split() when given an input string ending with"
+        " a delimiter, the returned length will be 2 and the first"
+        " item in the output container will be a copy of the input"
+        " string without the delimiter and the second item will be"
+        " an empty string");
 
     int max_len = 2, line_len = 20, len;
     char actual[max_len][line_len];
@@ -207,8 +215,9 @@ void str_split__emptyStrAtEnd__reEmptyLastStr() {
     assert(strcmp("", actual[1]) == 0);
 }
 
-void str_trim__emptyStr__reEmptyStr() {
-    puts("...str_trim() empty string returns empty string");
+void str_trim___1() {
+    puts("...str_trim() when given an empty string, the result container"
+        " will contain an empty string");
 
     char expected[] = "";
     int exp_len = strlen(expected), len;
@@ -220,8 +229,9 @@ void str_trim__emptyStr__reEmptyStr() {
     assert(0 == strcmp(actual, expected));
 }
 
-void str_trim__strOfSpaces__reEmptyStr() {
-    puts("...str_trim() whitespace string returns empty string");
+void str_trim___2() {
+    puts("...str_trim() when given a string only containing spaces,"
+        " the result container will contain an empty string");
 
     char in[] = "      ";
     int exp_len = 0, len;
@@ -233,9 +243,9 @@ void str_trim__strOfSpaces__reEmptyStr() {
     assert(0 == strcmp("", actual));
 }
 
-void str_trim__noSpaces__reInStr() {
-    puts("...str_trim() string with no spaces at the start"
-        " or end returns the input string");
+void str_trim___3() {
+    puts("...str_trim() when given a string not containing any spaces,"
+        " the result container will contain the input string");
 
     char expected[] = "Discworld";
     int exp_len = strlen(expected), len;
@@ -247,9 +257,10 @@ void str_trim__noSpaces__reInStr() {
     assert(0 == strcmp(expected, actual));
 }
 
-void str_trim__leadingSpacesOnly__reSubstr() {
-    puts("...str_trim() string with leadings spaces returns"
-        " the expected substring");
+void str_trim___4() {
+    puts("...str_trim() when given a string containing leading"
+        " spaces, the result container will contain the input string"
+        " without the leading spaces");
 
     char in[] = "   Discworld";
     int exp_len = 9, len;
@@ -261,9 +272,10 @@ void str_trim__leadingSpacesOnly__reSubstr() {
     assert(0 == strcmp("Discworld", actual));
 }
 
-void str_trim__trailingSpacesOnly__reSubstr() {
-    puts("...str_trim() string with trailing spaces returns"
-        " the expected substring");
+void str_trim___5() {
+    puts("...str_trim() when given a string containing trailing"
+        " spaces, the result container will contain the input string"
+        " without the trailing spaces");
 
     char in[] = "Discworld   ";
     int exp_len = 9, len;
@@ -275,9 +287,10 @@ void str_trim__trailingSpacesOnly__reSubstr() {
     assert(0 == strcmp("Discworld", actual));
 }
 
-void str_trim__spacesOnBothSides__reSubstr() {
-    puts("...str_trim() string with both leading and trailing"
-        " spaces returns the expected substring");
+void str_trim___6() {
+    puts("...str_trim() when given a string containing both leading"
+        " and trailing spaces, the result container will contain the"
+        " input string without any leading or trailing spaces");
 
     char in[] = "   Discworld   ";
     int exp_len = 9, len;
@@ -289,9 +302,10 @@ void str_trim__spacesOnBothSides__reSubstr() {
     assert(0 == strcmp("Discworld", actual));
 }
 
-void str_trim__spacesInMiddle__reSubstr() {
-    puts("...str_trim() string with space in middle"
-        " returns the expected substring");
+void str_trim___7() {
+    puts("...str_trim() when given a string containing spaces within"
+        " the centre but none leading or trailing, the result container"
+        " will contain the input string");
 
     char expected[] = "Disc world";
     int exp_len = 10, len;

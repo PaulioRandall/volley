@@ -176,6 +176,9 @@ void puts_f(const char str[], const char space_repl[]) {
 /**************************************************/
 int str_trim(char out[], char str[]) {
 
+  // TODO: This function should also trim:
+  // TODO: \t, \n, \r, \f and \v
+
   int len = strlen(str);
   char *first = NULL, *last = NULL;
 

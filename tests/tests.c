@@ -34,15 +34,15 @@ int main ( int argc, char *argv[] ) {
     str_split___1();
     str_split___2();
     str_split___3();
-    str_split__emptyStrAtEnd__reEmptyLastStr();
+    str_split___4();
 
-    str_trim__emptyStr__reEmptyStr();
-    str_trim__strOfSpaces__reEmptyStr();
-    str_trim__noSpaces__reInStr();
-    str_trim__leadingSpacesOnly__reSubstr();
-    str_trim__trailingSpacesOnly__reSubstr();
-    str_trim__spacesOnBothSides__reSubstr();
-    str_trim__spacesInMiddle__reSubstr();
+    str_trim___1();
+    str_trim___2();
+    str_trim___3();
+    str_trim___4();
+    str_trim___5();
+    str_trim___6();
+    str_trim___7();
 
     str_slice__startingSlice__reSubstr();
     str_slice__endingSlice__reSubstr();
