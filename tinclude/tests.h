@@ -45,9 +45,9 @@ void min___multi();
 /**************************************************/
 /* ^utihttp_test.h
 /**************************************************/
-void stringify_request__validRequest__expectedStr();
-void stringify_request__withHeaders__expectedStr();
-void stringify_request__withBody__expectedStr();
+void stringify_request___1();
+void stringify_request___2();
+void stringify_request___3();
 
 void process_response_fragment__progressComplete__returnsNegNum();
 void process_response_fragment__progressNotComplete__returnsZero();

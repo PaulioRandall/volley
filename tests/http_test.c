@@ -18,13 +18,23 @@ struct HttpRequest* new_req() {
   return req;
 }
 
-void stringify_request__validRequest__expectedStr() {
-    puts("...stringify_request() valid request creates expected string");
+struct HttpResponse* new_res() {
+  struct HttpResponse *res = malloc(sizeof(struct HttpResponse));
+  init_response(res);
+  return res;
+}
 
+void stringify_request___1() {
+    puts("...stringify_request() when given a valid request filled only"
+        " with the mandatory parameters (method, path, version and host),"
+        " a new string allocation is returned with the parameters"
+        " formatted as a HTTP request");
+
+    char *actual;
     struct HttpRequest *req = new_req();
-    char *actual, expected[] = "GET /index.html HTTP/1.1\r\n"
-                                "Host: www.example.com\r\n"
-                                "\r\n";
+    char expected[] = "GET /index.html HTTP/1.1\r\n"
+                    "Host: www.example.com\r\n"
+                    "\r\n";
 
     actual = stringify_request(req);
 
@@ -33,15 +43,18 @@ void stringify_request__validRequest__expectedStr() {
     free(actual);
 }
 
-void stringify_request__withHeaders__expectedStr() {
-    puts("...stringify_request() valid request with headers"
-        " creates expected string");
+void stringify_request___2() {
+    puts("...stringify_request() when given a valid request with additional"
+        " headers, a new string allocation is returned with the parameters"
+        " formatted as a HTTP request");
 
-    char *actual, expected[] = "GET /index.html HTTP/1.1\r\n"
-                                "Host: www.example.com\r\n"
-                                "Rince: wind\r\nWeather: wax\r\n"
-                                "\r\n";
+    char *actual;
     struct HttpRequest *req = new_req();
+    char expected[] = "GET /index.html HTTP/1.1\r\n"
+                    "Host: www.example.com\r\n"
+                    "Rince: wind\r\n"
+                    "Weather: wax\r\n"
+                    "\r\n";
 
     req->header_count = 2;
     req->headers = malloc(sizeof(struct HttpHeader) * req->header_count);
@@ -58,18 +71,20 @@ void stringify_request__withHeaders__expectedStr() {
     free(actual);
 }
 
-void stringify_request__withBody__expectedStr() {
-    puts("...stringify_request() valid request with body"
-        " creates expected string");
+void stringify_request___3() {
+    puts("...stringify_request() when given a valid request with a body,"
+        " a new string allocation is returned with the parameters formatted"
+        " as a HTTP request that includes a 'Content-Length' header and the"
+        " given body");
 
+    char *actual;
     struct HttpRequest *req;
+    char *expected = (char*) malloc(250);
     char body[] = "Counterweight continent\n" //24
                 "Quirm\n" //6
                 "Ankh\n" //5
                 "Pseudopolis\n"; //13
-    char *actual, *expected = (char*) malloc(sizeof(char) * 250);
-    expected[0] = '\0';
-    strcat(expected, "GET /index.html HTTP/1.1\r\n"
+    strcpy(expected, "GET /index.html HTTP/1.1\r\n"
                     "Host: www.example.com\r\n"
                     "Content-Length: 47\r\n"
                     "\r\n");
@@ -81,14 +96,8 @@ void stringify_request__withBody__expectedStr() {
 
     assert(strcmp(expected, actual) == 0);
     free(expected);
-    free(req);
     free(actual);
-}
-
-struct HttpResponse* new_res() {
-  struct HttpResponse *res = malloc(sizeof(struct HttpResponse));
-  init_response(res);
-  return res;
+    free(req);
 }
 
 void process_response_fragment__progressComplete__returnsNegNum() {

@@ -56,9 +56,9 @@ int main ( int argc, char *argv[] ) {
     /**************************************************/
     /* ^utihttp_test.h
     /**************************************************/
-    stringify_request__validRequest__expectedStr();
-    stringify_request__withHeaders__expectedStr();
-    stringify_request__withBody__expectedStr();
+    stringify_request___1();
+    stringify_request___2();
+    stringify_request___3();
 
     process_response_fragment__progressComplete__returnsNegNum();
     process_response_fragment__progressNotComplete__returnsZero();
