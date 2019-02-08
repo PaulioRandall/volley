@@ -24,6 +24,9 @@ struct HttpResponse* new_res() {
   return res;
 }
 
+// TODO: Write more stringify_request() tests
+// TODO: Get testing framework so errors can be tested!
+
 void stringify_request___1() {
     puts("...stringify_request() when given a valid request filled only"
         " with the mandatory parameters (method, path, version and host),"

@@ -6,7 +6,8 @@ int main ( int argc, char *argv[] ) {
 
     // TODO: It's probably about time to look for a proper
     // TODO: test framework, as lightweight and minimal
-    // TODO: as possible
+    // TODO: as possible and should be able to handle
+    // TODO: errors and faults
 
     printf("TEST SUITE STARTED\n");
 

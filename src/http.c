@@ -102,7 +102,7 @@ void init_request(struct HttpRequest* req) {
 /*
 /* *req: Request being made
 /**************************************************/
-char* init_request_str(struct HttpRequest *req) {
+char* init_req_str(struct HttpRequest *req) {
 
   int len = 0;
   char *result;
@@ -139,7 +139,7 @@ char* init_request_str(struct HttpRequest *req) {
 /* name[]: Name of the header
 /* value[]: Header value
 /**************************************************/
-char* add_header_to_request(char *req_str, const char name[], const char value[]) {
+char* add_header_to_req_str(char *req_str, const char name[], const char value[]) {
 
   // E.g. Host: www.example.com
 
@@ -171,14 +171,14 @@ char* add_header_to_request(char *req_str, const char name[], const char value[]
 /* *req_str: Request string so far
 /* *req: Request struct containing the headers
 /**************************************************/
-char* add_headers_to_request(char *req_str, struct HttpRequest *req) {
+char* add_headers_to_req_str(char *req_str, struct HttpRequest *req) {
 
   int i;
   struct HttpHeader *h;
 
   for(i = 0; i < req->header_count; i++) {
     h = &req->headers[i];
-    req_str = add_header_to_request(req_str, h->name, h->value);
+    req_str = add_header_to_req_str(req_str, h->name, h->value);
   }
 
   return req_str;
@@ -192,13 +192,13 @@ char* add_headers_to_request(char *req_str, struct HttpRequest *req) {
 /* *req_str: Request string so far
 /* body[]: Body to add
 /**************************************************/
-char* add_body_to_request(char *req_str, const char body[]) {
+char* add_body_to_req_str(char *req_str, const char body[]) {
 
   int content_len, len = 0;
   char *content_len_str;
 
   content_len = strlen(body);
-  req_str = add_header_to_request(
+  req_str = add_header_to_req_str(
     req_str,
     "Content-Length",
     int_to_str(content_len)
@@ -224,7 +224,7 @@ char* add_body_to_request(char *req_str, const char body[]) {
 /*
 /* *req_str: Request string so far
 /**************************************************/
-char* finialise_request(char *req_str) {
+char* finialise_req_str(char *req_str) {
 
   int len;
 
@@ -245,14 +245,14 @@ char* stringify_request(struct HttpRequest *req) {
 
   char *r;
 
-  r = init_request_str(req);
-  r = add_header_to_request(r, "Host", req->host);
-  r = add_headers_to_request(r, req);
+  r = init_req_str(req);
+  r = add_header_to_req_str(r, "Host", req->host);
+  r = add_headers_to_req_str(r, req);
 
   if(req->body != NULL) {
-    r = add_body_to_request(r, req->body);
+    r = add_body_to_req_str(r, req->body);
   } else {
-    r = finialise_request(r);
+    r = finialise_req_str(r);
   }  
 
   return r;
@@ -300,7 +300,7 @@ char* prepend_unparsed(struct HttpResponse *res, char frag[]) {
 int parse_start_line(struct HttpResponse *res, char line[]) {
 
   int exp_len = 3, line_len = 255, len;
-  char parts[exp_len][line_len], *ch;
+  char *ch, parts[exp_len][line_len];
 
   // HTTP/1.1 200 OK
 
