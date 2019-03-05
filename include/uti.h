@@ -29,116 +29,109 @@
 #define NOT_FOUND -1
 #define NULL_CHAR '\0'
 
-/**************************************************/
+/*****************************************************************************/
 /* Converts an integer to a string
 /*
 /* num: Number to stringify
 /* @Heap
-/**************************************************/
+/*****************************************************************************/
 char* int_to_str(const int num);
 
-/**************************************************/
+/*****************************************************************************/
 /* Returns a copy of a string
 /*
 /* str[]: Copies a string
 /* @Heap
-/**************************************************/
+/*****************************************************************************/
 char* str_copy(char str[]);
 
-/**************************************************/
+/*****************************************************************************/
 /* Returns a concaternation of both strings
 /*
 /* first[]: Leading string
 /* second[]: Trailing string
 /* @Heap
-/**************************************************/
+/*****************************************************************************/
 char* str_cat(char first[], char second[]);
 
-/**************************************************/
+/*****************************************************************************/
 /* Counts the number of substrings within a string
 /* 
 /* haystack[]: String to search in
 /* needle[]: String to search for
-/**************************************************/
+/*****************************************************************************/
 int count_substr(char haystack[], char needle[]);
 
-/**************************************************/
-/* Finds the index of the first occurrence of the
-/* needle within the haystack. If no index can be
-/* found NOT_FOUND will be returned
+/*****************************************************************************/
+/* Finds the index of the first occurrence of the needle within the haystack.
+/* If no index can be found NOT_FOUND will be returned
 /* 
 /* haystack[]: String to search in
 /* needle[]: String to search for
-/**************************************************/
+/*****************************************************************************/
 int indexof(char haystack[], char needle[]);
 
-/**************************************************/
-/* Splits the string on each occurence of the
-/* supplied delimiter returning the length of the
-/* resultant array
+/*****************************************************************************/
+/* Splits the string on each occurence of the supplied delimiter returning the
+/* length of the resultant array
 /* 
 /* max_len: Maximum length of the result array
-/* line_len: Maximum length of each line in the
-/*           result array including null terminator
+/* line_len: Maximum length of each line in the result array including null
+             terminator
 /* out[][]: Container for the result
 /* str[]: String to split
 /* delim[]: Delimiter to split on
-/**************************************************/
+/*****************************************************************************/
 int str_split(int max_len, int line_len, char out[max_len][line_len], char str[], char delim[]);
 
-/**************************************************/
-/* Prints the string but shows the symbols.
-/* Symbols such as '\r' will be printed as
-/* characters but without causing a carrage
-/* return. Spaces will be replaced with the
-/* supplied string for better debugging
+/*****************************************************************************/
+/* Prints the string but shows the symbols. Symbols such as '\r' will be
+/* printed as characters but without causing a carrage return. Spaces will be
+/* replaced with the supplied string for better debugging
 /* 
 /* str[]: String to print
 /* space_repl[]: String to replace spaces with
-/**************************************************/
+/*****************************************************************************/
 void puts_f(const char str[], const char space_repl[]);
 
-/**************************************************/
-/* Returns TRUE if the character is whitespace
-/* else returns FALSE
+/*****************************************************************************/
+/* Returns TRUE if the character is whitespace else returns FALSE
 /* 
 /* ch: Character to check
-/**************************************************/
+/*****************************************************************************/
 int is_whitespace(char ch);
 
-/**************************************************/
-/* Removes spaces from the start and end of the
-/* input string returning the length of the
-/* trimmed string
+/*****************************************************************************/
+/* Removes spaces from the start and end of the input string returning the
+/* length of the trimmed string
 /* 
 /* out[]: Container to hold the result
 /* str[]: String to trim
-/**************************************************/
+/*****************************************************************************/
 int str_trim(char out[], char str[]);
 
-/**************************************************/
+/*****************************************************************************/
 /* Slices the string using the specified range
 /* 
 /* out[]: Result container
 /* str[]: String to slice
-/* start: Index indicating the first char of the
-/*        substring
+/* start: Index indicating the first char of the substring
 /* len: Length of the slice
-/**************************************************/
+/*****************************************************************************/
 void str_slice(char out[], char str[], int start, int len);
 
-/**************************************************/
+/*****************************************************************************/
 /* Returns the maximum of two integers
 /* 
 /* a: First value
 /* b: Second value
-/**************************************************/
+/*****************************************************************************/
 int max(int a, int b);
 
-/**************************************************/
+/*****************************************************************************/
 /* Returns the minimum of two integers
 /* 
 /* a: First value
 /* b: Second value
-/**************************************************/
+/*****************************************************************************/
 int min(int a, int b);
