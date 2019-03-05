@@ -22,11 +22,11 @@
  THE SOFTWARE.
 */
 
-/**
- * Makes a HTTP GET request
- *
- * +Table: HTTP options to send
- *
- * @*lua: Lua state environment
- */
+/*****************************************************************************/
+/* Makes a HTTP GET request
+/*
+/* +Table: HTTP options to send
+/*
+/* @*lua: Lua state environment
+/*****************************************************************************/
 int ben_GET(lua_State *lua);

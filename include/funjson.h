@@ -22,38 +22,38 @@
  THE SOFTWARE.
 */
 
+/*****************************************************************************/
+/* Deserialises a JSON string into a table
 /*
- * Deserialises a JSON string into a table
- *
- * +String: JSON as a string
- *
- * @*lua: Lua state environment
- */
+/* +String: JSON as a string
+/*
+/* @*lua: Lua state environment
+/*****************************************************************************/
 int ben_tabulate(lua_State *lua);
 
+/*****************************************************************************/
+/* Formats a JSON table into a string
 /*
- * Formats a JSON table into a string
- *
- * +Table: JSON table
- *
- * @*lua: Lua state environment
- */
+/* +Table: JSON table
+/*
+/* @*lua: Lua state environment
+/*****************************************************************************/
 int ben_stringify(lua_State *lua);
 
+/*****************************************************************************/
+/* Returns true if the input JSON table is an array
 /*
- * Returns true if the input JSON table is an array
- *
- * +Table: JSON table
- *
- * @*lua: Lua state environment
- */
+/* +Table: JSON table
+/*
+/* @*lua: Lua state environment
+/*****************************************************************************/
 int ben_is_array(lua_State *lua);
 
+/*****************************************************************************/
+/* Returns true if the input JSON table is an object
 /*
- * Returns true if the input JSON table is an object
- *
- * +Table: JSON table
- *
- * @*lua: Lua state environment
- */
+/* +Table: JSON table
+/*
+/* @*lua: Lua state environment
+/*****************************************************************************/
 int ben_is_object(lua_State *lua);

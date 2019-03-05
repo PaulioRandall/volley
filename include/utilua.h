@@ -30,82 +30,76 @@
 #define TABLE_STACK_KEY_INDEX -2
 #define TABLE_STACK_VALUE_INDEX -1
 
-/**************************************************/
-/* Validates a table is at the top of the Lua stack
-/* causing a panic if not
+/*****************************************************************************/
+/* Validates a table is at the top of the Lua stack causing a panic if not
 /*
 /* *lua: Lua state environment
-/**************************************************/
+/*****************************************************************************/
 void assert_table_on_stack(lua_State *lua);
 
-/**************************************************/
+/*****************************************************************************/
 /* Prints a lua stack trace
 /*
 /* *lua: Lua state environment
-/**************************************************/
+/*****************************************************************************/
 void print_lua_stack_trace(lua_State *lua);
 
-/**************************************************/
-/* Handles unrecoverable errors by printing them and
-/* exiting the application
+/*****************************************************************************/
+/* Handles unrecoverable errors by printing them and exiting the application
 /*
 /* *lua: Lua state environment
-/**************************************************/
+/*****************************************************************************/
 void panic_lua(lua_State *lua);
 
-/**************************************************/
-/* Handles unrecoverable errors by printing them and
-/* exiting the application
+/*****************************************************************************/
+/* Handles unrecoverable errors by printing them and exiting the application
 /*
 /* *lua: Lua state environment
 /* msg[]: Message to print on exit
-/**************************************************/
+/*****************************************************************************/
 void panic(lua_State *lua, const char msg[]);
 
-/**************************************************/
-/* Validates the correct number of arguments are
-/* passed to a function, an error occurs if not
+/*****************************************************************************/
+/* Validates the correct number of arguments are passed to a function, an error
+/* occurs if not
 /*
 /* *lua: Lua state environment
 /* func_name[]: Name of the C function called within
 /*             a Lua script
 /* expects: Number of arguments the function expects
-/**************************************************/
+/*****************************************************************************/
 void assert_arg_count(lua_State *lua, const char func_name[], int expects);
 
-/**************************************************/
-/* Returns the next Lua/C function argument as a
-/* string; This function should only be used if no
-/* pushes to the Lua stack have been made
+/*****************************************************************************/
+/* Returns the next Lua/C function argument as a string; This function should
+/* only be used if no pushes to the Lua stack have been made
 /*
 /* *lua: Lua state environment
 /* msg[]: Error message to display if an error
 /*        occurs
-/**************************************************/
+/*****************************************************************************/
 const char* pop_str_arg(lua_State *lua, char msg[]);
 
-/**************************************************/
-/* Pushes a key to value pair into an object table.
-/* A Lua table must be placed at the top of the Lua
-/* stack prior to invoking this function
+/*****************************************************************************/
+/* Pushes a key to value pair into an object table. A Lua table must be placed
+/* at the top of the Lua stack prior to invoking this function
 /*
 /* *lua: Lua state environment
 /* key[]: Key of the entry
 /* value: Value of the entry
-/**************************************************/
+/*****************************************************************************/
 void keyed_str_into_table(lua_State *lua, const char key[], const char value[]);
 void keyed_num_into_table(lua_State *lua, const char key[], const double value);
 void keyed_bool_into_table(lua_State *lua, const char key[], const int value);
 
-/**************************************************/
-/* Pushes a key to value pair into an object table;
-/* A Lua table must be placed at the top of the Lua
-/* stack prior to invoking this function
+/*****************************************************************************/
+/* Pushes a key to value pair into an object table; A Lua table must be placed
+/* at the top of the Lua stack prior to invoking this function
 /*
 /* *lua: Lua state environment
 /* index: Index of the entry
 /* value[]: Value of the entry
-/**************************************************/
+/*****************************************************************************/
 void indexed_str_into_table(lua_State *lua, const int index, const char value[]);
 void indexed_num_into_table(lua_State *lua, const int index, const double value);
 void indexed_bool_into_table(lua_State *lua, const int index, const int value);
