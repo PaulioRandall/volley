@@ -7,3 +7,6 @@
 
 # Visual studio code config
 .vscode/
+
+# Some crap visual studio code spits out
+npm-debug.log*

@@ -49,10 +49,10 @@ void stringify_request___1();
 void stringify_request___2();
 void stringify_request___3();
 
-void process_response_fragment__progressComplete__returnsNegNum();
-void process_response_fragment__progressNotComplete__returnsZero();
-void process_response_fragment__emptyLineANDProgressNotBody__IncProgress();
-void process_response_fragment__emptyLineANDProgressIsBody__progressIsBody();
-void process_response_fragment__validStartLine__startLineParsed();
-void process_response_fragment__badStartLine__startLineParsed();
-void process_response_fragment__singleHeader__headerParsed();
+void process_response_fragment___1();
+void process_response_fragment___2();
+void process_response_fragment___3();
+void process_response_fragment___4();
+void process_response_fragment___5();
+void process_response_fragment___6();
+void process_response_fragment___7();
