@@ -31,149 +31,149 @@
 #include "../include/utilua.h"
 #include "../include/funjson.h"
 
+/*****************************************************************************/
+/* Copies a key value pair from the JSON object to a Lua table;
+/* assumes that the value is of the type specified in the function
+/* name and that a Lua table has been placed at the top of the Lua
+/* stack
 /*
- * Copies a key value pair from the JSON object to a Lua table;
- * assumes that the value is of the type specified in the function
- * name and that a Lua table has been placed at the top of the Lua
- * stack
- *
- * @*lua: Lua state environment
- * @*obj: JSON object containing the key value pair
- * @*key: Key to the value within the JSON object
- */
+/* @*lua: Lua state environment
+/* @*obj: JSON object containing the key value pair
+/* @*key: Key to the value within the JSON object
+/*****************************************************************************/
 void obj_str_to_table(lua_State *lua, JSON_Object *obj, const char *key);
 void obj_num_to_table(lua_State *lua, JSON_Object *obj, const char *key);
 void obj_bool_to_table(lua_State *lua, JSON_Object *obj, const char *key);
 void obj_obj_to_table(lua_State *lua, JSON_Object *parent, const char *key);
 void obj_array_to_table(lua_State *lua, JSON_Object *parent, const char *key);
 
+/*****************************************************************************/
+/* Copies a value from the JSON array and inserts it in to a Lua table;
+/* assumes that the value is of the type specified in the function
+/* name and that a Lua table has been placed at the top of the Lua
+/* stack
 /*
- * Copies a value from the JSON array and inserts it in to a Lua table;
- * assumes that the value is of the type specified in the function
- * name and that a Lua table has been placed at the top of the Lua
- * stack
- *
- * @*lua: Lua state environment
- * @*array: JSON array containing the value
- * @*index: Index of the value within the JSON object
- */
+/* @*lua: Lua state environment
+/* @*array: JSON array containing the value
+/* @*index: Index of the value within the JSON object
+/*****************************************************************************/
 void array_str_to_table(lua_State *lua, JSON_Array *array, const int index);
 void array_num_to_table(lua_State *lua, JSON_Array *array, const int index);
 void array_bool_to_table(lua_State *lua, JSON_Array *array, const int index);
 void array_obj_to_table(lua_State *lua, JSON_Array *array, const int index);
 void array_array_to_table(lua_State *lua, JSON_Array *array, const int index);
 
+/*****************************************************************************/
+/* Creates a Lua table from the JSON entity and places
+/* it at the top of the Lua stack
 /*
- * Creates a Lua table from the JSON entity and places
- * it at the top of the Lua stack
- *
- * @*lua: Lua state environment
- * @*obj: Object to convert
- * @*array: Array to convert
- */
+/* @*lua: Lua state environment
+/* @*obj: Object to convert
+/* @*array: Array to convert
+/*****************************************************************************/
 void json_object_to_table(lua_State *lua, JSON_Object *obj);
 void json_array_to_table(lua_State *lua, JSON_Array *array);
 
+/*****************************************************************************/
+/* Maps a primitive Lua type to a JSON type or
+/* 'JSONNull' if the type could not be mapped
 /*
- * Maps a primitive Lua type to a JSON type or
- * 'JSONNull' if the type could not be mapped
- *
- * @lua_type: Type of the primitive in Lua
- */
+/* @lua_type: Type of the primitive in Lua
+/*****************************************************************************/
 enum json_value_type lua_to_json_primitve(int lua_type);
 
+/*****************************************************************************/
+/* Returns the type of JSON table
 /*
- * Returns the type of JSON table
- *
-  * @*lua: Lua state environment
- */
+/* @*lua: Lua state environment
+/*****************************************************************************/
 enum json_value_type json_table_type(lua_State *lua);
 
+/*****************************************************************************/
+/* Concaternates two strings returning the result,
+/* both original strings are used up in the process
+/* and should not be used
 /*
- * Concaternates two strings returning the result,
- * both original strings are used up in the process
- * and should not be used
- *
- * @*json: String to append to
- * @*str: String to be appended
- */
+/* @*json: String to append to
+/* @*str: String to be appended
+/*****************************************************************************/
 char* jsoncat(char *json, const char *str);
 
+/*****************************************************************************/
+/* Concaternates two strings returning the result,
+/* both original strings are used up in the process
+/* and should not be used
 /*
- * Concaternates two strings returning the result,
- * both original strings are used up in the process
- * and should not be used
- *
- * @*json: Base string to append to
- * @*tmp: Template string
- * @*fmt: String or double to format with
- */
+/* @*json: Base string to append to
+/* @*tmp: Template string
+/* @*fmt: String or double to format with
+/*****************************************************************************/
 char* json_format(char *json, const char *tmp, const char *fmt);
 char* json_format_double(char *json, const char *tmp, const double fmt);
 
+/*****************************************************************************/
+/* Pads the supplied string with spaces consuming it
+/* in the process; the result will be returned
 /*
- * Pads the supplied string with spaces consuming it
- * in the process; the result will be returned
- *
- * @*str: String to pad
- * @amount: Amount to pad by
- */
+/* @*str: String to pad
+/* @amount: Amount to pad by
+/*****************************************************************************/
 char* pad_with_spaces(char *str, int amount);
 
+/*****************************************************************************/
+/* Formats a JSON key value pair on the stack;
+/* assumes the key and value are on the stack
 /*
- * Formats a JSON key value pair on the stack;
- * assumes the key and value are on the stack
- *
- * @*lua: Lua state environment
- * @*json: JSON string to append to
- * @indent: Spaces to indent when printing
- * @type: JSON type of the value
- * @include_key: True if the key whould be printed for each item
- */
+/* @*lua: Lua state environment
+/* @*json: JSON string to append to
+/* @indent: Spaces to indent when printing
+/* @type: JSON type of the value
+/* @include_key: True if the key whould be printed for each item
+/*****************************************************************************/
 char* format_json_value(lua_State *lua, char *json, int indent, int include_key, enum json_value_type type);
 
+/*****************************************************************************/
+/* Formats a table or its contents as a JSON string
 /*
- * Formats a table or its contents as a JSON string
- *
- * @*lua: Lua state environment
- * @*json: JSON string to append too
- * @indent: Spaces to indent when printing
- * @include_key: True if the key whould be formated for each item
- */
+/* @*lua: Lua state environment
+/* @*json: JSON string to append too
+/* @indent: Spaces to indent when printing
+/* @include_key: True if the key whould be formated for each item
+/*****************************************************************************/
 char* format_table_iteratively(lua_State *lua, char *json, int indent, int include_key);
 char* format_table_as_json(lua_State *lua, char *json, int indent, int include_key);
 
 
-/*
- * ^
- */
+/*****************************************************************************/
+/* ^
+/*****************************************************************************/
 void obj_str_to_table(lua_State *lua, JSON_Object *obj, const char *key) {
 
   const char *value = json_object_get_string(obj, key);
   keyed_str_into_table(lua, key, value);
 }
 
-/*
- * ^
- */
+/*****************************************************************************/
+/* ^
+/*****************************************************************************/
 void obj_num_to_table(lua_State *lua, JSON_Object *obj, const char *key) {
 
   double value = json_object_get_number(obj, key);
   keyed_num_into_table(lua, key, value);
 }
 
-/*
- * ^
- */
+/*****************************************************************************/
+/* ^
+/*****************************************************************************/
 void obj_bool_to_table(lua_State *lua, JSON_Object *obj, const char *key) {
 
   int value = json_object_get_boolean(obj, key);
   keyed_bool_into_table(lua, key, value);
 }
 
-/*
- * ^
- */
+/*****************************************************************************/
+/* ^
+/*****************************************************************************/
 void obj_obj_to_table(lua_State *lua, JSON_Object *parent, const char *key) {
 
   JSON_Object *obj;
@@ -185,9 +185,9 @@ void obj_obj_to_table(lua_State *lua, JSON_Object *parent, const char *key) {
   lua_settable(lua, TABLE_STACK_INDEX);
 }
 
-/*
- * ^
- */
+/*****************************************************************************/
+/* ^
+/*****************************************************************************/
 void obj_array_to_table(lua_State *lua, JSON_Object *parent, const char *key) {
 
   JSON_Array *array;
@@ -199,36 +199,36 @@ void obj_array_to_table(lua_State *lua, JSON_Object *parent, const char *key) {
   lua_settable(lua, TABLE_STACK_INDEX);
 }
 
-/*
- * ^
- */
+/*****************************************************************************/
+/* ^
+/*****************************************************************************/
 void array_str_to_table(lua_State *lua, JSON_Array *array, const int index) {
 
   const char *value = json_array_get_string(array, index);
   indexed_str_into_table(lua, index, value);
 }
 
-/*
- * ^
- */
+/*****************************************************************************/
+/* ^
+/*****************************************************************************/
 void array_num_to_table(lua_State *lua, JSON_Array *array, const int index) {
 
   double value = json_array_get_number(array, index);
   indexed_num_into_table(lua, index, value);
 }
 
-/*
- * ^
- */
+/*****************************************************************************/
+/* ^
+/*****************************************************************************/
 void array_bool_to_table(lua_State *lua, JSON_Array *array, const int index) {
 
   int value = json_array_get_boolean(array, index);
   indexed_bool_into_table(lua, index, value);
 }
 
-/*
- * ^
- */
+/*****************************************************************************/
+/* ^
+/*****************************************************************************/
 void array_obj_to_table(lua_State *lua, JSON_Array *parent, const int index) {
 
   JSON_Object *obj;
@@ -240,9 +240,9 @@ void array_obj_to_table(lua_State *lua, JSON_Array *parent, const int index) {
   lua_settable(lua, TABLE_STACK_INDEX);
 }
 
-/*
- * ^
- */
+/*****************************************************************************/
+/* ^
+/*****************************************************************************/
 void array_array_to_table(lua_State *lua, JSON_Array *parent, const int index) {
 
   JSON_Array *array;
@@ -254,9 +254,9 @@ void array_array_to_table(lua_State *lua, JSON_Array *parent, const int index) {
   lua_settable(lua, TABLE_STACK_INDEX);
 }
 
-/*
- * ^
- */
+/*****************************************************************************/
+/* ^
+/*****************************************************************************/
 void json_object_to_table(lua_State *lua, JSON_Object *obj) {
 
   size_t item_count;
@@ -298,9 +298,9 @@ void json_object_to_table(lua_State *lua, JSON_Object *obj) {
   }
 }
 
-/*
- * ^
- */
+/*****************************************************************************/
+/* ^
+/*****************************************************************************/
 void json_array_to_table(lua_State *lua, JSON_Array *array) {
 
   size_t item_count;
@@ -341,11 +341,9 @@ void json_array_to_table(lua_State *lua, JSON_Array *array) {
   }
 }
 
-
-
-/*
- * ^
- */
+/*****************************************************************************/
+/* ^
+/*****************************************************************************/
 enum json_value_type lua_to_json_primitve(int type) {
 
   switch (type) {
@@ -362,9 +360,9 @@ enum json_value_type lua_to_json_primitve(int type) {
   return JSONNull;
 }
 
-/*
- * ^
- */
+/*****************************************************************************/
+/* ^
+/*****************************************************************************/
 enum json_value_type json_table_type(lua_State *lua) {
 
   int index;
@@ -382,9 +380,9 @@ enum json_value_type json_table_type(lua_State *lua) {
   return type == LUA_TNUMBER ? JSONArray : JSONObject;
 }
 
-/*
- * ^
- */
+/*****************************************************************************/
+/* ^
+/*****************************************************************************/
 char* jsoncat(char *json, const char *str) {
 
   size_t len;
@@ -400,9 +398,9 @@ char* jsoncat(char *json, const char *str) {
   return result;
 }
 
-/*
- * ^
- */
+/*****************************************************************************/
+/* ^
+/*****************************************************************************/
 char* json_format(char *json, const char *tmp, const char* fmt) {
 
   int str_len;
@@ -426,9 +424,9 @@ char* json_format(char *json, const char *tmp, const char* fmt) {
   return result;
 }
 
-/*
- * ^
- */
+/*****************************************************************************/
+/* ^
+/*****************************************************************************/
 char* json_format_double(char *json, const char *tmp, const double fmt) {
 
   int str_len;
@@ -452,9 +450,9 @@ char* json_format_double(char *json, const char *tmp, const double fmt) {
   return result;
 }
 
-/*
- * ^
- */
+/*****************************************************************************/
+/* ^
+/*****************************************************************************/
 char* pad_with_spaces(char *str, int amount) {
 
   int len;
@@ -475,9 +473,9 @@ char* pad_with_spaces(char *str, int amount) {
   return result;
 }
 
-/*
- * ^
- */
+/*****************************************************************************/
+/* ^
+/*****************************************************************************/
 char* format_json_value(lua_State *lua, char *json, int indent, int include_key, enum json_value_type type) {
 
   int value;
@@ -506,9 +504,9 @@ char* format_json_value(lua_State *lua, char *json, int indent, int include_key,
   return json;
 }
 
-/*
- * ^
- */
+/*****************************************************************************/
+/* ^
+/*****************************************************************************/
 char* format_table_iteratively(lua_State *lua, char *json, int indent, int include_key) {
 
   int table_index;
@@ -546,9 +544,9 @@ char* format_table_iteratively(lua_State *lua, char *json, int indent, int inclu
   return json;
 }
 
-/*
- * ^
- */
+/*****************************************************************************/
+/* ^
+/*****************************************************************************/
 char* format_table_as_json(lua_State *lua, char *json, int indent, int include_key) {
 
   enum json_value_type type;
@@ -576,9 +574,9 @@ char* format_table_as_json(lua_State *lua, char *json, int indent, int include_k
   return json;
 }
 
-/*
- * ^funjson.h
- */
+/*****************************************************************************/
+/* ^funjson.h
+/*****************************************************************************/
 int ben_stringify(lua_State *lua) {
 
   char* json;
@@ -595,9 +593,9 @@ int ben_stringify(lua_State *lua) {
   return 1;
 }
 
-/*
- * ^funjson.h
- */
+/*****************************************************************************/
+/* ^funjson.h
+/*****************************************************************************/
 int ben_is_array(lua_State *lua) {
 
   enum json_value_type type;
@@ -616,9 +614,9 @@ int ben_is_array(lua_State *lua) {
   return 1;
 }
 
-/*
- * ^funjson.h
- */
+/*****************************************************************************/
+/* ^funjson.h
+/*****************************************************************************/
 int ben_tabulate(lua_State *lua) {
 
   const char *input;
@@ -642,9 +640,9 @@ int ben_tabulate(lua_State *lua) {
   return 1;
 }
 
-/*
- * ^funjson.h
- */
+/*****************************************************************************/
+/* ^funjson.h
+/*****************************************************************************/
 int ben_is_object(lua_State *lua) {
 
   enum json_value_type type;

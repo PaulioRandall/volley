@@ -32,15 +32,13 @@
 /**
  * TODO: Identify more improvements here
  * TODO: Standardise and shorten names
- * TODO: Reread Lua documentation to see if some of
- * TODO: these could be done better
- * TODO: Update styling and use char arrays where
- * TODO: instead where appropriate
+ * TODO: Reread Lua documentation to see if some of these could be done better
+ * TODO: Update styling and use char arrays where appropriate
  */
 
-/**************************************************/
+/*****************************************************************************/
 /* ^utilua.h
-/**************************************************/
+/*****************************************************************************/
 void assert_table_on_stack(lua_State *lua) {
   if(!lua_istable(lua, STACK_TOP)) {
     print_lua_stack_trace(lua);
@@ -48,9 +46,9 @@ void assert_table_on_stack(lua_State *lua) {
   }
 }
 
-/**************************************************/
+/*****************************************************************************/
 /* ^utilua.h
-/**************************************************/
+/*****************************************************************************/
 void print_lua_stack_trace(lua_State *lua) {
 
   // TODO: Can this be simplified?
@@ -94,9 +92,9 @@ void print_lua_stack_trace(lua_State *lua) {
   };
 }
 
-/**************************************************/
+/*****************************************************************************/
 /* ^utilua.h
-/**************************************************/
+/*****************************************************************************/
 void panic_lua(lua_State *lua) {
   
   const char *msg;
@@ -107,17 +105,17 @@ void panic_lua(lua_State *lua) {
   lua_error(lua);
 }
 
-/**************************************************/
+/*****************************************************************************/
 /* ^utilua.h
-/**************************************************/
+/*****************************************************************************/
 void panic(lua_State *lua, const char msg[]) {
   lua_pushstring(lua, msg);
   panic_lua(lua);
 }
 
-/**************************************************/
+/*****************************************************************************/
 /* ^utilua.h
-/**************************************************/
+/*****************************************************************************/
 void assert_arg_count(lua_State *lua, const char func_name[], int expects) {
 
   // TODO: How could this be simplified?
@@ -145,9 +143,9 @@ void assert_arg_count(lua_State *lua, const char func_name[], int expects) {
   panic(lua, panic_msg);
 }
 
-/**************************************************/
+/*****************************************************************************/
 /* ^utilua.h
-/**************************************************/
+/*****************************************************************************/
 const char* pop_str_arg(lua_State *lua, char msg[]) {
 
   // TODO: Does lua_tostring make a copy?
@@ -166,9 +164,9 @@ const char* pop_str_arg(lua_State *lua, char msg[]) {
   return result;
 }
 
-/**************************************************/
+/*****************************************************************************/
 /* ^utilua.h
-/**************************************************/
+/*****************************************************************************/
 void keyed_str_into_table(lua_State *lua, const char key[], const char value[]) {
 
   assert_table_on_stack(lua);
@@ -178,9 +176,9 @@ void keyed_str_into_table(lua_State *lua, const char key[], const char value[]) 
   lua_settable(lua, TABLE_STACK_INDEX);
 }
 
-/**************************************************/
+/*****************************************************************************/
 /* ^utilua.h
-/**************************************************/
+/*****************************************************************************/
 void keyed_num_into_table(lua_State *lua, const char key[], const double value) {
 
   assert_table_on_stack(lua);
@@ -190,9 +188,9 @@ void keyed_num_into_table(lua_State *lua, const char key[], const double value) 
   lua_settable(lua, TABLE_STACK_INDEX);
 }
 
-/**************************************************/
+/*****************************************************************************/
 /* ^utilua.h
-/**************************************************/
+/*****************************************************************************/
 void keyed_bool_into_table(lua_State *lua, const char key[], const int value) {
 
   assert_table_on_stack(lua);
@@ -202,9 +200,9 @@ void keyed_bool_into_table(lua_State *lua, const char key[], const int value) {
   lua_settable(lua, TABLE_STACK_INDEX);
 }
 
-/**************************************************/
+/*****************************************************************************/
 /* ^utilua.h
-/**************************************************/
+/*****************************************************************************/
 void indexed_str_into_table(lua_State *lua, const int index, const char value[]) {
 
   assert_table_on_stack(lua);
@@ -214,9 +212,9 @@ void indexed_str_into_table(lua_State *lua, const int index, const char value[])
   lua_settable(lua, TABLE_STACK_INDEX);
 }
 
-/**************************************************/
+/*****************************************************************************/
 /* ^utilua.h
-/**************************************************/
+/*****************************************************************************/
 void indexed_num_into_table(lua_State *lua, const int index, const double value) {
 
   assert_table_on_stack(lua);
@@ -226,9 +224,9 @@ void indexed_num_into_table(lua_State *lua, const int index, const double value)
   lua_settable(lua, TABLE_STACK_INDEX);
 }
 
-/**************************************************/
+/*****************************************************************************/
 /* ^utilua.h
-/**************************************************/
+/*****************************************************************************/
 void indexed_bool_into_table(lua_State *lua, const int index, const int value) {
 
   assert_table_on_stack(lua);

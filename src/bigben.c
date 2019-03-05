@@ -36,9 +36,9 @@
 /* Lua */
 lua_State* lua;
 
-/*
- * Expects a filename as the first argument
- */
+/*****************************************************************************/
+/* Expects a filename as the first argument
+/*****************************************************************************/
 int main ( int argc, char *argv[] ) {
 
   char* script;
@@ -53,15 +53,11 @@ int main ( int argc, char *argv[] ) {
   lua = luaL_newstate();
 	luaL_openlibs(lua);
 
-  /*
-   * Register global constants
-   */
+  // Register global constants
   lua_pushinteger(lua, PRINT_INDENT_SIZE);
   lua_setglobal(lua, "INDENT_SIZE");
 
-  /*
-   * Register C/Lua functions
-   */
+  // Register C/Lua functions
   lua_register(lua, "ben_tabulate", ben_tabulate);
   lua_register(lua, "ben_stringify", ben_stringify);
   lua_register(lua, "ben_is_array", ben_is_array);

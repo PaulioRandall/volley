@@ -33,10 +33,9 @@
 #include "../include/http.h"
 #include "../include/funhttp.h"
 
-/**
- * Waits for and reads a HTTP repsonse
- * from a socket
- */
+/*****************************************************************************/
+/* Waits for and reads a HTTP repsonse from a socket
+/*****************************************************************************/
 struct HttpResponse* read_response(int sockfd) {
 
   const int BUFFER_SIZE = 1024 * 8;
@@ -69,13 +68,13 @@ struct HttpResponse* read_response(int sockfd) {
   }
 }
 
-/**
- * Makes a HTTP GET request
- *
- * +Table: HTTP options to send
- *
- * @*lua: Lua state environment
- */
+/*****************************************************************************/
+/* Makes a HTTP GET request
+/*
+/* +Table: HTTP options to send
+/*
+/* @*lua: Lua state environment
+/*****************************************************************************/
 int ben_GET(lua_State *lua) {
 
   struct HttpRequest request;
