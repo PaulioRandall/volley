@@ -19,7 +19,6 @@ int main ( int argc, char *argv[] ) {
 
   str_copy___1();
 
-  str_cat___1();
   str_cat___2();
   str_cat___3();
 

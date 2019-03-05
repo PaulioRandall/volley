@@ -7,7 +7,6 @@ void int_to_str___2();
 
 void str_copy___1();
 
-void str_cat___1();
 void str_cat___2();
 void str_cat___3();
 

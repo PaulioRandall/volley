@@ -6,11 +6,6 @@
 #include "../include/uti.h"
 #include "../tinclude/tests.h"
 
-// TODO: Some functions contain obsolete assertions such as
-// TODO: checking the length of a string matches the expected
-// TODO: then comparing the string. Split the function into
-// TODO: separate units or remove uneeded assertions
-
 void int_to_str___1() {
   puts("...int_to_str() when given a positive number, the number is converted"
       " to a string and returned");
@@ -41,21 +36,6 @@ void str_copy___1() {
   free(actual);
 }
 
-void str_cat___1() {
-  puts("...str_cat() when given two strings, a new string allocation is"
-      " returned with a length equalling the sum of both input strings");
-
-  char *result;
-  char first[] = "Glory";
-  char second[] = "hammer";
-  int expected = strlen(first) + strlen(second);
-
-  result = str_cat(first, second);
-
-  assert(expected == strlen(result));
-  free(result);
-}
-
 void str_cat___2() {
   puts("...str_cat() when given two strings, a new string allocation is"
       " returned containing the concaternation of both input strings");
@@ -66,7 +46,6 @@ void str_cat___2() {
   char expected[] = "Gloryhammer";
 
   result = str_cat(first, second);
-
   assert(strcmp(expected, result) == 0);
   free(result);
 }
@@ -79,7 +58,6 @@ void str_cat___3() {
   char expected[] = "";
 
   result = str_cat(expected, expected);
-
   assert(strcmp(expected, result) == 0);
   free(result);
 }
@@ -87,7 +65,9 @@ void str_cat___3() {
 void count_substr___1() {
   puts("...count_substr() when given a needle bigger than the haystack, 0 is"
       " returned");
-  assert(0 == count_substr("short", "shortshort"));
+
+  int count = count_substr("short", "shortshort");
+  assert(0 == count);
 }
 
 void count_substr___2() {
@@ -95,13 +75,16 @@ void count_substr___2() {
       " in the same order as the haystack, 1 is returned");
 
   char word[] = "Rincewind";
-  assert(1 == count_substr(word, word));
+  int count = count_substr(word, word);
+  assert(1 == count);
 }
 
 void count_substr___3() {
   puts("...count_substr() when given a needle that is shorter than the haystack"
       " but is not contained within it, 0 is returned");
-  assert(0 == count_substr("aaaaaaaaaa", "bbb"));
+
+  int count = count_substr("aaaaaaaaaa", "bbb");
+  assert(0 == count);
 }
 
 void count_substr___4() {
@@ -110,29 +93,34 @@ void count_substr___4() {
 
   char haystack[] = "weatherwax tiger weatherwax tiger weatherwax";
   char needle[] = "weather";
-  assert(3 == count_substr(haystack, needle));
+  int count = count_substr(haystack, needle);
+  assert(3 == count);
 }
 
 void index_of___1() {
   puts("...index_of() when given a needle not in the haystack, NOT_FOUND is"
       " returned");
-  assert(NOT_FOUND == indexof("weatherwax", "rincewind"));
+
+  int i = indexof("weatherwax", "rincewind");
+  assert(NOT_FOUND == i);
 }
 
 void index_of___2() {
   puts("...index_of() when given a needle within the haystack, the index of the"
       " first matching character within the haystack is returned");
-  assert(7 == indexof("weatherwax", "wax"));
+
+  int i = indexof("weatherwax", "wax");
+  assert(7 == i);
 }
 
 void index_of___3() {
   puts("...index_of() when given a needle that contains the same characters in"
       " the same order as the haystack, 0 is returned");
-  assert(0 == indexof("Rincewind", "Rincewind"));
+
+  int i = indexof("Rincewind", "Rincewind");
+  assert(0 == i);
 }
 
-// TODO: Could this be split into multiple tests?
-// TODO: Would it be better to split it?
 void str_split___1() {
   puts("...str_split() when given an input string that doesn't contain the"
       " delimiter, the returned length will be 1 and the output container will"
@@ -145,11 +133,9 @@ void str_split___1() {
   len = str_split(max_len, line_len, actual, expected, ",");
 
   assert(len == 1);
-  assert(strcmp(expected, *actual) == 0);
+  assert(0 == strcmp(expected, *actual));
 }
 
-// TODO: Could this be split into multiple tests?
-// TODO: Would it be better to split it?
 void str_split___2() {
   puts("...str_split() when given an input string containing several instances"
       " of the delimiter, the returned length will be the number of delimiters"
@@ -163,13 +149,11 @@ void str_split___2() {
   len = str_split(max_len, line_len, actual, str, "\r\n");
 
   assert(len == 3);
-  assert(strcmp("Rincewind", actual[0]) == 0);
-  assert(strcmp("Weatherwax", actual[1]) == 0);
-  assert(strcmp("Vimes", actual[2]) == 0);
+  assert(0 == strcmp("Rincewind", actual[0]));
+  assert(0 == strcmp("Weatherwax", actual[1]));
+  assert(0 == strcmp("Vimes", actual[2]));
 }
 
-// TODO: Could this be split into multiple tests?
-// TODO: Would it be better to split it?
 void str_split___3() {
   puts("...str_split() when given an empty input string, the returned length"
       " will be 1 and the output container will contain an empty string");
@@ -181,7 +165,7 @@ void str_split___3() {
   len = str_split(max_len, line_len, actual, expected, ",");
 
   assert(len == 1);
-  assert(strcmp(expected, *actual) == 0);
+  assert(0 == strcmp(expected, *actual));
 }
 
 void str_split___4() {
@@ -197,8 +181,8 @@ void str_split___4() {
   len = str_split(max_len, line_len, actual, str, ",");
 
   assert(len == 2);
-  assert(strcmp("Discworld", actual[0]) == 0);
-  assert(strcmp("", actual[1]) == 0);
+  assert(0 == strcmp("Discworld", actual[0]));
+  assert(0 == strcmp("", actual[1]));
 }
 
 void str_trim___1() {
@@ -311,7 +295,7 @@ void str_slice___1() {
   char actual[6];
   str_slice(actual, expected, 0, 5);
 
-  assert(strcmp("Rince", actual) == 0);
+  assert(0 == strcmp("Rince", actual));
   assert(actual != expected);
 }
 
@@ -323,7 +307,7 @@ void str_slice___2() {
   char actual[5];
   str_slice(actual, expected, 5, 4);
 
-  assert(strcmp("wind", actual) == 0);
+  assert(0 == strcmp("wind", actual));
   assert(actual != expected);
 }
 
@@ -336,7 +320,7 @@ void str_slice___3() {
   char actual[6];
   str_slice(actual, expected, 3, 5);
 
-  assert(strcmp("light", actual) == 0);
+  assert(0 == strcmp("light", actual));
   assert(actual != expected);
 }
 
@@ -349,7 +333,7 @@ void str_slice___4() {
   char actual[len + 1];
   str_slice(actual, expected, 0, len);
 
-  assert(strcmp("Twilight Force", actual) == 0);
+  assert(0 == strcmp("Twilight Force", actual));
   assert(actual != expected);
 }
 
@@ -362,7 +346,7 @@ void str_slice___5() {
   char actual[1];
   str_slice(actual, expected, 5, 5);
 
-  assert(strcmp("", actual) == 0);
+  assert(0 == strcmp("", actual));
   assert(actual != expected);
 }
 
