@@ -185,17 +185,62 @@ void str_split___4() {
   assert(0 == strcmp("", actual[1]));
 }
 
+void is_whitespace___1() {
+  puts("...is_whitespace() when given a non-whitespace character, FALSE"
+      " is returned");
+
+  int result = is_whitespace('a');
+  assert(FALSE == result);
+}
+
+void is_whitespace___2() {
+  puts("...is_whitespace() when given a space character, TRUE is"
+      " returned");
+
+  int result = is_whitespace(' ');
+  assert(TRUE == result);
+}
+
+void is_whitespace___3() {
+  puts("...is_whitespace() when given a carrage return character, TRUE is"
+      " returned");
+
+  int result = is_whitespace('\r');
+  assert(TRUE == result);
+}
+
+void is_whitespace___4() {
+  puts("...is_whitespace() when given a newline character, TRUE is"
+      " returned");
+
+  int result = is_whitespace('\n');
+  assert(TRUE == result);
+}
+
+void is_whitespace___5() {
+  puts("...is_whitespace() when given a feed character, TRUE is"
+      " returned");
+
+  int result = is_whitespace('\f');
+  assert(TRUE == result);
+}
+
+void is_whitespace___6() {
+  puts("...is_whitespace() when given a vertical tab character, TRUE is"
+      " returned");
+
+  int result = is_whitespace('\v');
+  assert(TRUE == result);
+}
+
 void str_trim___1() {
   puts("...str_trim() when given an empty string, the result container will"
       " contain an empty string");
 
-  char expected[] = "";
-  int exp_len = strlen(expected), len;
-  char actual[exp_len+1];
+  char actual[50], expected[] = "";
+  int len;
 
   len = str_trim(actual, expected);
-
-  assert(exp_len == len);
   assert(0 == strcmp(actual, expected));
 }
 
@@ -203,13 +248,10 @@ void str_trim___2() {
   puts("...str_trim() when given a string only containing spaces, the result"
       " container will contain an empty string");
 
-  char in[] = "      ";
-  int exp_len = 0, len;
-  char actual[exp_len+1];
+  char actual[50], in[] = "      ";
+  int len;
 
   len = str_trim(actual, in);
-
-  assert(exp_len == len);
   assert(0 == strcmp("", actual));
 }
 
@@ -217,13 +259,10 @@ void str_trim___3() {
   puts("...str_trim() when given a string not containing any spaces, the result"
       " container will contain the input string");
 
-  char expected[] = "Discworld";
-  int exp_len = strlen(expected), len;
-  char actual[exp_len+1];
+  char actual[50], expected[] = "Discworld";
+  int len;
 
   len = str_trim(actual, expected);
-
-  assert(exp_len == len);
   assert(0 == strcmp(expected, actual));
 }
 
@@ -231,13 +270,10 @@ void str_trim___4() {
   puts("...str_trim() when given a string containing leading spaces, the result"
       " container will contain the input string without the leading spaces");
 
-  char in[] = "   Discworld";
-  int exp_len = 9, len;
-  char actual[exp_len+1];
+  char actual[50], in[] = "   Discworld";
+  int len;
 
   len = str_trim(actual, in);
-
-  assert(exp_len == len);
   assert(0 == strcmp("Discworld", actual));
 }
 
@@ -246,13 +282,10 @@ void str_trim___5() {
       " result container will contain the input string without the trailing"
       " spaces");
 
-  char in[] = "Discworld   ";
-  int exp_len = 9, len;
-  char actual[exp_len+1];
+  char actual[50], in[] = "Discworld   ";
+  int len;
 
   len = str_trim(actual, in);
-
-  assert(exp_len == len);
   assert(0 == strcmp("Discworld", actual));
 }
 
@@ -261,13 +294,10 @@ void str_trim___6() {
       " spaces, the result container will contain the input string without any"
       " leading or trailing spaces");
 
-  char in[] = "   Discworld   ";
-  int exp_len = 9, len;
-  char actual[exp_len+1];
+  char actual[50], in[] = "   Discworld   ";
+  int len;
 
   len = str_trim(actual, in);
-
-  assert(exp_len == len);
   assert(0 == strcmp("Discworld", actual));
 }
 
@@ -276,14 +306,59 @@ void str_trim___7() {
       " but none leading or trailing, the result container will contain the"
       " input string");
 
-  char expected[] = "Disc world";
-  int exp_len = 10, len;
-  char actual[exp_len+1];
+  char actual[50], expected[] = "Disc world";
+  int len;
 
   len = str_trim(actual, expected);
-
-  assert(exp_len == len);
   assert(0 == strcmp("Disc world", actual));
+}
+
+void str_trim___8() {
+  puts("...str_trim() when given a string containing leading tabs but no"
+      " trailing whitespace, the result container will contain the input"
+      " without the tabs");
+
+  char actual[50], expected[] = "\t\tDiscworld";
+  int len;
+
+  len = str_trim(actual, expected);
+  assert(0 == strcmp("Discworld", actual));
+}
+
+void str_trim___9() {
+  puts("...str_trim() when given a string containing trailing tabs but no"
+      " leading whitespace, the result container will contain the input"
+      " without the tabs");
+
+  char actual[50], expected[] = "Discworld\t\t";
+  int len;
+
+  len = str_trim(actual, expected);
+  assert(0 == strcmp("Discworld", actual));
+}
+
+void str_trim___10() {
+  puts("...str_trim() when given a string containing leading carrage returns"
+      " but no trailing whitespace, the result container will contain the input"
+      " without the carrage returns");
+
+  char actual[50], expected[] = "\r\rDiscworld";
+  int len;
+
+  len = str_trim(actual, expected);
+  assert(0 == strcmp("Discworld", actual));
+}
+
+void str_trim___11() {
+  puts("...str_trim() when given a string containing trailing carrage returns"
+      " but no leading whitespace, the result container will contain the input"
+      " without the carrage returns");
+
+  char actual[50], expected[] = "Discworld\r\r";
+  int len;
+
+  len = str_trim(actual, expected);
+  assert(0 == strcmp("Discworld", actual));
 }
 
 void str_slice___1() {

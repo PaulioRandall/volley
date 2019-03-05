@@ -36,6 +36,13 @@ int main ( int argc, char *argv[] ) {
   str_split___3();
   str_split___4();
 
+  is_whitespace___1();
+  is_whitespace___2();
+  is_whitespace___3();
+  is_whitespace___4();
+  is_whitespace___5();
+  is_whitespace___6();
+
   str_trim___1();
   str_trim___2();
   str_trim___3();
@@ -43,6 +50,10 @@ int main ( int argc, char *argv[] ) {
   str_trim___5();
   str_trim___6();
   str_trim___7();
+  str_trim___8();
+  str_trim___9();
+  str_trim___10();
+  str_trim___11();
 
   str_slice___1();
   str_slice___2();

@@ -174,16 +174,30 @@ void puts_f(const char str[], const char space_repl[]) {
 /**************************************************/
 /* ^uti.h
 /**************************************************/
-int str_trim(char out[], char str[]) {
+int is_whitespace(char ch) {
+  switch (ch) {
+    case ' ':
+    case '\r':
+    case '\t':
+    case '\n':
+    case '\f':
+    case '\v':
+      return TRUE;
+  }
 
-  // TODO: This function should also trim:
-  // TODO: \t, \n, \r, \f and \v
+  return FALSE;
+}
+
+/**************************************************/
+/* ^uti.h
+/**************************************************/
+int str_trim(char out[], char str[]) {
 
   int len = strlen(str);
   char *first = NULL, *last = NULL;
 
   for(first = str; *first != NULL_CHAR; first++) {
-    if(*first != ' ') {
+    if(!is_whitespace(*first)) {
       break;
     }
   }
@@ -195,36 +209,36 @@ int str_trim(char out[], char str[]) {
   }
 
   if(first == str) {
-    // No leading spaces
+    // No leading whitespace
     first = NULL;
   }
 
   last = str + len - 1;
   for(; last != str; last--) {
-    if(*last != ' ') {
+    if(!is_whitespace(*last)) {
       break;
     }
   }
 
   if(last == (str + len - 1)) {
-    // No trailing spaces
+    // No trailing whitespace
     last = NULL;
   }
 
   if(first == NULL && last == NULL) {
-    // Spaces in middle but not at ends
+    // whitespace in middle but not at ends
     strcpy(out, str);
     return len;
   }
 
   if(last == NULL) {
-    // Leading spaces only
+    // Leading whitespace only
     strcpy(out, first);
     return strlen(first);
   }
 
   if(first == NULL) {
-    // Trailing spaces only
+    // Trailing whitespace only
     len = last - str;
     str_slice(out, str, 0, len+1);
     return strlen(out);
@@ -240,18 +254,16 @@ int str_trim(char out[], char str[]) {
 /**************************************************/
 void str_slice(char out[], char str[], int start, int len) {
 
-  // TODO: What should happen on invalid input?
-  // TODO: What are the invalid input configurations?
-
   char *p;
 
   if(start == len) {
     out[0] = NULL_CHAR;
-  } else {
-    p = str + start;
-    strncpy(out, p, len);
-    out[len] = NULL_CHAR;
+    return;
   }
+
+  p = str + start;
+  strncpy(out, p, len);
+  out[len] = NULL_CHAR;
 }
 
 /**************************************************/
@@ -260,9 +272,9 @@ void str_slice(char out[], char str[], int start, int len) {
 int max(int a, int b) {
   if(a > b) {
     return a;
-  } else {
-    return b;
   }
+  
+  return b;
 }
 
 /**************************************************/
@@ -271,7 +283,7 @@ int max(int a, int b) {
 int min(int a, int b) {
   if(a < b) {
     return a;
-  } else {
-    return b;
   }
+
+  return b;
 }

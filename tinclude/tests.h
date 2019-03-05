@@ -24,6 +24,13 @@ void str_split___2();
 void str_split___3();
 void str_split___4();
 
+void is_whitespace___1();
+void is_whitespace___2();
+void is_whitespace___3();
+void is_whitespace___4();
+void is_whitespace___5();
+void is_whitespace___6();
+
 void str_trim___1();
 void str_trim___2();
 void str_trim___3();
@@ -31,6 +38,10 @@ void str_trim___4();
 void str_trim___5();
 void str_trim___6();
 void str_trim___7();
+void str_trim___8();
+void str_trim___9();
+void str_trim___10();
+void str_trim___11();
 
 void str_slice___1();
 void str_slice___2();

@@ -99,6 +99,14 @@ int str_split(int max_len, int line_len, char out[max_len][line_len], char str[]
 void puts_f(const char str[], const char space_repl[]);
 
 /**************************************************/
+/* Returns TRUE if the character is whitespace
+/* else returns FALSE
+/* 
+/* ch: Character to check
+/**************************************************/
+int is_whitespace(char ch);
+
+/**************************************************/
 /* Removes spaces from the start and end of the
 /* input string returning the length of the
 /* trimmed string
